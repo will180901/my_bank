@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="73" height="80" viewBox="0 0 73 80">
+  <g id="Groupe_1" data-name="Groupe 1" transform="translate(-214 -216)">
+    <g id="Rectangle_1" data-name="Rectangle 1" transform="translate(214 216)" fill="#fff" stroke="#4c83db" stroke-width="1">
+      <rect width="73" height="80" rx="13" stroke="none"/>
+      <rect x="0.5" y="0.5" width="72" height="79" rx="12.5" fill="none"/>
+    </g>
+    <g id="Rectangle_2" data-name="Rectangle 2" transform="translate(221 227)" fill="#fff" stroke="#4c83db" stroke-width="1">
+      <rect width="22" height="20" stroke="none"/>
+      <rect x="0.5" y="0.5" width="21" height="19" fill="none"/>
+    </g>
+    <g id="Rectangle_3" data-name="Rectangle 3" transform="translate(246 227)" fill="#fff" stroke="#4c83db" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+      <rect width="35" height="2" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="34" height="1" rx="0.5" fill="none"/>
+    </g>
+    <g id="Rectangle_3-2" data-name="Rectangle 3" transform="translate(246 233)" fill="#fff" stroke="#4c83db" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+      <rect width="35" height="2" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="34" height="1" rx="0.5" fill="none"/>
+    </g>
+    <g id="Rectangle_3-3" data-name="Rectangle 3" transform="translate(246 239)" fill="#fff" stroke="#4c83db" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+      <rect width="35" height="2" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="34" height="1" rx="0.5" fill="none"/>
+    </g>
+    <g id="Rectangle_3-4" data-name="Rectangle 3" transform="translate(246 245)" fill="#fff" stroke="#4c83db" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+      <rect width="35" height="2" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="34" height="1" rx="0.5" fill="none"/>
+    </g>
+    <g id="Rectangle_4" data-name="Rectangle 4" transform="translate(217 254)" fill="#fff" stroke="#4c83db" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+      <rect width="64" height="2" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="63" height="1" rx="0.5" fill="none"/>
+    </g>
+    <g id="Rectangle_4-2" data-name="Rectangle 4" transform="translate(217 260)" fill="#fff" stroke="#4c83db" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+      <rect width="64" height="2" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="63" height="1" rx="0.5" fill="none"/>
+    </g>
+    <g id="Rectangle_4-3" data-name="Rectangle 4" transform="translate(217 266)" fill="#fff" stroke="#4c83db" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+      <rect width="64" height="2" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="63" height="1" rx="0.5" fill="none"/>
+    </g>
+    <g id="Rectangle_4-4" data-name="Rectangle 4" transform="translate(217 272)" fill="#fff" stroke="#4c83db" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+      <rect width="64" height="2" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="63" height="1" rx="0.5" fill="none"/>
+    </g>
+    <g id="Rectangle_4-5" data-name="Rectangle 4" transform="translate(217 278)" fill="#fff" stroke="#4c83db" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+      <rect width="64" height="2" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="63" height="1" rx="0.5" fill="none"/>
+    </g>
+    <g id="Rectangle_4-6" data-name="Rectangle 4" transform="translate(217 284)" fill="#fff" stroke="#4c83db" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+      <rect width="64" height="2" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="63" height="1" rx="0.5" fill="none"/>
+    </g>
+    <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(228 229)" fill="#fff" stroke="#4c83db" stroke-width="1">
+      <circle cx="3.5" cy="3.5" r="3.5" stroke="none"/>
+      <circle cx="3.5" cy="3.5" r="3" fill="none"/>
+    </g>
+    <g id="Ellipse_2" data-name="Ellipse 2" transform="translate(224 237)" fill="#fff" stroke="#4c83db" stroke-width="1">
+      <ellipse cx="7.5" cy="3.5" rx="7.5" ry="3.5" stroke="none"/>
+      <ellipse cx="7.5" cy="3.5" rx="7" ry="3" fill="none"/>
+    </g>
+  </g>
+</svg>
