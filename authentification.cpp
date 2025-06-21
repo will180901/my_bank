@@ -166,9 +166,6 @@ void Authentification::on_btn_se_connecter_zone_connexion_clicked()
     }
 }
 
-
-
-
 void Authentification::setupPasswordVisibilityToggle(QLineEdit* passwordLineEdit)
 {
     // Créer le bouton de bascule
@@ -219,9 +216,6 @@ void Authentification::setupPasswordVisibilityToggle(QLineEdit* passwordLineEdit
     // Installer le filtre d'événements pour gérer le redimensionnement
     passwordLineEdit->installEventFilter(this);
 }
-
-
-
 
 bool Authentification::eventFilter(QObject* obj, QEvent* event)
 {

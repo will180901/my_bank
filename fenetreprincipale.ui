@@ -27,12 +27,32 @@
 * {
     
 	
-	 /*border: 1px solid rgb(0, 0, 0); */
+	/*border: 1px solid rgb(0, 0, 0);  */
 
 	color: rgb(74, 74, 74);
     font-family: 'Segoe UI', Arial, sans-serif;
 }
 
+
+#label_solde_compte_courant_principale,#label_solde_compte_epargne{
+
+	font-size:14pt; font-weight:700;
+}
+
+
+#labelBienvenue{
+
+ font-size:14pt; font-weight:700; color:#1a267e;
+
+
+}
+
+
+#label_numero_courant,#label_numero_epargne{
+
+	 font-size:12pt; font-style:italic; color:#575757;
+
+}
 
 
 #page_liste_vide_transaction,#page_resumer_des_transactions{
@@ -222,7 +242,7 @@ margin :0 ;
     background-color: rgba(0, 170, 255, 20);
 }
 
-#message_recherche {
+#zone_message_erreur_page_parametre {
     opacity: 0;
     color: #FF5252;
     font-style: italic;
@@ -831,7 +851,7 @@ outline:none ;
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>Dépot et Retrait</string>
+                <string>transaction</string>
                </property>
                <property name="icon">
                 <iconset resource="icons.qrc">
@@ -979,8 +999,8 @@ outline:none ;
              <widget class="QWidget" name="scrollAreaWidgetContents">
               <property name="geometry">
                <rect>
-                <x>0</x>
-                <y>0</y>
+                <x>-135</x>
+                <y>-140</y>
                 <width>1012</width>
                 <height>900</height>
                </rect>
@@ -1045,8 +1065,14 @@ outline:none ;
                         </property>
                         <item>
                          <widget class="QLabel" name="labelBienvenue">
+                          <property name="minimumSize">
+                           <size>
+                            <width>159</width>
+                            <height>31</height>
+                           </size>
+                          </property>
                           <property name="text">
-                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700; color:#1a267e;&quot;&gt;Bonjour , Deo Bouwayi !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -1216,7 +1242,7 @@ outline:none ;
                               </property>
                               <layout class="QVBoxLayout" name="verticalLayout_8">
                                <property name="spacing">
-                                <number>5</number>
+                                <number>4</number>
                                </property>
                                <property name="leftMargin">
                                 <number>2</number>
@@ -1271,6 +1297,12 @@ outline:none ;
                                      </property>
                                      <item>
                                       <widget class="QLabel" name="label_8">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>137</width>
+                                         <height>16</height>
+                                        </size>
+                                       </property>
                                        <property name="text">
                                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; color:#1a267e;&quot;&gt;Compte Courant  Principal&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                        </property>
@@ -1315,24 +1347,54 @@ outline:none ;
                                   <property name="spacing">
                                    <number>40</number>
                                   </property>
-                                  <item>
-                                   <widget class="QLabel" name="label_17">
-                                    <property name="text">
-                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline;&quot;&gt;Compte :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                    </property>
-                                   </widget>
-                                  </item>
+                                  <property name="leftMargin">
+                                   <number>6</number>
+                                  </property>
+                                  <property name="topMargin">
+                                   <number>6</number>
+                                  </property>
+                                  <property name="rightMargin">
+                                   <number>6</number>
+                                  </property>
+                                  <property name="bottomMargin">
+                                   <number>6</number>
+                                  </property>
                                   <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                   <widget class="QLabel" name="label_numero_courant">
-                                    <property name="text">
-                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-style:italic; color:#575757;&quot;&gt;N°: CC001&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                    </property>
+                                   <widget class="QWidget" name="widget_38" native="true">
+                                    <layout class="QHBoxLayout" name="horizontalLayout_30">
+                                     <item>
+                                      <widget class="QLabel" name="label_17">
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline;&quot;&gt;Compte :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QLabel" name="label_numero_courant">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>80</width>
+                                         <height>0</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
                                    </widget>
                                   </item>
-                                  <item>
+                                  <item alignment="Qt::AlignmentFlag::AlignRight">
                                    <widget class="QLabel" name="label_date_creation_courant">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>78</width>
+                                      <height>30</height>
+                                     </size>
+                                    </property>
                                     <property name="text">
-                                     <string>Créé le: 01/01/2023</string>
+                                     <string/>
                                     </property>
                                    </widget>
                                   </item>
@@ -1376,15 +1438,21 @@ outline:none ;
                                   </item>
                                   <item>
                                    <widget class="QLabel" name="label_solde_compte_courant_principale">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>100</width>
+                                      <height>0</height>
+                                     </size>
+                                    </property>
                                     <property name="text">
-                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;1 253  075 FCFA &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <string/>
                                     </property>
                                    </widget>
                                   </item>
                                  </layout>
                                 </widget>
                                </item>
-                               <item>
+                               <item alignment="Qt::AlignmentFlag::AlignVCenter">
                                 <widget class="QWidget" name="widget_10" native="true">
                                  <property name="minimumSize">
                                   <size>
@@ -1413,7 +1481,13 @@ outline:none ;
                                     <property name="minimumSize">
                                      <size>
                                       <width>0</width>
-                                      <height>44</height>
+                                      <height>32</height>
+                                     </size>
+                                    </property>
+                                    <property name="maximumSize">
+                                     <size>
+                                      <width>16777215</width>
+                                      <height>32</height>
                                      </size>
                                     </property>
                                     <layout class="QHBoxLayout" name="horizontalLayout_13">
@@ -1459,8 +1533,14 @@ outline:none ;
                                      </item>
                                      <item>
                                       <widget class="QLabel" name="label_decouvert_autorise">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>216</width>
+                                         <height>0</height>
+                                        </size>
+                                       </property>
                                        <property name="text">
-                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Découvert autorisé: 50 000 FCFA&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
@@ -1469,8 +1549,14 @@ outline:none ;
                                   </item>
                                   <item alignment="Qt::AlignmentFlag::AlignLeft">
                                    <widget class="QLabel" name="label_derniere_operation_compte_courant_principale">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>200</width>
+                                      <height>20</height>
+                                     </size>
+                                    </property>
                                     <property name="text">
-                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Dernière op: Virement entrant - Salaire (25 / 07 / 2024) - 250 000 FCFA&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                     </property>
                                    </widget>
                                   </item>
@@ -1554,7 +1640,7 @@ outline:none ;
                               </property>
                               <layout class="QVBoxLayout" name="verticalLayout_9">
                                <property name="spacing">
-                                <number>5</number>
+                                <number>4</number>
                                </property>
                                <property name="leftMargin">
                                 <number>2</number>
@@ -1656,24 +1742,48 @@ outline:none ;
                                   <property name="spacing">
                                    <number>40</number>
                                   </property>
-                                  <item>
-                                   <widget class="QLabel" name="label_15">
-                                    <property name="text">
-                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline;&quot;&gt;Compte :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                    </property>
-                                   </widget>
-                                  </item>
                                   <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                   <widget class="QLabel" name="label_numero_epargne">
-                                    <property name="text">
-                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; &lt;span style=&quot; font-size:12pt; font-style:italic; color:#575757;&quot;&gt;N°: CC001&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                    </property>
+                                   <widget class="QWidget" name="widget_37" native="true">
+                                    <layout class="QHBoxLayout" name="horizontalLayout_29">
+                                     <item>
+                                      <widget class="QLabel" name="label_15">
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline;&quot;&gt;Compte :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QLabel" name="label_numero_epargne">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>80</width>
+                                         <height>0</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
                                    </widget>
                                   </item>
-                                  <item>
-                                   <widget class="QLabel" name="label_14">
+                                  <item alignment="Qt::AlignmentFlag::AlignRight">
+                                   <widget class="QLabel" name="label_date_creation_compte_epargne">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>78</width>
+                                      <height>30</height>
+                                     </size>
+                                    </property>
+                                    <property name="maximumSize">
+                                     <size>
+                                      <width>78</width>
+                                      <height>16777215</height>
+                                     </size>
+                                    </property>
                                     <property name="text">
-                                     <string>Créé le: 01/01/2023</string>
+                                     <string/>
                                     </property>
                                    </widget>
                                   </item>
@@ -1717,8 +1827,14 @@ outline:none ;
                                   </item>
                                   <item>
                                    <widget class="QLabel" name="label_solde_compte_epargne">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>100</width>
+                                      <height>0</height>
+                                     </size>
+                                    </property>
                                     <property name="text">
-                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;875 020 FCFA &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <string/>
                                     </property>
                                    </widget>
                                   </item>
@@ -1749,25 +1865,7 @@ outline:none ;
                                   <property name="bottomMargin">
                                    <number>2</number>
                                   </property>
-                                  <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                   <widget class="QWidget" name="widget_20" native="true">
-                                    <layout class="QHBoxLayout" name="horizontalLayout_14">
-                                     <property name="leftMargin">
-                                      <number>2</number>
-                                     </property>
-                                     <property name="topMargin">
-                                      <number>2</number>
-                                     </property>
-                                     <property name="rightMargin">
-                                      <number>2</number>
-                                     </property>
-                                     <property name="bottomMargin">
-                                      <number>2</number>
-                                     </property>
-                                    </layout>
-                                   </widget>
-                                  </item>
-                                  <item alignment="Qt::AlignmentFlag::AlignLeft">
+                                  <item>
                                    <widget class="QWidget" name="widget_35" native="true">
                                     <property name="minimumSize">
                                      <size>
@@ -1824,12 +1922,18 @@ outline:none ;
                                      </item>
                                      <item>
                                       <widget class="QLabel" name="label_taux_interet">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>216</width>
+                                         <height>0</height>
+                                        </size>
+                                       </property>
                                        <property name="text">
-                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Taux d'intérêt : 3.00%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                        <string/>
                                        </property>
                                       </widget>
                                      </item>
-                                     <item>
+                                     <item alignment="Qt::AlignmentFlag::AlignRight">
                                       <widget class="QPushButton" name="btn_appliquer_interets">
                                        <property name="cursor">
                                         <cursorShape>PointingHandCursor</cursorShape>
@@ -1844,8 +1948,14 @@ outline:none ;
                                   </item>
                                   <item alignment="Qt::AlignmentFlag::AlignLeft">
                                    <widget class="QLabel" name="label_derniere_operation_livret_epargne">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>200</width>
+                                      <height>20</height>
+                                     </size>
+                                    </property>
                                     <property name="text">
-                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Dernière op: intérêts annuels (25 / 07 / 2024) - 7 510 FCFA&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                     <string/>
                                     </property>
                                    </widget>
                                   </item>
@@ -2348,13 +2458,7 @@ outline:none ;
                         <number>10</number>
                        </property>
                        <item>
-                        <widget class="QComboBox" name="combo_choix_type_operation">
-                         <item>
-                          <property name="text">
-                           <string>Dépot</string>
-                          </property>
-                         </item>
-                        </widget>
+                        <widget class="QComboBox" name="combo_choix_type_operation"/>
                        </item>
                       </layout>
                      </widget>
@@ -2906,7 +3010,17 @@ outline:none ;
                      </widget>
                     </item>
                     <item>
-                     <widget class="QPushButton" name="btn_effectuer_le_virement_2">
+                     <widget class="QLabel" name="zone_message_erreur_page_parametre">
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignmentFlag::AlignCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btn_sauvegarde_modification_parametre">
                       <property name="cursor">
                        <cursorShape>PointingHandCursor</cursorShape>
                       </property>
@@ -2920,13 +3034,6 @@ outline:none ;
                      </widget>
                     </item>
                    </layout>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="message_recherche_2">
-                   <property name="text">
-                    <string/>
-                   </property>
                   </widget>
                  </item>
                 </layout>

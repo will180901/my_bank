@@ -1,26 +1,26 @@
 #include "compteepargne.h"
 #include <QDebug>
 
-CompteEpargne::CompteEpargne(const QString& numeroCompte,
+CompteEpargne::CompteEpargne(const QString& id,
+                             const QString& numeroCompte,
                              const QString& nomTitulaire,
                              double soldeInitial,
                              double tauxInteret,
                              const QString& banque)
-    : CompteBancaire(numeroCompte, nomTitulaire, soldeInitial),
-    m_tauxInteret(tauxInteret),
-    m_banque(banque) {}
+    : CompteBancaire(id, numeroCompte, nomTitulaire, soldeInitial, banque),
+    m_tauxInteret(tauxInteret) {}
 
 void CompteEpargne::calculerInterets() {
-    double interets = m_solde * m_tauxInteret / 100;
+    double interets = getSolde() * m_tauxInteret / 100;
     m_solde += interets;
     qDebug() << "Intérêts appliqués : +" << interets
-             << "| Nouveau solde :" << m_solde;
+             << "| Nouveau solde :" << getSolde();
 }
 
 bool CompteEpargne::retirer(double montant) {
-    if (montant > 0 && montant <= m_solde) {
+    if (montant > 0 && montant <= getSolde()) {
         m_solde -= montant;
-        qDebug() << "Retrait effectué. Nouveau solde :" << m_solde;
+        qDebug() << "Retrait effectué. Nouveau solde :" << getSolde();
         return true;
     }
     qDebug() << "Erreur : Retrait impossible (solde insuffisant)";
@@ -29,14 +29,19 @@ bool CompteEpargne::retirer(double montant) {
 
 void CompteEpargne::afficherDetails() const {
     qDebug() << "=== Compte Épargne ===";
-    qDebug() << "Titulaire:" << m_nomTitulaire;
-    qDebug() << "Numéro:" << m_numeroCompte;
-    qDebug() << "Solde:" << m_solde;
+    qDebug() << "ID:" << getId();
+    qDebug() << "Titulaire:" << getNomTitulaire();
+    qDebug() << "Numéro:" << getNumeroCompte();
+    qDebug() << "Solde:" << getSolde();
     qDebug() << "Taux d'intérêt:" << m_tauxInteret << "%";
-    if (!m_banque.isEmpty()) {
-        qDebug() << "Banque:" << m_banque;
+    if (!getBanque().isEmpty()) {
+        qDebug() << "Banque:" << getBanque();
     }
     qDebug() << "======================";
+}
+
+QString CompteEpargne::getType() const {
+    return "Compte Épargne";
 }
 
 double CompteEpargne::getTauxInteret() const {

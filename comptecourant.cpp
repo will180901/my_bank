@@ -1,14 +1,14 @@
 #include "comptecourant.h"
 #include <QDebug>
 
-CompteCourant::CompteCourant(const QString& numeroCompte,
+CompteCourant::CompteCourant(const QString& id,
+                             const QString& numeroCompte,
                              const QString& nomTitulaire,
                              double soldeInitial,
                              double decouvertAutorise,
                              const QString& banque)
-    : CompteBancaire(numeroCompte, nomTitulaire, soldeInitial),
-    m_decouvertAutorise(decouvertAutorise),
-    m_banque(banque) {}
+    : CompteBancaire(id, numeroCompte, nomTitulaire, soldeInitial, banque),
+    m_decouvertAutorise(decouvertAutorise) {}
 
 bool CompteCourant::retirer(double montant) {
     if (montant > 0 && (m_solde - montant) >= -m_decouvertAutorise) {
@@ -23,14 +23,19 @@ bool CompteCourant::retirer(double montant) {
 
 void CompteCourant::afficherDetails() const {
     qDebug() << "=== Compte Courant ===";
-    qDebug() << "Titulaire:" << m_nomTitulaire;
-    qDebug() << "Numéro:" << m_numeroCompte;
-    qDebug() << "Solde:" << m_solde;
+    qDebug() << "ID:" << getId();
+    qDebug() << "Titulaire:" << getNomTitulaire();
+    qDebug() << "Numéro:" << getNumeroCompte();
+    qDebug() << "Solde:" << getSolde();
     qDebug() << "Découvert autorisé:" << m_decouvertAutorise;
-    if (!m_banque.isEmpty()) {
-        qDebug() << "Banque:" << m_banque;
+    if (!getBanque().isEmpty()) {
+        qDebug() << "Banque:" << getBanque();
     }
     qDebug() << "======================";
+}
+
+QString CompteCourant::getType() const {
+    return "Compte Courant";
 }
 
 double CompteCourant::getDecouvertAutorise() const {

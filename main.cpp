@@ -9,6 +9,8 @@ int main(int argc, char *argv[])
     Authentification auth;
     FenetrePrincipale* mainWindow = nullptr;
 
+    QString userId ;
+
     QObject::connect(&auth, &Authentification::authentificationReussie, [&](const QString& userId) {
         if (mainWindow) {
             mainWindow->deleteLater();
@@ -19,6 +21,11 @@ int main(int argc, char *argv[])
     });
 
     auth.show();
+
+/*
+
+    mainWindow = new FenetrePrincipale(nullptr, userId);
+    mainWindow->show();   */
 
     return app.exec();
 }

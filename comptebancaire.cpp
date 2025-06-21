@@ -1,8 +1,8 @@
 #include "comptebancaire.h"
 #include <QDebug>
 
-CompteBancaire::CompteBancaire(const QString& numeroCompte, const QString& nomTitulaire, double soldeInitial)
-    : m_numeroCompte(numeroCompte), m_nomTitulaire(nomTitulaire), m_solde(soldeInitial) {}
+CompteBancaire::CompteBancaire(const QString& id, const QString& numeroCompte, const QString& nomTitulaire, double soldeInitial, const QString& banque)
+    : m_id(id), m_numeroCompte(numeroCompte), m_nomTitulaire(nomTitulaire), m_solde(soldeInitial), m_banque(banque) {}
 
 void CompteBancaire::deposer(double montant) {
     if (montant > 0) {
@@ -30,4 +30,16 @@ QString CompteBancaire::getNumeroCompte() const {
 
 QString CompteBancaire::getNomTitulaire() const {
     return m_nomTitulaire;
+}
+
+QString CompteBancaire::getBanque() const {
+    return m_banque;
+}
+
+QString CompteBancaire::getId() const {
+    return m_id;
+}
+
+void CompteBancaire::setId(const QString& id) {
+    m_id = id;
 }

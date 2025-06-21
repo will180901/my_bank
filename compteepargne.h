@@ -1,15 +1,15 @@
 #ifndef COMPTEEPARGNE_H
 #define COMPTEEPARGNE_H
-#include <QDateTime>
+
 #include "comptebancaire.h"
 
 class CompteEpargne : public CompteBancaire {
 private:
     double m_tauxInteret;
-    QString m_banque;
 
 public:
-    CompteEpargne(const QString& numeroCompte,
+    CompteEpargne(const QString& id,
+                  const QString& numeroCompte,
                   const QString& nomTitulaire,
                   double soldeInitial,
                   double tauxInteret,
@@ -18,6 +18,7 @@ public:
     void calculerInterets();
     bool retirer(double montant) override;
     void afficherDetails() const override;
+    QString getType() const override;
     double getTauxInteret() const;
 };
 

@@ -1,26 +1,9 @@
 #include "gestionbd.h"
-#include <QApplication>
-#include <QDateTime>
+#include <stdexcept>
 
 GestionBD::GestionBD(const QString& nomFichier) : m_nomFichier(nomFichier) {
-    QString programDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    QDir dir(programDataPath);
-
-    if (programDataPath.isEmpty() || !dir.exists()) {
-        programDataPath = QDir::homePath() + "/AppData/Local/" + QApplication::applicationName();
-        dir.setPath(programDataPath);
-    }
-
-    if (!dir.exists()) {
-        if (!dir.mkpath(".")) {
-            qCritical() << "Impossible de créer le répertoire de données:" << programDataPath;
-            return;
-        }
-        QFile::setPermissions(programDataPath, QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner);
-    }
-
-    m_dbPath = dir.filePath(m_nomFichier);
-    qDebug() << "Chemin de la base de données:" << m_dbPath;
+    m_db = QSqlDatabase::addDatabase("QSQLITE");
+    m_db.setDatabaseName(m_nomFichier);
 }
 
 GestionBD::~GestionBD() {
@@ -28,35 +11,11 @@ GestionBD::~GestionBD() {
 }
 
 bool GestionBD::ouvrirConnexion() {
-    if (m_dbPath.isEmpty()) {
-        qCritical() << "Chemin de la base de données non initialisé";
-        return false;
-    }
-
-    m_db = QSqlDatabase::addDatabase("QSQLITE");
-    m_db.setDatabaseName(m_dbPath);
-
-    bool dbExiste = QFile::exists(m_dbPath);
-
     if (!m_db.open()) {
-        qCritical() << "Erreur connexion BD:" << m_db.lastError().text();
+        qDebug() << "Erreur connexion BD:" << m_db.lastError().text();
         return false;
     }
-
-    if (!dbExiste) {
-        if (!creerTables()) {
-            qCritical() << "Erreur lors de la création des tables";
-            return false;
-        }
-
-        if (!initialiserDonneesParDefaut()) {
-            qCritical() << "Erreur lors de l'initialisation des données par défaut";
-            return false;
-        }
-        qDebug() << "Nouvelle base de données créée avec données par défaut";
-    }
-
-    return true;
+    return creerTables();
 }
 
 void GestionBD::fermerConnexion() {
@@ -65,14 +24,15 @@ void GestionBD::fermerConnexion() {
     }
 }
 
+QString GestionBD::hasherMotDePasse(const QString& motDePasse) {
+    return QCryptographicHash::hash(
+               motDePasse.toUtf8(),
+               QCryptographicHash::Sha256
+               ).toHex();
+}
+
 bool GestionBD::creerTables() {
     QStringList requetes = {
-        // Table Parametres
-        "CREATE TABLE IF NOT EXISTS Parametres ("
-        "cle TEXT PRIMARY KEY,"
-        "valeur TEXT NOT NULL,"
-        "date_modification TEXT DEFAULT CURRENT_TIMESTAMP)",
-
         // Table Banques
         "CREATE TABLE IF NOT EXISTS Banques ("
         "id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -90,7 +50,8 @@ bool GestionBD::creerTables() {
 
         // Table Comptes
         "CREATE TABLE IF NOT EXISTS Comptes ("
-        "numero TEXT PRIMARY KEY,"
+        "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+        "numero TEXT UNIQUE NOT NULL,"
         "type TEXT NOT NULL CHECK(type IN ('COURANT', 'EPARGNE')),"
         "id_utilisateur INTEGER NOT NULL,"
         "id_banque INTEGER NOT NULL,"
@@ -104,13 +65,11 @@ bool GestionBD::creerTables() {
         // Table Transactions
         "CREATE TABLE IF NOT EXISTS Transactions ("
         "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-        "compte_source TEXT,"
-        "compte_dest TEXT NOT NULL,"
+        "compte_id INTEGER NOT NULL,"
+        "type TEXT NOT NULL CHECK(type IN ('DEPOT', 'RETRAIT', 'VIREMENT')),"
         "montant REAL NOT NULL,"
-        "description TEXT,"
         "date TEXT DEFAULT CURRENT_TIMESTAMP,"
-        "FOREIGN KEY(compte_source) REFERENCES Comptes(numero),"
-        "FOREIGN KEY(compte_dest) REFERENCES Comptes(numero))",
+        "FOREIGN KEY(compte_id) REFERENCES Comptes(id))",
 
         // Table HistoriqueConnexion
         "CREATE TABLE IF NOT EXISTS HistoriqueConnexion ("
@@ -129,70 +88,13 @@ bool GestionBD::creerTables() {
     return true;
 }
 
-bool GestionBD::initialiserDonneesParDefaut() {
-    // Paramètres par défaut
-    QVariantMap parametresDefaut;
-    parametresDefaut["theme"] = "system";
-    parametresDefaut["langue"] = "fr";
-    parametresDefaut["devise"] = "XAF";
-    parametresDefaut["date_format"] = "dd/MM/yyyy";
-    parametresDefaut["notifications_activees"] = true;
-    parametresDefaut["taille_texte"] = "medium";
-    parametresDefaut["banque_par_defaut"] = "BANQ001";
-
-    for (auto it = parametresDefaut.constBegin(); it != parametresDefaut.constEnd(); ++it) {
-        if (!enregistrerParametre(it.key(), it.value())) {
-            return false;
-        }
-    }
-
-    // Banque par défaut
-    if (!creerBanque("MyBank", "BANQ001")) {
-        return false;
-    }
-
-    return true;
-}
-
 bool GestionBD::executerRequete(const QString& requete) {
     QSqlQuery query;
     if (!query.exec(requete)) {
         qDebug() << "Erreur requête SQL:" << query.lastError().text();
-        qDebug() << "Requête:" << requete;
         return false;
     }
     return true;
-}
-
-bool GestionBD::enregistrerParametre(const QString& cle, const QVariant& valeur) {
-    QSqlQuery query;
-    query.prepare("INSERT OR REPLACE INTO Parametres(cle, valeur) VALUES (?, ?)");
-    query.addBindValue(cle);
-    query.addBindValue(valeur.toString());
-
-    if (!query.exec()) {
-        qDebug() << "Erreur lors de l'enregistrement du paramètre:" << query.lastError().text();
-        return false;
-    }
-    return true;
-}
-
-QVariant GestionBD::obtenirParametre(const QString& cle, const QVariant& defaut) {
-    QSqlQuery query;
-    query.prepare("SELECT valeur FROM Parametres WHERE cle = ?");
-    query.addBindValue(cle);
-
-    if (query.exec() && query.next()) {
-        return query.value(0);
-    }
-    return defaut;
-}
-
-QString GestionBD::hasherMotDePasse(const QString& motDePasse) {
-    return QCryptographicHash::hash(
-               motDePasse.toUtf8(),
-               QCryptographicHash::Sha256
-               ).toHex();
 }
 
 QString GestionBD::genererNumeroCompte(const QString& prefixe) {
@@ -202,11 +104,12 @@ QString GestionBD::genererNumeroCompte(const QString& prefixe) {
 
     if (query.exec() && query.next()) {
         int count = query.value(0).toInt() + 1;
-        return QString("%1%2").arg(prefixe).arg(count, 6, 10, QChar('0'));
+        return QString("%1%2").arg(prefixe).arg(count, 3, 10, QChar('0'));
     }
     return QString();
 }
 
+// Gestion des banques
 bool GestionBD::creerBanque(const QString& nom, const QString& codeBanque) {
     QSqlQuery query;
     query.prepare("INSERT INTO Banques(nom, code_banque) VALUES (?, ?)");
@@ -229,6 +132,7 @@ QString GestionBD::getNomBanque(const QString& codeBanque) {
     return (query.exec() && query.next()) ? query.value(0).toString() : "";
 }
 
+// Gestion des utilisateurs
 bool GestionBD::creerUtilisateur(const QString& nomComplet,
                                  const QString& email,
                                  const QString& motDePasse) {
@@ -265,6 +169,7 @@ bool GestionBD::existeUtilisateur(const QString& email) {
     return query.exec() && query.next();
 }
 
+// Gestion des comptes
 bool GestionBD::creerCompte(const QString& typeCompte,
                             const QString& idUtilisateur,
                             const QString& codeBanque,
@@ -277,7 +182,8 @@ bool GestionBD::creerCompte(const QString& typeCompte,
     QString numeroCompte = genererNumeroCompte(prefixe);
 
     QSqlQuery query;
-    query.prepare("INSERT INTO Comptes VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)");
+    query.prepare("INSERT INTO Comptes (numero, type, id_utilisateur, id_banque, solde, decouvert_autorise, taux_interet) "
+                  "VALUES (?, ?, ?, ?, ?, ?, ?)");
     query.addBindValue(numeroCompte);
     query.addBindValue(typeCompte);
     query.addBindValue(idUtilisateur);
@@ -298,13 +204,46 @@ bool GestionBD::creerCompte(const QString& typeCompte,
 QList<CompteBancaire*> GestionBD::getComptesUtilisateur(const QString& idUtilisateur) {
     QList<CompteBancaire*> comptes;
     QSqlQuery query;
-    query.prepare("SELECT numero FROM Comptes WHERE id_utilisateur = ?");
+    query.prepare("SELECT c.id, c.numero, c.type, c.solde, c.decouvert_autorise, c.taux_interet, "
+                  "b.nom as nom_banque, u.nom_complet as nom_titulaire "
+                  "FROM Comptes c "
+                  "JOIN Banques b ON c.id_banque = b.id "
+                  "JOIN Utilisateurs u ON c.id_utilisateur = u.id "
+                  "WHERE c.id_utilisateur = ?");
     query.addBindValue(idUtilisateur);
 
     if (query.exec()) {
         while (query.next()) {
-            CompteBancaire* compte = getCompte(query.value(0).toString());
-            if (compte) comptes.append(compte);
+            QString id = query.value("id").toString();
+            QString numero = query.value("numero").toString();
+            QString type = query.value("type").toString();
+            double solde = query.value("solde").toDouble();
+            QString banque = query.value("nom_banque").toString();
+            QString titulaire = query.value("nom_titulaire").toString();
+
+            if (type == "COURANT") {
+                double decouvert = query.value("decouvert_autorise").toDouble();
+                CompteCourant* cc = new CompteCourant(
+                    id,           // QString id
+                    numero,       // QString numeroCompte
+                    titulaire,    // QString nomTitulaire
+                    solde,        // double soldeInitial
+                    decouvert,    // double decouvertAutorise
+                    banque        // QString banque
+                    );
+                comptes.append(cc);
+            } else {
+                double taux = query.value("taux_interet").toDouble();
+                CompteEpargne* ce = new CompteEpargne(
+                    id,           // QString id
+                    numero,       // QString numeroCompte
+                    titulaire,    // QString nomTitulaire
+                    solde,        // double soldeInitial
+                    taux,         // double tauxInteret
+                    banque        // QString banque
+                    );
+                comptes.append(ce);
+            }
         }
     }
     return comptes;
@@ -312,114 +251,147 @@ QList<CompteBancaire*> GestionBD::getComptesUtilisateur(const QString& idUtilisa
 
 CompteBancaire* GestionBD::getCompte(const QString& numeroCompte) {
     QSqlQuery query;
-    query.prepare("SELECT c.*, b.nom as nom_banque FROM Comptes c "
+    query.prepare("SELECT c.id, c.type, c.solde, c.decouvert_autorise, c.taux_interet, "
+                  "b.nom as nom_banque, u.nom_complet as nom_titulaire "
+                  "FROM Comptes c "
                   "JOIN Banques b ON c.id_banque = b.id "
+                  "JOIN Utilisateurs u ON c.id_utilisateur = u.id "
                   "WHERE c.numero = ?");
     query.addBindValue(numeroCompte);
 
     if (!query.exec() || !query.next()) return nullptr;
 
+    QString id = query.value("id").toString();
     QString type = query.value("type").toString();
-    QString numero = query.value("numero").toString();
     double solde = query.value("solde").toDouble();
     QString banque = query.value("nom_banque").toString();
-
-    // Récupération du titulaire
-    QSqlQuery queryTitulaire;
-    queryTitulaire.prepare("SELECT nom_complet FROM Utilisateurs WHERE id = ?");
-    queryTitulaire.addBindValue(query.value("id_utilisateur"));
-    QString titulaire = queryTitulaire.exec() && queryTitulaire.next()
-                            ? queryTitulaire.value(0).toString()
-                            : "Inconnu";
+    QString titulaire = query.value("nom_titulaire").toString();
 
     if (type == "COURANT") {
         double decouvert = query.value("decouvert_autorise").toDouble();
-        return new CompteCourant(numero, titulaire, solde, decouvert, banque);
+        CompteCourant* cc = new CompteCourant(
+            id,           // QString id
+            numeroCompte, // QString numeroCompte
+            titulaire,    // QString nomTitulaire
+            solde,        // double soldeInitial
+            decouvert,    // double decouvertAutorise
+            banque        // QString banque
+            );
+        return cc;
     } else {
         double taux = query.value("taux_interet").toDouble();
-        return new CompteEpargne(numero, titulaire, solde, taux, banque);
+        CompteEpargne* ce = new CompteEpargne(
+            id,           // QString id
+            numeroCompte, // QString numeroCompte
+            titulaire,    // QString nomTitulaire
+            solde,        // double soldeInitial
+            taux,         // double tauxInteret
+            banque        // QString banque
+            );
+        return ce;
     }
 }
 
-bool GestionBD::effectuerTransaction(const QString& compteSource,
-                                     const QString& compteDest,
-                                     double montant,
-                                     const QString& description) {
-    m_db.transaction();
+// Gestion des transactions
+bool GestionBD::enregistrerTransaction(const QString& compteId, const QString& type, double montant) {
+    QSqlQuery query;
+    query.prepare("INSERT INTO Transactions(compte_id, type, montant) "
+                  "VALUES (?, ?, ?)");
+    query.addBindValue(compteId);
+    query.addBindValue(type);
+    query.addBindValue(montant);
+    return query.exec();
+}
 
-    try {
-        // Vérification des comptes
-        CompteBancaire* source = getCompte(compteSource);
-        CompteBancaire* dest = getCompte(compteDest);
-        if (!source || !dest || montant <= 0) throw std::runtime_error("Paramètres invalides");
+bool GestionBD::effectuerDepot(const QString& numeroCompte, double montant) {
+    CompteBancaire* compte = getCompte(numeroCompte);
+    if (!compte) return false;
 
-        // Exécution du retrait
-        if (!source->retirer(montant)) throw std::runtime_error("Retrait impossible");
+    compte->deposer(montant);
 
-        // Exécution du dépôt
-        dest->deposer(montant);
+    // Mettre à jour le solde dans la base
+    QSqlQuery query;
+    query.prepare("UPDATE Comptes SET solde = ? WHERE numero = ?");
+    query.addBindValue(compte->getSolde());
+    query.addBindValue(numeroCompte);
 
-        // Enregistrement de la transaction
-        QSqlQuery query;
-        query.prepare("INSERT INTO Transactions(compte_source, compte_dest, montant, description) "
-                      "VALUES (?, ?, ?, ?)");
-        query.addBindValue(compteSource);
-        query.addBindValue(compteDest);
-        query.addBindValue(montant);
-        query.addBindValue(description);
-        if (!query.exec()) throw std::runtime_error("Erreur enregistrement transaction");
+    if (!query.exec()) return false;
 
-        // Mise à jour des soldes
-        QSqlQuery updateSource, updateDest;
-        updateSource.prepare("UPDATE Comptes SET solde = ? WHERE numero = ?");
-        updateSource.addBindValue(source->getSolde());
-        updateSource.addBindValue(compteSource);
+    // Enregistrer la transaction
+    return enregistrerTransaction(compte->getId(), "DEPOT", montant);
+}
 
-        updateDest.prepare("UPDATE Comptes SET solde = ? WHERE numero = ?");
-        updateDest.addBindValue(dest->getSolde());
-        updateDest.addBindValue(compteDest);
+bool GestionBD::effectuerRetrait(const QString& numeroCompte, double montant) {
+    CompteBancaire* compte = getCompte(numeroCompte);
+    if (!compte || !compte->retirer(montant)) return false;
 
-        if (!updateSource.exec() || !updateDest.exec()) {
-            throw std::runtime_error("Erreur mise à jour soldes");
-        }
+    // Mettre à jour le solde dans la base
+    QSqlQuery query;
+    query.prepare("UPDATE Comptes SET solde = ? WHERE numero = ?");
+    query.addBindValue(compte->getSolde());
+    query.addBindValue(numeroCompte);
 
-        m_db.commit();
-        return true;
-    } catch (const std::exception& e) {
-        m_db.rollback();
-        qDebug() << "Erreur transaction:" << e.what();
+    if (!query.exec()) return false;
+
+    // Enregistrer la transaction
+    return enregistrerTransaction(compte->getId(), "RETRAIT", montant);
+}
+
+bool GestionBD::effectuerVirement(const QString& compteSource,
+                                  const QString& compteDest,
+                                  double montant) {
+    if (!effectuerRetrait(compteSource, montant)) return false;
+    if (!effectuerDepot(compteDest, montant)) {
+        // Compensation en cas d'échec
+        effectuerDepot(compteSource, montant);
         return false;
     }
+    return true;
+}
+
+QMap<QString, QVariant> GestionBD::getDerniereTransaction(const QString& compteId) {
+    QMap<QString, QVariant> transaction;
+    QSqlQuery query;
+    query.prepare("SELECT type, montant, strftime('%d/%m/%Y', date) as date_formatee "
+                  "FROM Transactions "
+                  "WHERE compte_id = ? "
+                  "ORDER BY date DESC "
+                  "LIMIT 1");
+    query.addBindValue(compteId);
+
+    if (query.exec() && query.next()) {
+        transaction["type"] = query.value("type").toString();
+        transaction["montant"] = query.value("montant").toDouble();
+        transaction["date"] = query.value("date_formatee").toString();
+    }
+    return transaction;
 }
 
 QList<QString> GestionBD::getHistoriqueTransactions(const QString& numeroCompte) {
     QList<QString> historique;
+    CompteBancaire* compte = getCompte(numeroCompte);
+    if (!compte) return historique;
+
     QSqlQuery query;
-    query.prepare("SELECT t.*, "
-                  "cs.numero as num_source, "
-                  "cd.numero as num_dest "
+    query.prepare("SELECT t.type, t.montant, strftime('%d/%m/%Y', t.date) as date_formatee "
                   "FROM Transactions t "
-                  "LEFT JOIN Comptes cs ON t.compte_source = cs.numero "
-                  "JOIN Comptes cd ON t.compte_dest = cd.numero "
-                  "WHERE t.compte_source = ? OR t.compte_dest = ? "
+                  "WHERE t.compte_id = ? "
                   "ORDER BY t.date DESC");
-    query.addBindValue(numeroCompte);
-    query.addBindValue(numeroCompte);
+    query.addBindValue(compte->getId());
 
     if (query.exec()) {
         while (query.next()) {
-            QString transaction = QString("[%1] %2 -> %3 | %4 | %5")
-            .arg(query.value("date").toDateTime().toString("dd/MM/yyyy hh:mm"))
-                .arg(query.value("num_source").toString())
-                .arg(query.value("num_dest").toString())
-                .arg(query.value("montant").toDouble(), 0, 'f', 2)
-                .arg(query.value("description").toString());
+            QString transaction = QString("[%1] %2 - %3 FCFA")
+            .arg(query.value("date_formatee").toString())
+                .arg(query.value("type").toString())
+                .arg(query.value("montant").toDouble(), 0, 'f', 2);
             historique.append(transaction);
         }
     }
     return historique;
 }
 
+// Journalisation
 bool GestionBD::enregistrerConnexion(const QString& idUtilisateur, bool succes) {
     QSqlQuery query;
     query.prepare("INSERT INTO HistoriqueConnexion(id_utilisateur, succes) "
@@ -427,4 +399,50 @@ bool GestionBD::enregistrerConnexion(const QString& idUtilisateur, bool succes) 
     query.addBindValue(idUtilisateur);
     query.addBindValue(succes ? 1 : 0);
     return query.exec();
+}
+
+bool GestionBD::modifierUtilisateur(const QString& idUtilisateur,
+                                    const QString& nouveauNomComplet,
+                                    const QString& nouvelEmail,
+                                    const QString& nouveauMotDePasse) {
+    m_db.transaction();
+
+    try {
+        // Vérifier si le nouvel email existe déjà
+        if (!nouvelEmail.isEmpty()) {
+            QSqlQuery checkEmail;
+            checkEmail.prepare("SELECT id FROM Utilisateurs WHERE email = ? AND id != ?");
+            checkEmail.addBindValue(nouvelEmail);
+            checkEmail.addBindValue(idUtilisateur);
+            if (checkEmail.exec() && checkEmail.next()) {
+                throw std::runtime_error("L'email est déjà utilisé par un autre compte");
+            }
+        }
+
+        // Mise à jour des informations
+        QSqlQuery query;
+        if (nouveauMotDePasse.isEmpty()) {
+            query.prepare("UPDATE Utilisateurs SET nom_complet = ?, email = ? WHERE id = ?");
+            query.addBindValue(nouveauNomComplet);
+            query.addBindValue(nouvelEmail);
+            query.addBindValue(idUtilisateur);
+        } else {
+            query.prepare("UPDATE Utilisateurs SET nom_complet = ?, email = ?, mot_de_passe = ? WHERE id = ?");
+            query.addBindValue(nouveauNomComplet);
+            query.addBindValue(nouvelEmail);
+            query.addBindValue(hasherMotDePasse(nouveauMotDePasse));
+            query.addBindValue(idUtilisateur);
+        }
+
+        if (!query.exec()) {
+            throw std::runtime_error("Erreur lors de la mise à jour");
+        }
+
+        m_db.commit();
+        return true;
+    } catch (const std::exception& e) {
+        m_db.rollback();
+        qDebug() << "Erreur modification utilisateur:" << e.what();
+        return false;
+    }
 }

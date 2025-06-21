@@ -62,14 +62,14 @@
 		color:rgb(41, 98, 255);
 
 	
-	font: 700 10pt &quot;Segoe UI&quot;;
+	font: 700 8pt &quot;Segoe UI&quot;;
 
 
 }
 
 #btn_mot_de_passe_oublier:hover{
 
-		color:rgba(41, 98, 255,0.2);
+		color:rgba(41, 98, 255,0.1);
 
 }
 
@@ -707,6 +707,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
                 </item>
                 <item alignment="Qt::AlignmentFlag::AlignLeft">
                  <widget class="QPushButton" name="btn_mot_de_passe_oublier">
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
                   <property name="text">
                    <string>Mot  de passe oublié ?</string>
                   </property>

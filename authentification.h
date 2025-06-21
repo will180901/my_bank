@@ -20,6 +20,11 @@ public:
 
     QString getCurrentUserId() const { return m_currentUserId; }
 
+    // Méthodes de validation rendues publiques et statiques
+    static bool validerNom(const QString& nom);
+    static bool validerEmail(const QString& email);
+    static bool validerMotDePasse(const QString& motDePasse);
+
 protected:
     bool eventFilter(QObject* obj, QEvent* event) override;
 
@@ -38,9 +43,6 @@ private:
     QString m_currentUserId;
 
     void setupPasswordVisibilityToggle(QLineEdit* passwordLineEdit);
-    bool validerNom(const QString& nom);
-    bool validerEmail(const QString& email);
-    bool validerMotDePasse(const QString& motDePasse);
     void viderMessagesErreur();
 };
 

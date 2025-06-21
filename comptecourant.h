@@ -1,23 +1,23 @@
 #ifndef COMPTECOURANT_H
 #define COMPTECOURANT_H
-#include <QDateTime>
 
 #include "comptebancaire.h"
 
 class CompteCourant : public CompteBancaire {
 private:
     double m_decouvertAutorise;
-    QString m_banque;
 
 public:
-    CompteCourant(const QString& numeroCompte,
+    CompteCourant(const QString& id,
+                  const QString& numeroCompte,
                   const QString& nomTitulaire,
                   double soldeInitial,
                   double decouvertAutorise,
                   const QString& banque = "");
 
-    bool retirer(double montant) override;
     void afficherDetails() const override;
+    QString getType() const override;
+    bool retirer(double montant) override;
     double getDecouvertAutorise() const;
 };
 
