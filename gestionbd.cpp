@@ -1,16 +1,48 @@
 #include "gestionbd.h"
+#include <QDebug>
+#include <QSqlError>
+#include <QMessageBox>
 #include <stdexcept>
 
-GestionBD::GestionBD(const QString& nomFichier) : m_nomFichier(nomFichier) {
+GestionBD::GestionBD(const QString& nomFichier, QObject *parent)
+    : QObject(parent), m_nomFichier(nomFichier)
+{
+    // Définir le chemin par défaut pour la base de données
+    QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QDir appDataDir(appDataPath);
+
+    if (!appDataDir.exists()) {
+        appDataDir.mkpath(appDataPath);
+    }
+
+    m_cheminBD = appDataPath + QDir::separator() + m_nomFichier;
     m_db = QSqlDatabase::addDatabase("QSQLITE");
-    m_db.setDatabaseName(m_nomFichier);
+    m_db.setDatabaseName(m_cheminBD);
 }
 
-GestionBD::~GestionBD() {
+GestionBD::~GestionBD()
+{
     fermerConnexion();
 }
 
-bool GestionBD::ouvrirConnexion() {
+bool GestionBD::creerDossierBD()
+{
+    QFileInfo fileInfo(m_cheminBD);
+    QDir dir(fileInfo.path());
+
+    if (!dir.exists()) {
+        return dir.mkpath(fileInfo.path());
+    }
+    return true;
+}
+
+bool GestionBD::ouvrirConnexion()
+{
+    if (!creerDossierBD()) {
+        qDebug() << "Erreur création dossier BD";
+        return false;
+    }
+
     if (!m_db.open()) {
         qDebug() << "Erreur connexion BD:" << m_db.lastError().text();
         return false;
@@ -18,20 +50,23 @@ bool GestionBD::ouvrirConnexion() {
     return creerTables();
 }
 
-void GestionBD::fermerConnexion() {
+void GestionBD::fermerConnexion()
+{
     if (m_db.isOpen()) {
         m_db.close();
     }
 }
 
-QString GestionBD::hasherMotDePasse(const QString& motDePasse) {
+QString GestionBD::hasherMotDePasse(const QString& motDePasse)
+{
     return QCryptographicHash::hash(
                motDePasse.toUtf8(),
                QCryptographicHash::Sha256
                ).toHex();
 }
 
-bool GestionBD::creerTables() {
+bool GestionBD::creerTables()
+{
     QStringList requetes = {
         // Table Banques
         "CREATE TABLE IF NOT EXISTS Banques ("
@@ -85,10 +120,17 @@ bool GestionBD::creerTables() {
             return false;
         }
     }
+
+    // Créer une banque par défaut si elle n'existe pas
+    if (!existeUtilisateur("admin@banque.com")) {
+        creerBanque("Ma Banque", "BANK001");
+    }
+
     return true;
 }
 
-bool GestionBD::executerRequete(const QString& requete) {
+bool GestionBD::executerRequete(const QString& requete)
+{
     QSqlQuery query;
     if (!query.exec(requete)) {
         qDebug() << "Erreur requête SQL:" << query.lastError().text();
@@ -97,7 +139,8 @@ bool GestionBD::executerRequete(const QString& requete) {
     return true;
 }
 
-QString GestionBD::genererNumeroCompte(const QString& prefixe) {
+QString GestionBD::genererNumeroCompte(const QString& prefixe)
+{
     QSqlQuery query;
     query.prepare("SELECT COUNT(*) FROM Comptes WHERE numero LIKE ?");
     query.addBindValue(prefixe + "%");
@@ -109,8 +152,8 @@ QString GestionBD::genererNumeroCompte(const QString& prefixe) {
     return QString();
 }
 
-// Gestion des banques
-bool GestionBD::creerBanque(const QString& nom, const QString& codeBanque) {
+bool GestionBD::creerBanque(const QString& nom, const QString& codeBanque)
+{
     QSqlQuery query;
     query.prepare("INSERT INTO Banques(nom, code_banque) VALUES (?, ?)");
     query.addBindValue(nom);
@@ -118,24 +161,24 @@ bool GestionBD::creerBanque(const QString& nom, const QString& codeBanque) {
     return query.exec();
 }
 
-int GestionBD::getBanqueId(const QString& codeBanque) {
+int GestionBD::getBanqueId(const QString& codeBanque)
+{
     QSqlQuery query;
     query.prepare("SELECT id FROM Banques WHERE code_banque = ?");
     query.addBindValue(codeBanque);
     return (query.exec() && query.next()) ? query.value(0).toInt() : -1;
 }
 
-QString GestionBD::getNomBanque(const QString& codeBanque) {
+QString GestionBD::getNomBanque(const QString& codeBanque)
+{
     QSqlQuery query;
     query.prepare("SELECT nom FROM Banques WHERE code_banque = ?");
     query.addBindValue(codeBanque);
     return (query.exec() && query.next()) ? query.value(0).toString() : "";
 }
 
-// Gestion des utilisateurs
-bool GestionBD::creerUtilisateur(const QString& nomComplet,
-                                 const QString& email,
-                                 const QString& motDePasse) {
+bool GestionBD::creerUtilisateur(const QString& nomComplet, const QString& email, const QString& motDePasse)
+{
     QSqlQuery query;
     query.prepare("INSERT INTO Utilisateurs(nom_complet, email, mot_de_passe) "
                   "VALUES (?, ?, ?)");
@@ -145,9 +188,8 @@ bool GestionBD::creerUtilisateur(const QString& nomComplet,
     return query.exec();
 }
 
-bool GestionBD::authentifierUtilisateur(const QString& email,
-                                        const QString& motDePasse,
-                                        QString& idUtilisateur) {
+bool GestionBD::authentifierUtilisateur(const QString& email, const QString& motDePasse, QString& idUtilisateur)
+{
     QSqlQuery query;
     query.prepare("SELECT id, mot_de_passe FROM Utilisateurs WHERE email = ?");
     query.addBindValue(email);
@@ -162,19 +204,17 @@ bool GestionBD::authentifierUtilisateur(const QString& email,
     return false;
 }
 
-bool GestionBD::existeUtilisateur(const QString& email) {
+bool GestionBD::existeUtilisateur(const QString& email)
+{
     QSqlQuery query;
     query.prepare("SELECT 1 FROM Utilisateurs WHERE email = ?");
     query.addBindValue(email);
     return query.exec() && query.next();
 }
 
-// Gestion des comptes
-bool GestionBD::creerCompte(const QString& typeCompte,
-                            const QString& idUtilisateur,
-                            const QString& codeBanque,
-                            double soldeInitial,
-                            double parametreSupplementaire) {
+bool GestionBD::creerCompte(const QString& typeCompte, const QString& idUtilisateur,
+                            const QString& codeBanque, double soldeInitial, double parametreSupplementaire)
+{
     int idBanque = getBanqueId(codeBanque);
     if (idBanque == -1) return false;
 
@@ -201,7 +241,25 @@ bool GestionBD::creerCompte(const QString& typeCompte,
     return query.exec();
 }
 
-QList<CompteBancaire*> GestionBD::getComptesUtilisateur(const QString& idUtilisateur) {
+bool GestionBD::supprimerCompte(const QString& idCompte)
+{
+    QSqlQuery query;
+    query.prepare("DELETE FROM Comptes WHERE id = ?");
+    query.addBindValue(idCompte);
+    return query.exec();
+}
+
+bool GestionBD::compteExiste(const QString& idUtilisateur, const QString& typeCompte)
+{
+    QSqlQuery query;
+    query.prepare("SELECT 1 FROM Comptes WHERE id_utilisateur = ? AND type = ?");
+    query.addBindValue(idUtilisateur);
+    query.addBindValue(typeCompte);
+    return query.exec() && query.next();
+}
+
+QList<CompteBancaire*> GestionBD::getComptesUtilisateur(const QString& idUtilisateur)
+{
     QList<CompteBancaire*> comptes;
     QSqlQuery query;
     query.prepare("SELECT c.id, c.numero, c.type, c.solde, c.decouvert_autorise, c.taux_interet, "
@@ -223,25 +281,11 @@ QList<CompteBancaire*> GestionBD::getComptesUtilisateur(const QString& idUtilisa
 
             if (type == "COURANT") {
                 double decouvert = query.value("decouvert_autorise").toDouble();
-                CompteCourant* cc = new CompteCourant(
-                    id,           // QString id
-                    numero,       // QString numeroCompte
-                    titulaire,    // QString nomTitulaire
-                    solde,        // double soldeInitial
-                    decouvert,    // double decouvertAutorise
-                    banque        // QString banque
-                    );
+                CompteCourant* cc = new CompteCourant(id, numero, titulaire, solde, decouvert, banque);
                 comptes.append(cc);
             } else {
                 double taux = query.value("taux_interet").toDouble();
-                CompteEpargne* ce = new CompteEpargne(
-                    id,           // QString id
-                    numero,       // QString numeroCompte
-                    titulaire,    // QString nomTitulaire
-                    solde,        // double soldeInitial
-                    taux,         // double tauxInteret
-                    banque        // QString banque
-                    );
+                CompteEpargne* ce = new CompteEpargne(id, numero, titulaire, solde, taux, banque);
                 comptes.append(ce);
             }
         }
@@ -249,7 +293,8 @@ QList<CompteBancaire*> GestionBD::getComptesUtilisateur(const QString& idUtilisa
     return comptes;
 }
 
-CompteBancaire* GestionBD::getCompte(const QString& numeroCompte) {
+CompteBancaire* GestionBD::getCompte(const QString& numeroCompte)
+{
     QSqlQuery query;
     query.prepare("SELECT c.id, c.type, c.solde, c.decouvert_autorise, c.taux_interet, "
                   "b.nom as nom_banque, u.nom_complet as nom_titulaire "
@@ -269,31 +314,15 @@ CompteBancaire* GestionBD::getCompte(const QString& numeroCompte) {
 
     if (type == "COURANT") {
         double decouvert = query.value("decouvert_autorise").toDouble();
-        CompteCourant* cc = new CompteCourant(
-            id,           // QString id
-            numeroCompte, // QString numeroCompte
-            titulaire,    // QString nomTitulaire
-            solde,        // double soldeInitial
-            decouvert,    // double decouvertAutorise
-            banque        // QString banque
-            );
-        return cc;
+        return new CompteCourant(id, numeroCompte, titulaire, solde, decouvert, banque);
     } else {
         double taux = query.value("taux_interet").toDouble();
-        CompteEpargne* ce = new CompteEpargne(
-            id,           // QString id
-            numeroCompte, // QString numeroCompte
-            titulaire,    // QString nomTitulaire
-            solde,        // double soldeInitial
-            taux,         // double tauxInteret
-            banque        // QString banque
-            );
-        return ce;
+        return new CompteEpargne(id, numeroCompte, titulaire, solde, taux, banque);
     }
 }
 
-// Gestion des transactions
-bool GestionBD::enregistrerTransaction(const QString& compteId, const QString& type, double montant) {
+bool GestionBD::enregistrerTransaction(const QString& compteId, const QString& type, double montant)
+{
     QSqlQuery query;
     query.prepare("INSERT INTO Transactions(compte_id, type, montant) "
                   "VALUES (?, ?, ?)");
@@ -303,13 +332,13 @@ bool GestionBD::enregistrerTransaction(const QString& compteId, const QString& t
     return query.exec();
 }
 
-bool GestionBD::effectuerDepot(const QString& numeroCompte, double montant) {
+bool GestionBD::effectuerDepot(const QString& numeroCompte, double montant)
+{
     CompteBancaire* compte = getCompte(numeroCompte);
     if (!compte) return false;
 
     compte->deposer(montant);
 
-    // Mettre à jour le solde dans la base
     QSqlQuery query;
     query.prepare("UPDATE Comptes SET solde = ? WHERE numero = ?");
     query.addBindValue(compte->getSolde());
@@ -317,15 +346,14 @@ bool GestionBD::effectuerDepot(const QString& numeroCompte, double montant) {
 
     if (!query.exec()) return false;
 
-    // Enregistrer la transaction
     return enregistrerTransaction(compte->getId(), "DEPOT", montant);
 }
 
-bool GestionBD::effectuerRetrait(const QString& numeroCompte, double montant) {
+bool GestionBD::effectuerRetrait(const QString& numeroCompte, double montant)
+{
     CompteBancaire* compte = getCompte(numeroCompte);
     if (!compte || !compte->retirer(montant)) return false;
 
-    // Mettre à jour le solde dans la base
     QSqlQuery query;
     query.prepare("UPDATE Comptes SET solde = ? WHERE numero = ?");
     query.addBindValue(compte->getSolde());
@@ -333,23 +361,21 @@ bool GestionBD::effectuerRetrait(const QString& numeroCompte, double montant) {
 
     if (!query.exec()) return false;
 
-    // Enregistrer la transaction
     return enregistrerTransaction(compte->getId(), "RETRAIT", montant);
 }
 
-bool GestionBD::effectuerVirement(const QString& compteSource,
-                                  const QString& compteDest,
-                                  double montant) {
+bool GestionBD::effectuerVirement(const QString& compteSource, const QString& compteDest, double montant)
+{
     if (!effectuerRetrait(compteSource, montant)) return false;
     if (!effectuerDepot(compteDest, montant)) {
-        // Compensation en cas d'échec
-        effectuerDepot(compteSource, montant);
+        effectuerDepot(compteSource, montant); // Compensation
         return false;
     }
     return true;
 }
 
-QMap<QString, QVariant> GestionBD::getDerniereTransaction(const QString& compteId) {
+QMap<QString, QVariant> GestionBD::getDerniereTransaction(const QString& compteId)
+{
     QMap<QString, QVariant> transaction;
     QSqlQuery query;
     query.prepare("SELECT type, montant, strftime('%d/%m/%Y', date) as date_formatee "
@@ -367,7 +393,8 @@ QMap<QString, QVariant> GestionBD::getDerniereTransaction(const QString& compteI
     return transaction;
 }
 
-QList<QString> GestionBD::getHistoriqueTransactions(const QString& numeroCompte) {
+QList<QString> GestionBD::getHistoriqueTransactions(const QString& numeroCompte)
+{
     QList<QString> historique;
     CompteBancaire* compte = getCompte(numeroCompte);
     if (!compte) return historique;
@@ -391,8 +418,8 @@ QList<QString> GestionBD::getHistoriqueTransactions(const QString& numeroCompte)
     return historique;
 }
 
-// Journalisation
-bool GestionBD::enregistrerConnexion(const QString& idUtilisateur, bool succes) {
+bool GestionBD::enregistrerConnexion(const QString& idUtilisateur, bool succes)
+{
     QSqlQuery query;
     query.prepare("INSERT INTO HistoriqueConnexion(id_utilisateur, succes) "
                   "VALUES (?, ?)");
@@ -404,11 +431,11 @@ bool GestionBD::enregistrerConnexion(const QString& idUtilisateur, bool succes) 
 bool GestionBD::modifierUtilisateur(const QString& idUtilisateur,
                                     const QString& nouveauNomComplet,
                                     const QString& nouvelEmail,
-                                    const QString& nouveauMotDePasse) {
+                                    const QString& nouveauMotDePasse)
+{
     m_db.transaction();
 
     try {
-        // Vérifier si le nouvel email existe déjà
         if (!nouvelEmail.isEmpty()) {
             QSqlQuery checkEmail;
             checkEmail.prepare("SELECT id FROM Utilisateurs WHERE email = ? AND id != ?");
@@ -419,7 +446,6 @@ bool GestionBD::modifierUtilisateur(const QString& idUtilisateur,
             }
         }
 
-        // Mise à jour des informations
         QSqlQuery query;
         if (nouveauMotDePasse.isEmpty()) {
             query.prepare("UPDATE Utilisateurs SET nom_complet = ?, email = ? WHERE id = ?");

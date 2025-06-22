@@ -1,16 +1,14 @@
 #include "comptecourant.h"
 #include <QDebug>
 
-CompteCourant::CompteCourant(const QString& id,
-                             const QString& numeroCompte,
-                             const QString& nomTitulaire,
-                             double soldeInitial,
-                             double decouvertAutorise,
-                             const QString& banque)
+CompteCourant::CompteCourant(const QString& id, const QString& numeroCompte,
+                             const QString& nomTitulaire, double soldeInitial,
+                             double decouvertAutorise, const QString& banque)
     : CompteBancaire(id, numeroCompte, nomTitulaire, soldeInitial, banque),
     m_decouvertAutorise(decouvertAutorise) {}
 
-bool CompteCourant::retirer(double montant) {
+bool CompteCourant::retirer(double montant)
+{
     if (montant > 0 && (m_solde - montant) >= -m_decouvertAutorise) {
         m_solde -= montant;
         qDebug() << "Retrait effectué. Nouveau solde :" << m_solde
@@ -21,7 +19,8 @@ bool CompteCourant::retirer(double montant) {
     return false;
 }
 
-void CompteCourant::afficherDetails() const {
+void CompteCourant::afficherDetails() const
+{
     qDebug() << "=== Compte Courant ===";
     qDebug() << "ID:" << getId();
     qDebug() << "Titulaire:" << getNomTitulaire();
@@ -34,10 +33,12 @@ void CompteCourant::afficherDetails() const {
     qDebug() << "======================";
 }
 
-QString CompteCourant::getType() const {
+QString CompteCourant::getType() const
+{
     return "Compte Courant";
 }
 
-double CompteCourant::getDecouvertAutorise() const {
+double CompteCourant::getDecouvertAutorise() const
+{
     return m_decouvertAutorise;
 }

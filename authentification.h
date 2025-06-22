@@ -2,9 +2,9 @@
 #define AUTHENTIFICATION_H
 
 #include <QDialog>
+#include <QRegularExpression>
 #include <QLineEdit>
 #include "gestionbd.h"
-#include "fenetreprincipale.h"
 
 namespace Ui {
 class Authentification;
@@ -18,32 +18,27 @@ public:
     explicit Authentification(QWidget *parent = nullptr);
     ~Authentification();
 
-    QString getCurrentUserId() const { return m_currentUserId; }
-
-    // Méthodes de validation rendues publiques et statiques
     static bool validerNom(const QString& nom);
     static bool validerEmail(const QString& email);
     static bool validerMotDePasse(const QString& motDePasse);
 
-protected:
-    bool eventFilter(QObject* obj, QEvent* event) override;
-
-private slots:
-    void on_btn_creer_compte_zone_connexion_clicked();
-    void on_btn_se_connecter_zone_connexion_clicked();
-    void on_btn_creer_compte_zone_creer_compte_clicked();
-    void on_btn_se_connecter_zone_creer_compte_clicked();
-
 signals:
     void authentificationReussie(const QString& userId);
 
+private slots:
+    void on_btn_creer_compte_zone_connexion_clicked();
+    void on_btn_se_connecter_zone_creer_compte_clicked();
+    void on_btn_creer_compte_zone_creer_compte_clicked();
+    void on_btn_se_connecter_zone_connexion_clicked();
+    void viderMessagesErreur();
+
 private:
     Ui::Authentification *ui;
-    GestionBD m_gestionBD;
     QString m_currentUserId;
+    GestionBD m_gestionBD;
 
     void setupPasswordVisibilityToggle(QLineEdit* passwordLineEdit);
-    void viderMessagesErreur();
+    bool eventFilter(QObject* obj, QEvent* event) override;
 };
 
 #endif // AUTHENTIFICATION_H

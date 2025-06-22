@@ -7,10 +7,10 @@
 #include <QEvent>
 
 Authentification::Authentification(QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::Authentification)
-    , m_currentUserId("")
-    , m_gestionBD("banque.db")
+    : QDialog(parent),
+    ui(new Ui::Authentification),
+    m_currentUserId(""),
+    m_gestionBD("banque.db")
 {
     ui->setupUi(this);
 
@@ -56,35 +56,42 @@ Authentification::~Authentification()
     delete ui;
 }
 
-bool Authentification::validerNom(const QString& nom) {
+bool Authentification::validerNom(const QString& nom)
+{
     if (nom.isEmpty()) return false;
     QChar premierChar = nom.at(0);
     return premierChar.isLetter();
 }
 
-bool Authentification::validerEmail(const QString& email) {
+bool Authentification::validerEmail(const QString& email)
+{
     QRegularExpression regex(R"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)");
     return regex.match(email).hasMatch();
 }
 
-bool Authentification::validerMotDePasse(const QString& motDePasse) {
+bool Authentification::validerMotDePasse(const QString& motDePasse)
+{
     return motDePasse.length() >= 8;
 }
 
-void Authentification::viderMessagesErreur() {
+void Authentification::viderMessagesErreur()
+{
     ui->zone_message_erreur_page_creer_compte->clear();
     ui->zone_message_erreur_page_se_connecter->clear();
 }
 
-void Authentification::on_btn_creer_compte_zone_connexion_clicked() {
+void Authentification::on_btn_creer_compte_zone_connexion_clicked()
+{
     ui->stackedWidget->setCurrentIndex(1);
 }
 
-void Authentification::on_btn_se_connecter_zone_creer_compte_clicked() {
+void Authentification::on_btn_se_connecter_zone_creer_compte_clicked()
+{
     ui->stackedWidget->setCurrentIndex(0);
 }
 
-void Authentification::on_btn_creer_compte_zone_creer_compte_clicked() {
+void Authentification::on_btn_creer_compte_zone_creer_compte_clicked()
+{
     QString nom = ui->lineEdit_nom_complet_zone_creer_compte->text().trimmed();
     QString email = ui->lineEdit_email_zone_creer_compte->text().trimmed();
     QString mdp = ui->lineEdit_mot_de_passe_zone_creer_compte->text();

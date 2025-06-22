@@ -3,22 +3,20 @@
 
 #include "comptebancaire.h"
 
-class CompteCourant : public CompteBancaire {
-private:
-    double m_decouvertAutorise;
-
+class CompteCourant : public CompteBancaire
+{
 public:
-    CompteCourant(const QString& id,
-                  const QString& numeroCompte,
-                  const QString& nomTitulaire,
-                  double soldeInitial,
-                  double decouvertAutorise,
-                  const QString& banque = "");
+    CompteCourant(const QString& id, const QString& numeroCompte,
+                  const QString& nomTitulaire, double soldeInitial,
+                  double decouvertAutorise, const QString& banque = "");
 
+    bool retirer(double montant) override;
     void afficherDetails() const override;
     QString getType() const override;
-    bool retirer(double montant) override;
     double getDecouvertAutorise() const;
+
+private:
+    double m_decouvertAutorise;
 };
 
 #endif // COMPTECOURANT_H

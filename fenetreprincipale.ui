@@ -1000,7 +1000,7 @@ outline:none ;
               <property name="geometry">
                <rect>
                 <x>-135</x>
-                <y>-140</y>
+                <y>-9</y>
                 <width>1012</width>
                 <height>900</height>
                </rect>
@@ -1230,7 +1230,7 @@ outline:none ;
                              <widget class="QWidget" name="carte_courant_principal" native="true">
                               <property name="minimumSize">
                                <size>
-                                <width>400</width>
+                                <width>467</width>
                                 <height>260</height>
                                </size>
                               </property>
@@ -1257,29 +1257,353 @@ outline:none ;
                                 <number>2</number>
                                </property>
                                <item>
-                                <widget class="QWidget" name="widget_9" native="true">
-                                 <property name="minimumSize">
-                                  <size>
-                                   <width>0</width>
-                                   <height>0</height>
-                                  </size>
-                                 </property>
-                                 <layout class="QHBoxLayout" name="horizontalLayout_6">
-                                  <property name="leftMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="topMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="rightMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="bottomMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                   <widget class="QWidget" name="widget_8" native="true">
-                                    <layout class="QVBoxLayout" name="verticalLayout_7">
+                                <widget class="QWidget" name="contenuCarteCourant" native="true">
+                                 <layout class="QVBoxLayout" name="verticalLayout_12">
+                                  <item>
+                                   <widget class="QWidget" name="widget_9" native="true">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>0</width>
+                                      <height>0</height>
+                                     </size>
+                                    </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_6">
+                                     <property name="leftMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <item alignment="Qt::AlignmentFlag::AlignLeft">
+                                      <widget class="QWidget" name="widget_10" native="true">
+                                       <layout class="QVBoxLayout" name="verticalLayout_7">
+                                        <property name="spacing">
+                                         <number>2</number>
+                                        </property>
+                                        <property name="leftMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <property name="topMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <property name="rightMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <property name="bottomMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <item>
+                                         <widget class="QLabel" name="label_8">
+                                          <property name="minimumSize">
+                                           <size>
+                                            <width>137</width>
+                                            <height>16</height>
+                                           </size>
+                                          </property>
+                                          <property name="text">
+                                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; color:#1a267e;&quot;&gt;Compte Courant  Principal&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item>
+                                         <widget class="QLabel" name="label_9">
+                                          <property name="text">
+                                           <string>Compte Courant</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                       </layout>
+                                      </widget>
+                                     </item>
+                                     <item alignment="Qt::AlignmentFlag::AlignRight">
+                                      <widget class="QWidget" name="widget_20" native="true">
+                                       <layout class="QHBoxLayout" name="horizontalLayout_14">
+                                        <property name="spacing">
+                                         <number>20</number>
+                                        </property>
+                                        <item>
+                                         <widget class="QToolButton" name="btn_supprimer_compte_courant">
+                                          <property name="cursor">
+                                           <cursorShape>PointingHandCursor</cursorShape>
+                                          </property>
+                                          <property name="text">
+                                           <string/>
+                                          </property>
+                                          <property name="icon">
+                                           <iconset resource="icons.qrc">
+                                            <normaloff>:/icon_rouge/trash-2.svg</normaloff>:/icon_rouge/trash-2.svg</iconset>
+                                          </property>
+                                          <property name="iconSize">
+                                           <size>
+                                            <width>15</width>
+                                            <height>15</height>
+                                           </size>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item>
+                                         <widget class="QToolButton" name="masquer_solde_compte_courant_principale">
+                                          <property name="cursor">
+                                           <cursorShape>PointingHandCursor</cursorShape>
+                                          </property>
+                                          <property name="text">
+                                           <string/>
+                                          </property>
+                                          <property name="icon">
+                                           <iconset resource="icons.qrc">
+                                            <normaloff>:/icon_gris/eye-off.svg</normaloff>:/icon_gris/eye-off.svg</iconset>
+                                          </property>
+                                          <property name="iconSize">
+                                           <size>
+                                            <width>15</width>
+                                            <height>15</height>
+                                           </size>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                       </layout>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QWidget" name="widget_38" native="true">
+                                    <layout class="QHBoxLayout" name="horizontalLayout_10">
+                                     <property name="spacing">
+                                      <number>40</number>
+                                     </property>
+                                     <property name="leftMargin">
+                                      <number>6</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>6</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>6</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>6</number>
+                                     </property>
+                                     <item alignment="Qt::AlignmentFlag::AlignLeft">
+                                      <widget class="QWidget" name="widget_40" native="true">
+                                       <layout class="QHBoxLayout" name="horizontalLayout_30">
+                                        <item>
+                                         <widget class="QLabel" name="label_17">
+                                          <property name="text">
+                                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline;&quot;&gt;Compte :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item>
+                                         <widget class="QLabel" name="label_numero_courant">
+                                          <property name="minimumSize">
+                                           <size>
+                                            <width>80</width>
+                                            <height>0</height>
+                                           </size>
+                                          </property>
+                                          <property name="text">
+                                           <string/>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                       </layout>
+                                      </widget>
+                                     </item>
+                                     <item alignment="Qt::AlignmentFlag::AlignRight">
+                                      <widget class="QLabel" name="label_date_creation_courant">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>78</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="Line" name="line">
+                                    <property name="orientation">
+                                     <enum>Qt::Orientation::Horizontal</enum>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QWidget" name="widget_21" native="true">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>0</width>
+                                      <height>0</height>
+                                     </size>
+                                    </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_27">
+                                     <property name="leftMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <item>
+                                      <widget class="QLabel" name="label_18">
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline;&quot;&gt;Solde :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QLabel" name="label_solde_compte_courant_principale">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>100</width>
+                                         <height>0</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QWidget" name="widget_17" native="true">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>0</width>
+                                      <height>0</height>
+                                     </size>
+                                    </property>
+                                    <layout class="QVBoxLayout" name="verticalLayout_16">
+                                     <property name="spacing">
+                                      <number>4</number>
+                                     </property>
+                                     <property name="leftMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <item alignment="Qt::AlignmentFlag::AlignLeft">
+                                      <widget class="QWidget" name="widget_18" native="true">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>32</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>16777215</width>
+                                         <height>32</height>
+                                        </size>
+                                       </property>
+                                       <layout class="QHBoxLayout" name="horizontalLayout_13">
+                                        <property name="leftMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <property name="topMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <property name="rightMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <property name="bottomMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <item alignment="Qt::AlignmentFlag::AlignLeft">
+                                         <widget class="QLabel" name="label_23">
+                                          <property name="minimumSize">
+                                           <size>
+                                            <width>15</width>
+                                            <height>15</height>
+                                           </size>
+                                          </property>
+                                          <property name="maximumSize">
+                                           <size>
+                                            <width>15</width>
+                                            <height>15</height>
+                                           </size>
+                                          </property>
+                                          <property name="text">
+                                           <string/>
+                                          </property>
+                                          <property name="pixmap">
+                                           <pixmap resource="icons.qrc">:/icon_orange_warning/shield.svg</pixmap>
+                                          </property>
+                                          <property name="scaledContents">
+                                           <bool>true</bool>
+                                          </property>
+                                          <property name="alignment">
+                                           <set>Qt::AlignmentFlag::AlignCenter</set>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item>
+                                         <widget class="QLabel" name="label_decouvert_autorise">
+                                          <property name="minimumSize">
+                                           <size>
+                                            <width>216</width>
+                                            <height>0</height>
+                                           </size>
+                                          </property>
+                                          <property name="text">
+                                           <string/>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                       </layout>
+                                      </widget>
+                                     </item>
+                                     <item alignment="Qt::AlignmentFlag::AlignLeft">
+                                      <widget class="QLabel" name="label_derniere_operation_compte_courant_principale">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>200</width>
+                                         <height>20</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QWidget" name="widget_36" native="true">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>0</width>
+                                      <height>0</height>
+                                     </size>
+                                    </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_5">
                                      <property name="spacing">
                                       <number>2</number>
                                      </property>
@@ -1295,327 +1619,38 @@ outline:none ;
                                      <property name="bottomMargin">
                                       <number>2</number>
                                      </property>
-                                     <item>
-                                      <widget class="QLabel" name="label_8">
-                                       <property name="minimumSize">
-                                        <size>
-                                         <width>137</width>
-                                         <height>16</height>
-                                        </size>
-                                       </property>
-                                       <property name="text">
-                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; color:#1a267e;&quot;&gt;Compte Courant  Principal&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                       </property>
-                                      </widget>
-                                     </item>
-                                     <item>
-                                      <widget class="QLabel" name="label_9">
-                                       <property name="text">
-                                        <string>Compte Courant</string>
-                                       </property>
-                                      </widget>
-                                     </item>
-                                    </layout>
-                                   </widget>
-                                  </item>
-                                  <item alignment="Qt::AlignmentFlag::AlignTop">
-                                   <widget class="QToolButton" name="masquer_solde_compte_courant_principale">
-                                    <property name="cursor">
-                                     <cursorShape>PointingHandCursor</cursorShape>
-                                    </property>
-                                    <property name="text">
-                                     <string/>
-                                    </property>
-                                    <property name="icon">
-                                     <iconset resource="icons.qrc">
-                                      <normaloff>:/icon_gris/eye-off.svg</normaloff>:/icon_gris/eye-off.svg</iconset>
-                                    </property>
-                                    <property name="iconSize">
-                                     <size>
-                                      <width>15</width>
-                                      <height>15</height>
-                                     </size>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                 </layout>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QWidget" name="widget_17" native="true">
-                                 <layout class="QHBoxLayout" name="horizontalLayout_10">
-                                  <property name="spacing">
-                                   <number>40</number>
-                                  </property>
-                                  <property name="leftMargin">
-                                   <number>6</number>
-                                  </property>
-                                  <property name="topMargin">
-                                   <number>6</number>
-                                  </property>
-                                  <property name="rightMargin">
-                                   <number>6</number>
-                                  </property>
-                                  <property name="bottomMargin">
-                                   <number>6</number>
-                                  </property>
-                                  <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                   <widget class="QWidget" name="widget_38" native="true">
-                                    <layout class="QHBoxLayout" name="horizontalLayout_30">
-                                     <item>
-                                      <widget class="QLabel" name="label_17">
-                                       <property name="text">
-                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline;&quot;&gt;Compte :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                       </property>
-                                      </widget>
-                                     </item>
-                                     <item>
-                                      <widget class="QLabel" name="label_numero_courant">
-                                       <property name="minimumSize">
-                                        <size>
-                                         <width>80</width>
-                                         <height>0</height>
-                                        </size>
-                                       </property>
-                                       <property name="text">
-                                        <string/>
-                                       </property>
-                                      </widget>
-                                     </item>
-                                    </layout>
-                                   </widget>
-                                  </item>
-                                  <item alignment="Qt::AlignmentFlag::AlignRight">
-                                   <widget class="QLabel" name="label_date_creation_courant">
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>78</width>
-                                      <height>30</height>
-                                     </size>
-                                    </property>
-                                    <property name="text">
-                                     <string/>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                 </layout>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="Line" name="line">
-                                 <property name="orientation">
-                                  <enum>Qt::Orientation::Horizontal</enum>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                <widget class="QWidget" name="widget_21" native="true">
-                                 <property name="minimumSize">
-                                  <size>
-                                   <width>0</width>
-                                   <height>0</height>
-                                  </size>
-                                 </property>
-                                 <layout class="QHBoxLayout" name="horizontalLayout_27">
-                                  <property name="leftMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="topMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="rightMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="bottomMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <item>
-                                   <widget class="QLabel" name="label_18">
-                                    <property name="text">
-                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline;&quot;&gt;Solde :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                  <item>
-                                   <widget class="QLabel" name="label_solde_compte_courant_principale">
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>100</width>
-                                      <height>0</height>
-                                     </size>
-                                    </property>
-                                    <property name="text">
-                                     <string/>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                 </layout>
-                                </widget>
-                               </item>
-                               <item alignment="Qt::AlignmentFlag::AlignVCenter">
-                                <widget class="QWidget" name="widget_10" native="true">
-                                 <property name="minimumSize">
-                                  <size>
-                                   <width>0</width>
-                                   <height>0</height>
-                                  </size>
-                                 </property>
-                                 <layout class="QVBoxLayout" name="verticalLayout_16">
-                                  <property name="spacing">
-                                   <number>4</number>
-                                  </property>
-                                  <property name="leftMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="topMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="rightMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="bottomMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                   <widget class="QWidget" name="widget_18" native="true">
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>0</width>
-                                      <height>32</height>
-                                     </size>
-                                    </property>
-                                    <property name="maximumSize">
-                                     <size>
-                                      <width>16777215</width>
-                                      <height>32</height>
-                                     </size>
-                                    </property>
-                                    <layout class="QHBoxLayout" name="horizontalLayout_13">
-                                     <property name="leftMargin">
-                                      <number>2</number>
-                                     </property>
-                                     <property name="topMargin">
-                                      <number>2</number>
-                                     </property>
-                                     <property name="rightMargin">
-                                      <number>2</number>
-                                     </property>
-                                     <property name="bottomMargin">
-                                      <number>2</number>
-                                     </property>
                                      <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                      <widget class="QLabel" name="label_23">
-                                       <property name="minimumSize">
-                                        <size>
-                                         <width>15</width>
-                                         <height>15</height>
-                                        </size>
-                                       </property>
-                                       <property name="maximumSize">
-                                        <size>
-                                         <width>15</width>
-                                         <height>15</height>
-                                        </size>
+                                      <widget class="QPushButton" name="btn_effectuer_transaction_compte_courant">
+                                       <property name="cursor">
+                                        <cursorShape>PointingHandCursor</cursorShape>
                                        </property>
                                        <property name="text">
-                                        <string/>
+                                        <string>Effectuer une transaction</string>
                                        </property>
-                                       <property name="pixmap">
-                                        <pixmap resource="icons.qrc">:/icon_orange_warning/shield.svg</pixmap>
-                                       </property>
-                                       <property name="scaledContents">
-                                        <bool>true</bool>
-                                       </property>
-                                       <property name="alignment">
-                                        <set>Qt::AlignmentFlag::AlignCenter</set>
+                                       <property name="icon">
+                                        <iconset resource="icons.qrc">
+                                         <normaloff>:/icon_gris/send.svg</normaloff>:/icon_gris/send.svg</iconset>
                                        </property>
                                       </widget>
                                      </item>
-                                     <item>
-                                      <widget class="QLabel" name="label_decouvert_autorise">
-                                       <property name="minimumSize">
-                                        <size>
-                                         <width>216</width>
-                                         <height>0</height>
-                                        </size>
+                                     <item alignment="Qt::AlignmentFlag::AlignLeft">
+                                      <widget class="QPushButton" name="btn_consulter_compte_courant_principal">
+                                       <property name="cursor">
+                                        <cursorShape>PointingHandCursor</cursorShape>
+                                       </property>
+                                       <property name="layoutDirection">
+                                        <enum>Qt::LayoutDirection::RightToLeft</enum>
                                        </property>
                                        <property name="text">
-                                        <string/>
+                                        <string>Consulter</string>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset resource="icons.qrc">
+                                         <normaloff>:/icon_blanc/arrow-right.svg</normaloff>:/icon_blanc/arrow-right.svg</iconset>
                                        </property>
                                       </widget>
                                      </item>
                                     </layout>
-                                   </widget>
-                                  </item>
-                                  <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                   <widget class="QLabel" name="label_derniere_operation_compte_courant_principale">
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>200</width>
-                                      <height>20</height>
-                                     </size>
-                                    </property>
-                                    <property name="text">
-                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                 </layout>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QWidget" name="widget_36" native="true">
-                                 <property name="minimumSize">
-                                  <size>
-                                   <width>0</width>
-                                   <height>0</height>
-                                  </size>
-                                 </property>
-                                 <layout class="QHBoxLayout" name="horizontalLayout_5">
-                                  <property name="spacing">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="leftMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="topMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="rightMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="bottomMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                   <widget class="QPushButton" name="btn_effectuer_transaction_compte_courant">
-                                    <property name="cursor">
-                                     <cursorShape>PointingHandCursor</cursorShape>
-                                    </property>
-                                    <property name="text">
-                                     <string>Effectuer une transaction</string>
-                                    </property>
-                                    <property name="icon">
-                                     <iconset resource="icons.qrc">
-                                      <normaloff>:/icon_gris/send.svg</normaloff>:/icon_gris/send.svg</iconset>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                  <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                   <widget class="QPushButton" name="btn_consulter_compte_courant_principal">
-                                    <property name="cursor">
-                                     <cursorShape>PointingHandCursor</cursorShape>
-                                    </property>
-                                    <property name="layoutDirection">
-                                     <enum>Qt::LayoutDirection::RightToLeft</enum>
-                                    </property>
-                                    <property name="text">
-                                     <string>Consulter</string>
-                                    </property>
-                                    <property name="icon">
-                                     <iconset resource="icons.qrc">
-                                      <normaloff>:/icon_blanc/arrow-right.svg</normaloff>:/icon_blanc/arrow-right.svg</iconset>
-                                    </property>
                                    </widget>
                                   </item>
                                  </layout>
@@ -1655,32 +1690,354 @@ outline:none ;
                                 <number>2</number>
                                </property>
                                <item>
-                                <widget class="QWidget" name="widget_11" native="true">
-                                 <property name="minimumSize">
-                                  <size>
-                                   <width>0</width>
-                                   <height>0</height>
-                                  </size>
-                                 </property>
-                                 <layout class="QHBoxLayout" name="horizontalLayout_7">
-                                  <property name="spacing">
-                                   <number>4</number>
-                                  </property>
-                                  <property name="leftMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="topMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="rightMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="bottomMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                   <widget class="QWidget" name="widget_12" native="true">
-                                    <layout class="QVBoxLayout" name="verticalLayout_10">
+                                <widget class="QWidget" name="contenuCarteEpargne" native="true">
+                                 <layout class="QVBoxLayout" name="verticalLayout_13">
+                                  <item>
+                                   <widget class="QWidget" name="widget_11" native="true">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>0</width>
+                                      <height>0</height>
+                                     </size>
+                                    </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_7">
+                                     <property name="spacing">
+                                      <number>4</number>
+                                     </property>
+                                     <property name="leftMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <item alignment="Qt::AlignmentFlag::AlignLeft">
+                                      <widget class="QWidget" name="widget_12" native="true">
+                                       <layout class="QVBoxLayout" name="verticalLayout_10">
+                                        <property name="spacing">
+                                         <number>2</number>
+                                        </property>
+                                        <property name="leftMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <property name="topMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <property name="rightMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <property name="bottomMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <item>
+                                         <widget class="QLabel" name="label_10">
+                                          <property name="text">
+                                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; color:#1a267e;&quot;&gt;Compte Epargne&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item>
+                                         <widget class="QLabel" name="label_11">
+                                          <property name="text">
+                                           <string>Livret Epargne</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                       </layout>
+                                      </widget>
+                                     </item>
+                                     <item alignment="Qt::AlignmentFlag::AlignRight">
+                                      <widget class="QWidget" name="widget_39" native="true">
+                                       <layout class="QHBoxLayout" name="horizontalLayout_31">
+                                        <property name="spacing">
+                                         <number>20</number>
+                                        </property>
+                                        <item>
+                                         <widget class="QToolButton" name="btn_supprimer_compte_epargne">
+                                          <property name="cursor">
+                                           <cursorShape>PointingHandCursor</cursorShape>
+                                          </property>
+                                          <property name="text">
+                                           <string/>
+                                          </property>
+                                          <property name="icon">
+                                           <iconset resource="icons.qrc">
+                                            <normaloff>:/icon_rouge/trash-2.svg</normaloff>:/icon_rouge/trash-2.svg</iconset>
+                                          </property>
+                                          <property name="iconSize">
+                                           <size>
+                                            <width>15</width>
+                                            <height>15</height>
+                                           </size>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item>
+                                         <widget class="QToolButton" name="masquer_solde_compte_epargne">
+                                          <property name="cursor">
+                                           <cursorShape>PointingHandCursor</cursorShape>
+                                          </property>
+                                          <property name="text">
+                                           <string/>
+                                          </property>
+                                          <property name="icon">
+                                           <iconset resource="icons.qrc">
+                                            <normaloff>:/icon_gris/eye-off.svg</normaloff>:/icon_gris/eye-off.svg</iconset>
+                                          </property>
+                                          <property name="iconSize">
+                                           <size>
+                                            <width>15</width>
+                                            <height>15</height>
+                                           </size>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                       </layout>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QWidget" name="widget_15" native="true">
+                                    <layout class="QHBoxLayout" name="horizontalLayout_9">
+                                     <property name="spacing">
+                                      <number>40</number>
+                                     </property>
+                                     <item alignment="Qt::AlignmentFlag::AlignLeft">
+                                      <widget class="QWidget" name="widget_37" native="true">
+                                       <layout class="QHBoxLayout" name="horizontalLayout_29">
+                                        <item>
+                                         <widget class="QLabel" name="label_15">
+                                          <property name="text">
+                                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline;&quot;&gt;Compte :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item>
+                                         <widget class="QLabel" name="label_numero_epargne">
+                                          <property name="minimumSize">
+                                           <size>
+                                            <width>80</width>
+                                            <height>0</height>
+                                           </size>
+                                          </property>
+                                          <property name="text">
+                                           <string/>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                       </layout>
+                                      </widget>
+                                     </item>
+                                     <item alignment="Qt::AlignmentFlag::AlignRight">
+                                      <widget class="QLabel" name="label_date_creation_compte_epargne">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>78</width>
+                                         <height>30</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>78</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="Line" name="line_2">
+                                    <property name="orientation">
+                                     <enum>Qt::Orientation::Horizontal</enum>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QWidget" name="widget_16" native="true">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>0</width>
+                                      <height>0</height>
+                                     </size>
+                                    </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_15">
+                                     <property name="leftMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <item>
+                                      <widget class="QLabel" name="label_16">
+                                       <property name="text">
+                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline;&quot;&gt;Solde :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QLabel" name="label_solde_compte_epargne">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>100</width>
+                                         <height>0</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QWidget" name="widget_13" native="true">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>0</width>
+                                      <height>0</height>
+                                     </size>
+                                    </property>
+                                    <layout class="QVBoxLayout" name="verticalLayout_11">
+                                     <property name="spacing">
+                                      <number>4</number>
+                                     </property>
+                                     <property name="leftMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <item>
+                                      <widget class="QWidget" name="widget_35" native="true">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>0</width>
+                                         <height>0</height>
+                                        </size>
+                                       </property>
+                                       <layout class="QHBoxLayout" name="horizontalLayout_28">
+                                        <property name="leftMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <property name="topMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <property name="rightMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <property name="bottomMargin">
+                                         <number>2</number>
+                                        </property>
+                                        <item>
+                                         <widget class="QLabel" name="label_24">
+                                          <property name="minimumSize">
+                                           <size>
+                                            <width>15</width>
+                                            <height>15</height>
+                                           </size>
+                                          </property>
+                                          <property name="maximumSize">
+                                           <size>
+                                            <width>15</width>
+                                            <height>15</height>
+                                           </size>
+                                          </property>
+                                          <property name="frameShape">
+                                           <enum>QFrame::Shape::NoFrame</enum>
+                                          </property>
+                                          <property name="text">
+                                           <string/>
+                                          </property>
+                                          <property name="pixmap">
+                                           <pixmap resource="icons.qrc">:/icon_vert_succes/percent.svg</pixmap>
+                                          </property>
+                                          <property name="scaledContents">
+                                           <bool>true</bool>
+                                          </property>
+                                          <property name="alignment">
+                                           <set>Qt::AlignmentFlag::AlignCenter</set>
+                                          </property>
+                                          <property name="wordWrap">
+                                           <bool>true</bool>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item>
+                                         <widget class="QLabel" name="label_taux_interet">
+                                          <property name="minimumSize">
+                                           <size>
+                                            <width>216</width>
+                                            <height>0</height>
+                                           </size>
+                                          </property>
+                                          <property name="text">
+                                           <string/>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item alignment="Qt::AlignmentFlag::AlignRight">
+                                         <widget class="QPushButton" name="btn_appliquer_interets">
+                                          <property name="cursor">
+                                           <cursorShape>PointingHandCursor</cursorShape>
+                                          </property>
+                                          <property name="text">
+                                           <string>Appliquer intérêts</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                       </layout>
+                                      </widget>
+                                     </item>
+                                     <item alignment="Qt::AlignmentFlag::AlignLeft">
+                                      <widget class="QLabel" name="label_derniere_operation_livret_epargne">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>200</width>
+                                         <height>20</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QWidget" name="widget_14" native="true">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>0</width>
+                                      <height>0</height>
+                                     </size>
+                                    </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_8">
                                      <property name="spacing">
                                       <number>2</number>
                                      </property>
@@ -1696,325 +2053,38 @@ outline:none ;
                                      <property name="bottomMargin">
                                       <number>2</number>
                                      </property>
-                                     <item>
-                                      <widget class="QLabel" name="label_10">
-                                       <property name="text">
-                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; color:#1a267e;&quot;&gt;Compte Epargne&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                       </property>
-                                      </widget>
-                                     </item>
-                                     <item>
-                                      <widget class="QLabel" name="label_11">
-                                       <property name="text">
-                                        <string>Livret Epargne</string>
-                                       </property>
-                                      </widget>
-                                     </item>
-                                    </layout>
-                                   </widget>
-                                  </item>
-                                  <item alignment="Qt::AlignmentFlag::AlignTop">
-                                   <widget class="QToolButton" name="masquer_solde_compte_epargne">
-                                    <property name="cursor">
-                                     <cursorShape>PointingHandCursor</cursorShape>
-                                    </property>
-                                    <property name="text">
-                                     <string/>
-                                    </property>
-                                    <property name="icon">
-                                     <iconset resource="icons.qrc">
-                                      <normaloff>:/icon_gris/eye-off.svg</normaloff>:/icon_gris/eye-off.svg</iconset>
-                                    </property>
-                                    <property name="iconSize">
-                                     <size>
-                                      <width>15</width>
-                                      <height>15</height>
-                                     </size>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                 </layout>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QWidget" name="widget_15" native="true">
-                                 <layout class="QHBoxLayout" name="horizontalLayout_9">
-                                  <property name="spacing">
-                                   <number>40</number>
-                                  </property>
-                                  <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                   <widget class="QWidget" name="widget_37" native="true">
-                                    <layout class="QHBoxLayout" name="horizontalLayout_29">
-                                     <item>
-                                      <widget class="QLabel" name="label_15">
-                                       <property name="text">
-                                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline;&quot;&gt;Compte :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                       </property>
-                                      </widget>
-                                     </item>
-                                     <item>
-                                      <widget class="QLabel" name="label_numero_epargne">
-                                       <property name="minimumSize">
-                                        <size>
-                                         <width>80</width>
-                                         <height>0</height>
-                                        </size>
-                                       </property>
-                                       <property name="text">
-                                        <string/>
-                                       </property>
-                                      </widget>
-                                     </item>
-                                    </layout>
-                                   </widget>
-                                  </item>
-                                  <item alignment="Qt::AlignmentFlag::AlignRight">
-                                   <widget class="QLabel" name="label_date_creation_compte_epargne">
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>78</width>
-                                      <height>30</height>
-                                     </size>
-                                    </property>
-                                    <property name="maximumSize">
-                                     <size>
-                                      <width>78</width>
-                                      <height>16777215</height>
-                                     </size>
-                                    </property>
-                                    <property name="text">
-                                     <string/>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                 </layout>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="Line" name="line_2">
-                                 <property name="orientation">
-                                  <enum>Qt::Orientation::Horizontal</enum>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                <widget class="QWidget" name="widget_16" native="true">
-                                 <property name="minimumSize">
-                                  <size>
-                                   <width>0</width>
-                                   <height>0</height>
-                                  </size>
-                                 </property>
-                                 <layout class="QHBoxLayout" name="horizontalLayout_15">
-                                  <property name="leftMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="topMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="rightMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="bottomMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <item>
-                                   <widget class="QLabel" name="label_16">
-                                    <property name="text">
-                                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline;&quot;&gt;Solde :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                  <item>
-                                   <widget class="QLabel" name="label_solde_compte_epargne">
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>100</width>
-                                      <height>0</height>
-                                     </size>
-                                    </property>
-                                    <property name="text">
-                                     <string/>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                 </layout>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QWidget" name="widget_13" native="true">
-                                 <property name="minimumSize">
-                                  <size>
-                                   <width>0</width>
-                                   <height>0</height>
-                                  </size>
-                                 </property>
-                                 <layout class="QVBoxLayout" name="verticalLayout_11">
-                                  <property name="spacing">
-                                   <number>4</number>
-                                  </property>
-                                  <property name="leftMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="topMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="rightMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="bottomMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <item>
-                                   <widget class="QWidget" name="widget_35" native="true">
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>0</width>
-                                      <height>0</height>
-                                     </size>
-                                    </property>
-                                    <layout class="QHBoxLayout" name="horizontalLayout_28">
-                                     <property name="leftMargin">
-                                      <number>2</number>
-                                     </property>
-                                     <property name="topMargin">
-                                      <number>2</number>
-                                     </property>
-                                     <property name="rightMargin">
-                                      <number>2</number>
-                                     </property>
-                                     <property name="bottomMargin">
-                                      <number>2</number>
-                                     </property>
-                                     <item>
-                                      <widget class="QLabel" name="label_24">
-                                       <property name="minimumSize">
-                                        <size>
-                                         <width>15</width>
-                                         <height>15</height>
-                                        </size>
-                                       </property>
-                                       <property name="maximumSize">
-                                        <size>
-                                         <width>15</width>
-                                         <height>15</height>
-                                        </size>
-                                       </property>
-                                       <property name="frameShape">
-                                        <enum>QFrame::Shape::NoFrame</enum>
-                                       </property>
-                                       <property name="text">
-                                        <string/>
-                                       </property>
-                                       <property name="pixmap">
-                                        <pixmap resource="icons.qrc">:/icon_vert_succes/percent.svg</pixmap>
-                                       </property>
-                                       <property name="scaledContents">
-                                        <bool>true</bool>
-                                       </property>
-                                       <property name="alignment">
-                                        <set>Qt::AlignmentFlag::AlignCenter</set>
-                                       </property>
-                                       <property name="wordWrap">
-                                        <bool>true</bool>
-                                       </property>
-                                      </widget>
-                                     </item>
-                                     <item>
-                                      <widget class="QLabel" name="label_taux_interet">
-                                       <property name="minimumSize">
-                                        <size>
-                                         <width>216</width>
-                                         <height>0</height>
-                                        </size>
-                                       </property>
-                                       <property name="text">
-                                        <string/>
-                                       </property>
-                                      </widget>
-                                     </item>
-                                     <item alignment="Qt::AlignmentFlag::AlignRight">
-                                      <widget class="QPushButton" name="btn_appliquer_interets">
+                                     <item alignment="Qt::AlignmentFlag::AlignLeft">
+                                      <widget class="QPushButton" name="btn_effectuer_transaction_Compte_epargne">
                                        <property name="cursor">
                                         <cursorShape>PointingHandCursor</cursorShape>
                                        </property>
                                        <property name="text">
-                                        <string>Appliquer intérêts</string>
+                                        <string>Effectuer une transaction</string>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset resource="icons.qrc">
+                                         <normaloff>:/icon_gris/send.svg</normaloff>:/icon_gris/send.svg</iconset>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item alignment="Qt::AlignmentFlag::AlignLeft">
+                                      <widget class="QPushButton" name="btn_consulter_livret_epargne">
+                                       <property name="cursor">
+                                        <cursorShape>PointingHandCursor</cursorShape>
+                                       </property>
+                                       <property name="layoutDirection">
+                                        <enum>Qt::LayoutDirection::RightToLeft</enum>
+                                       </property>
+                                       <property name="text">
+                                        <string>Consulter</string>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset resource="icons.qrc">
+                                         <normaloff>:/icon_blanc/arrow-right.svg</normaloff>:/icon_blanc/arrow-right.svg</iconset>
                                        </property>
                                       </widget>
                                      </item>
                                     </layout>
-                                   </widget>
-                                  </item>
-                                  <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                   <widget class="QLabel" name="label_derniere_operation_livret_epargne">
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>200</width>
-                                      <height>20</height>
-                                     </size>
-                                    </property>
-                                    <property name="text">
-                                     <string/>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                 </layout>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QWidget" name="widget_14" native="true">
-                                 <property name="minimumSize">
-                                  <size>
-                                   <width>0</width>
-                                   <height>0</height>
-                                  </size>
-                                 </property>
-                                 <layout class="QHBoxLayout" name="horizontalLayout_8">
-                                  <property name="spacing">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="leftMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="topMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="rightMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <property name="bottomMargin">
-                                   <number>2</number>
-                                  </property>
-                                  <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                   <widget class="QPushButton" name="btn_effectuer_transaction_Compte_epargne">
-                                    <property name="cursor">
-                                     <cursorShape>PointingHandCursor</cursorShape>
-                                    </property>
-                                    <property name="text">
-                                     <string>Effectuer une transaction</string>
-                                    </property>
-                                    <property name="icon">
-                                     <iconset resource="icons.qrc">
-                                      <normaloff>:/icon_gris/send.svg</normaloff>:/icon_gris/send.svg</iconset>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                  <item alignment="Qt::AlignmentFlag::AlignLeft">
-                                   <widget class="QPushButton" name="btn_consulter_livret_epargne">
-                                    <property name="cursor">
-                                     <cursorShape>PointingHandCursor</cursorShape>
-                                    </property>
-                                    <property name="layoutDirection">
-                                     <enum>Qt::LayoutDirection::RightToLeft</enum>
-                                    </property>
-                                    <property name="text">
-                                     <string>Consulter</string>
-                                    </property>
-                                    <property name="icon">
-                                     <iconset resource="icons.qrc">
-                                      <normaloff>:/icon_blanc/arrow-right.svg</normaloff>:/icon_blanc/arrow-right.svg</iconset>
-                                    </property>
                                    </widget>
                                   </item>
                                  </layout>
@@ -3391,15 +3461,15 @@ li.checked::marker { content: &quot;\2612&quot;; }
            <number>0</number>
           </property>
           <property name="topMargin">
-           <number>0</number>
+           <number>10</number>
           </property>
           <property name="rightMargin">
            <number>0</number>
           </property>
           <property name="bottomMargin">
-           <number>0</number>
+           <number>10</number>
           </property>
-          <item alignment="Qt::AlignmentFlag::AlignVCenter">
+          <item alignment="Qt::AlignmentFlag::AlignBottom">
            <widget class="QToolButton" name="btn_notification">
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
