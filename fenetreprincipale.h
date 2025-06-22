@@ -9,6 +9,8 @@
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QDebug>
+#include <QSqlError>
 #include "gestionbd.h"
 #include "comptebancaire.h"
 #include "comptecourant.h"
@@ -71,6 +73,8 @@ private slots:
 
     void on_btn_lateral_depot_et_retrait_clicked();
 
+    void on_btn_change_theme_clicked();
+
 signals:
     void authentificationReussie(const QString& userId);
     void deconnexionDemandee();
@@ -93,6 +97,7 @@ private:
     QWidget *m_rideauCompteCourant;
     QWidget *m_rideauCompteEpargne;
 
+    void InitialisationThemeCouleur();
     void configurerFenetrePrincipale();
     void creerMenuCompte();
     void cacherMenuCompte();

@@ -16,6 +16,7 @@
 #include <QStyle>
 #include <QGraphicsBlurEffect>
 #include <QScrollArea>
+#include <QSettings>
 #include "gestionbd.h"
 
 FenetrePrincipale::FenetrePrincipale(QWidget *parent, const QString &userId)
@@ -37,6 +38,7 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent, const QString &userId)
 {
     ui->setupUi(this);
 
+    InitialisationThemeCouleur();
     configurerFenetrePrincipale();
     creerMenuCompte();
     configurerBoutonBasculeNotificationEmail();
@@ -480,7 +482,7 @@ void FenetrePrincipale::appliquerEffetFlouCompte(QWidget* widgetCarte, bool appl
 {
     if (appliquerFlou) {
         QGraphicsBlurEffect *effetFlou = new QGraphicsBlurEffect(this);
-        effetFlou->setBlurRadius(10);
+        effetFlou->setBlurRadius(20);
         widgetCarte->setGraphicsEffect(effetFlou);
         widgetCarte->setEnabled(false);
 
@@ -491,8 +493,8 @@ void FenetrePrincipale::appliquerEffetFlouCompte(QWidget* widgetCarte, bool appl
             m_rideauCompteCourant->setGeometry(widgetCarte->geometry());
             m_rideauCompteCourant->raise();
 
-            QLabel* message = new QLabel("Aucun compte créé", m_rideauCompteCourant);
-            message->setStyleSheet("QLabel { color: white; font-weight: bold; font-size: 14px; background: transparent; }");
+            QLabel* message = new QLabel("Aucun compte courant n'est créé pour cet utilisateur  ! ", m_rideauCompteCourant);
+            message->setStyleSheet("QLabel { color: white; font-weight: bold; font-size: 8px; background: transparent; }");
             message->setAlignment(Qt::AlignCenter);
             message->setGeometry(0,
                                  (m_rideauCompteCourant->height() - 60) / 2,
@@ -527,8 +529,8 @@ void FenetrePrincipale::appliquerEffetFlouCompte(QWidget* widgetCarte, bool appl
             m_rideauCompteEpargne->setGeometry(widgetCarte->geometry());
             m_rideauCompteEpargne->raise();
 
-            QLabel* message = new QLabel("Aucun compte créé", m_rideauCompteEpargne);
-            message->setStyleSheet("QLabel { color: white; font-weight: bold; font-size: 14px; background: transparent; }");
+            QLabel* message = new QLabel("Aucun compte epargne n'est créé pour cet utilisateur  ! ", m_rideauCompteEpargne);
+            message->setStyleSheet("QLabel { color: white; font-weight: bold; font-size: 8px; background: transparent; }");
             message->setAlignment(Qt::AlignCenter);
             message->setGeometry(0,
                                  (m_rideauCompteEpargne->height() - 60) / 2,
@@ -663,15 +665,40 @@ void FenetrePrincipale::supprimerCompteCourant()
                 break;
             }
         }
-        qDeleteAll(comptes);
 
-        if (!idCompteCourant.isEmpty() && gestionBD.supprimerCompte(idCompteCourant)) {
+        if (idCompteCourant.isEmpty()) {
+            QMessageBox::critical(this, "Erreur", "Aucun compte courant trouvé");
+            qDeleteAll(comptes);
+            return;
+        }
+
+        // Supprimer d'abord les transactions associées
+        QSqlQuery query;
+        query.prepare("DELETE FROM Transactions WHERE compte_id = ?");
+        query.addBindValue(idCompteCourant);
+        if (!query.exec()) {
+            QMessageBox::critical(this, "Erreur", "Échec de la suppression des transactions");
+            qDeleteAll(comptes);
+            return;
+        }
+
+        // Puis supprimer le compte
+        if (gestionBD.supprimerCompte(idCompteCourant)) {
             m_compteCourantExiste = false;
-            mettreAJourApparenceComptes();
+            appliquerEffetFlouCompte(ui->carte_courant_principal, true);
+
+            // Réinitialiser les labels
+            ui->label_numero_courant->setText("");
+            ui->label_solde_compte_courant_principale->setText("");
+            ui->label_decouvert_autorise->setText("");
+            ui->label_derniere_operation_compte_courant_principale->setText("Aucune opération récente");
+
             QMessageBox::information(this, "Succès", "Compte courant supprimé avec succès!");
         } else {
             QMessageBox::critical(this, "Erreur", "Échec de la suppression du compte courant");
         }
+
+        qDeleteAll(comptes);
     }
 }
 
@@ -699,17 +726,44 @@ void FenetrePrincipale::supprimerCompteEpargne()
                 break;
             }
         }
-        qDeleteAll(comptes);
 
-        if (!idCompteEpargne.isEmpty() && gestionBD.supprimerCompte(idCompteEpargne)) {
+        if (idCompteEpargne.isEmpty()) {
+            QMessageBox::critical(this, "Erreur", "Aucun compte épargne trouvé");
+            qDeleteAll(comptes);
+            return;
+        }
+
+        // Supprimer d'abord les transactions associées
+        QSqlQuery query;
+        query.prepare("DELETE FROM Transactions WHERE compte_id = ?");
+        query.addBindValue(idCompteEpargne);
+        if (!query.exec()) {
+            QMessageBox::critical(this, "Erreur", "Échec de la suppression des transactions");
+            qDeleteAll(comptes);
+            return;
+        }
+
+        // Puis supprimer le compte
+        if (gestionBD.supprimerCompte(idCompteEpargne)) {
             m_compteEpargneExiste = false;
-            mettreAJourApparenceComptes();
+            appliquerEffetFlouCompte(ui->Carte_Livret_A, true);
+
+            // Réinitialiser les labels
+            ui->label_numero_epargne->setText("");
+            ui->label_solde_compte_epargne->setText("");
+            ui->label_taux_interet->setText("");
+            ui->label_derniere_operation_livret_epargne->setText("Aucune opération récente");
+
             QMessageBox::information(this, "Succès", "Compte épargne supprimé avec succès!");
         } else {
             QMessageBox::critical(this, "Erreur", "Échec de la suppression du compte épargne");
         }
+
+        qDeleteAll(comptes);
     }
 }
+
+
 
 void FenetrePrincipale::on_btn_lateral_dashboard_clicked()
 {
@@ -1050,4 +1104,80 @@ void FenetrePrincipale::updateButtonIcon(QToolButton* button, bool visible)
     button->style()->unpolish(button);
     button->style()->polish(button);
     button->update();
+}
+
+void FenetrePrincipale::on_btn_change_theme_clicked()
+{
+    // Déterminer le chemin du thème actuel et le prochain thème à charger
+    static bool themeSombreActif = false;
+    QString cheminTheme;
+
+    if (themeSombreActif) {
+        cheminTheme = "D:/projets/projet_bancaire/BanqueModerne/themes_fenetre_principale/theme_clair.txt";
+    } else {
+        cheminTheme = "D:/projets/projet_bancaire/BanqueModerne/themes_fenetre_principale/theme_sombre.txt";
+    }
+
+    // Inverser pour le prochain clic
+    themeSombreActif = !themeSombreActif;
+
+    // Lire le fichier de thème
+    QFile fichierTheme(cheminTheme);
+    if (!fichierTheme.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, "Erreur", "Impossible d'ouvrir le fichier de thème: " + cheminTheme);
+        return;
+    }
+
+    QTextStream in(&fichierTheme);
+    QString styleSheet = in.readAll();
+    fichierTheme.close();
+
+    // Appliquer le style à la fenêtre principale
+    this->setStyleSheet(styleSheet);
+
+    // Mettre à jour l'icône du bouton pour refléter le thème actuel
+    QIcon icon;
+    if (themeSombreActif) {
+        icon.addFile(":/icon_gris/sun.svg"); // Icône soleil pour thème clair
+    } else {
+        icon.addFile(":/icon_gris/moon.svg"); // Icône lune pour thème sombre
+    }
+    ui->btn_change_theme->setIcon(icon);
+    ui->btn_change_theme->setIconSize(QSize(20, 20));
+
+    // Sauvegarder la préférence de thème pour les prochaines sessions
+    QSettings settings("BanqueModerne", "Theme");
+    settings.setValue("themeSombre", themeSombreActif);
+}
+
+
+void FenetrePrincipale::InitialisationThemeCouleur(){
+
+    // Initialisation du thème
+    QSettings settings("BanqueModerne", "Theme");
+    bool themeSombreActif = settings.value("themeSombre", false).toBool();
+
+    QString cheminTheme = themeSombreActif
+                              ? "D:/projets/projet_bancaire/BanqueModerne/themes_fenetre_principale/theme_sombre.txt"
+                              : "D:/projets/projet_bancaire/BanqueModerne/themes_fenetre_principale/theme_clair.txt";
+
+    QFile fichierTheme(cheminTheme);
+    if (fichierTheme.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&fichierTheme);
+        QString styleSheet = in.readAll();
+        this->setStyleSheet(styleSheet);
+        fichierTheme.close();
+
+        // Mettre à jour l'icône du bouton
+        QIcon icon;
+        if (themeSombreActif) {
+            icon.addFile(":/icon_gris/sun.svg");
+        } else {
+            icon.addFile(":/icon_gris/moon.svg");
+        }
+        ui->btn_change_theme->setIcon(icon);
+        ui->btn_change_theme->setIconSize(QSize(20, 20));
+    }
+
+
 }
