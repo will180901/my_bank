@@ -18,6 +18,8 @@
 #include <QScrollArea>
 #include <QSettings>
 #include "gestionbd.h"
+#include <QSequentialAnimationGroup>
+#include "utilitairesmotdepasse.h"
 
 FenetrePrincipale::FenetrePrincipale(QWidget *parent, const QString &userId)
     : QMainWindow(parent),
@@ -36,6 +38,8 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent, const QString &userId)
     m_rideauCompteCourant(nullptr),
     m_rideauCompteEpargne(nullptr)
 {
+    ui->setupUi(this);
+
     ui->setupUi(this);
 
     InitialisationThemeCouleur();
@@ -57,8 +61,8 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent, const QString &userId)
     updateButtonIcon(ui->masquer_solde_compte_courant_principale, m_soldeVisibleCompteCourant);
     updateButtonIcon(ui->masquer_solde_compte_epargne, m_soldeVisibleCompteEpargne);
 
-    ui->combo_choix_type_operation->addItem("Dépot");
-    ui->combo_choix_type_operation->addItem("Retrait");
+    ui->combo_choix_type_operation_onglet_DR->addItem("Dépot");
+    ui->combo_choix_type_operation_onglet_DR->addItem("Retrait");
 
     // Charger les données de l'utilisateur après l'authentification
     chargerDonneesUtilisateur();
@@ -68,10 +72,10 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent, const QString &userId)
     ui->masquer_solde_compte_epargne->installEventFilter(this);
 
     // Configurer les champs de mot de passe pour afficher/masquer
-    setupPasswordVisibilityToggle(ui->sai_mot_de_passe_modif_parametres);
-    setupPasswordVisibilityToggle(ui->sai_confirm_mot_de_passe_modif_parametres);
+    UtilitairesMotDePasse::configurerBoutonVisibilite(ui->sai_mot_de_passe_modif_parametres);
+    UtilitairesMotDePasse::configurerBoutonVisibilite(ui->sai_confirm_mot_de_passe_modif_parametres);
 
-    connect(ui->combo_choix_type_operation, QOverload<int>::of(&QComboBox::currentIndexChanged),
+    connect(ui->combo_choix_type_operation_onglet_DR, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &FenetrePrincipale::gererChangementTypeOperation);
 
     // Transformation automatique pour le NOM COMPLET - MAJUSCULES
@@ -229,20 +233,7 @@ bool FenetrePrincipale::eventFilter(QObject *obj, QEvent *event)
         }
     }
 
-    // Gestion du redimensionnement pour les champs de mot de passe
-    QLineEdit* passwordLineEdit = qobject_cast<QLineEdit*>(obj);
-    if (passwordLineEdit &&
-        (passwordLineEdit == ui->sai_mot_de_passe_modif_parametres ||
-         passwordLineEdit == ui->sai_confirm_mot_de_passe_modif_parametres))
-    {
-        if (event->type() == QEvent::Resize) {
-            // Trouver le bouton associé (le premier enfant QPushButton)
-            QPushButton* toggleButton = passwordLineEdit->findChild<QPushButton*>();
-            if (toggleButton) {
-                repositionnerBoutonVisibilite(passwordLineEdit, toggleButton);
-            }
-        }
-    }
+
 
     // Gestion du redimensionnement pour les rideaux
     if (event->type() == QEvent::Resize || event->type() == QEvent::Move) {
@@ -1108,48 +1099,80 @@ void FenetrePrincipale::updateButtonIcon(QToolButton* button, bool visible)
 
 void FenetrePrincipale::on_btn_change_theme_clicked()
 {
-    // Déterminer le chemin du thème actuel et le prochain thème à charger
-    static bool themeSombreActif = false;
-    QString cheminTheme;
+    // Désactiver le bouton pendant la transition
+    ui->btn_change_theme->setEnabled(false);
 
-    if (themeSombreActif) {
-        cheminTheme = "D:/projets/projet_bancaire/BanqueModerne/themes_fenetre_principale/theme_clair.txt";
-    } else {
-        cheminTheme = "D:/projets/projet_bancaire/BanqueModerne/themes_fenetre_principale/theme_sombre.txt";
-    }
+    // Créer un overlay pour la transition
+    QWidget* overlay = new QWidget(this);
+    overlay->setStyleSheet("background-color: black;");
+    overlay->setGeometry(this->rect());
+    overlay->show();
+    overlay->raise();
 
-    // Inverser pour le prochain clic
-    themeSombreActif = !themeSombreActif;
+    // Effet d'opacité pour l'animation
+    QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect(overlay);
+    opacityEffect->setOpacity(0.0);
+    overlay->setGraphicsEffect(opacityEffect);
 
-    // Lire le fichier de thème
-    QFile fichierTheme(cheminTheme);
-    if (!fichierTheme.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QMessageBox::warning(this, "Erreur", "Impossible d'ouvrir le fichier de thème: " + cheminTheme);
-        return;
-    }
+    // Animation de fondu entrant (0 -> 1)
+    QPropertyAnimation* fadeIn = new QPropertyAnimation(opacityEffect, "opacity");
+    fadeIn->setDuration(500); // 500 ms
+    fadeIn->setStartValue(0.0);
+    fadeIn->setEndValue(1.0);
 
-    QTextStream in(&fichierTheme);
-    QString styleSheet = in.readAll();
-    fichierTheme.close();
+    // Animation de fondu sortant (1 -> 0)
+    QPropertyAnimation* fadeOut = new QPropertyAnimation(opacityEffect, "opacity");
+    fadeOut->setDuration(500); // 500 ms
+    fadeOut->setStartValue(1.0);
+    fadeOut->setEndValue(0.0);
 
-    // Appliquer le style à la fenêtre principale
-    this->setStyleSheet(styleSheet);
+    // Séquence d'animations
+    QSequentialAnimationGroup* sequence = new QSequentialAnimationGroup(this);
+    sequence->addAnimation(fadeIn);
+    sequence->addAnimation(fadeOut);
 
-    // Mettre à jour l'icône du bouton pour refléter le thème actuel
-    QIcon icon;
-    if (themeSombreActif) {
-        icon.addFile(":/icon_gris/sun.svg"); // Icône soleil pour thème clair
-    } else {
-        icon.addFile(":/icon_gris/moon.svg"); // Icône lune pour thème sombre
-    }
-    ui->btn_change_theme->setIcon(icon);
-    ui->btn_change_theme->setIconSize(QSize(20, 20));
+    // Changer le thème au milieu de la transition
+    connect(fadeIn, &QPropertyAnimation::finished, this, [this]() {
+        // Code de changement de thème (extrait de la fonction originale)
+        QSettings settings("BanqueModerne", "Theme");
+        bool themeSombreActif = settings.value("themeSombre", false).toBool();
+        themeSombreActif = !themeSombreActif;
 
-    // Sauvegarder la préférence de thème pour les prochaines sessions
-    QSettings settings("BanqueModerne", "Theme");
-    settings.setValue("themeSombre", themeSombreActif);
+        QString cheminTheme = themeSombreActif
+                                  ? "D:/projets/projet_bancaire/BanqueModerne/themes_fenetre_principale/theme_sombre.txt"
+                                  : "D:/projets/projet_bancaire/BanqueModerne/themes_fenetre_principale/theme_clair.txt";
+
+        QFile fichierTheme(cheminTheme);
+        if (fichierTheme.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream in(&fichierTheme);
+            QString styleSheet = in.readAll();
+            this->setStyleSheet(styleSheet);
+            fichierTheme.close();
+
+            // Mettre à jour l'icône
+            QIcon icon;
+            if (themeSombreActif) {
+                icon.addFile(":/icon_gris/sun.svg");
+            } else {
+                icon.addFile(":/icon_gris/moon.svg");
+            }
+            ui->btn_change_theme->setIcon(icon);
+            ui->btn_change_theme->setIconSize(QSize(20, 20));
+
+            // Sauvegarder le nouveau thème
+            settings.setValue("themeSombre", themeSombreActif);
+        }
+    });
+
+    // Nettoyage après l'animation
+    connect(sequence, &QSequentialAnimationGroup::finished, this, [=]() {
+        overlay->deleteLater();
+        ui->btn_change_theme->setEnabled(true);
+    });
+
+    // Démarrer l'animation
+    sequence->start();
 }
-
 
 void FenetrePrincipale::InitialisationThemeCouleur(){
 
@@ -1178,6 +1201,5 @@ void FenetrePrincipale::InitialisationThemeCouleur(){
         ui->btn_change_theme->setIcon(icon);
         ui->btn_change_theme->setIconSize(QSize(20, 20));
     }
-
-
 }
+

@@ -1,4 +1,4 @@
-/* ===============================================
+/*===============================================
    STYLES GLOBAUX
    =============================================== */
 
@@ -609,4 +609,83 @@ Line {
     background-color: rgba(180, 180, 180, 74);
     border-radius: 1px;
     outline: none;
+}
+
+
+
+/* ===============================================
+   STYLE DES ONGLETS DE TRANSACTION
+   =============================================== */
+
+#mes_onglets_page_transaction {
+    background-color: rgb(30, 32, 35);
+    border: none;
+    border-radius: 4px;
+}
+
+/* Panneau de contenu des onglets */
+#mes_onglets_page_transaction::pane {
+    border-top: 1px solid rgb(50, 54, 60);
+    border-radius: 0 0 4px 4px;
+    top: -1px; /* Chevauchement de la bordure */
+    background-color: rgb(40, 42, 45);
+}
+
+/* Barre d'onglets */
+#mes_onglets_page_transaction > QTabBar {
+    background-color: rgb(40, 42, 45);
+    border-bottom: 1px solid rgb(50, 54, 60);
+    spacing: 4px;
+}
+
+/* Onglets individuels */
+#mes_onglets_page_transaction > QTabBar::tab {
+    background-color: rgba(50, 54, 60, 0.5);
+    border: 1px solid rgb(50, 54, 60);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    padding: 8px 16px;
+    margin-right: 2px;
+    min-width: 100px;
+    color: rgb(180, 180, 180);
+}
+
+/* Onglet sélectionné */
+#mes_onglets_page_transaction > QTabBar::tab:selected {
+    background-color: rgb(40, 42, 45);
+    border-color: rgb(50, 54, 60);
+    color: rgb(220, 220, 220);
+    font-weight: 600;
+}
+
+/* Onglet au survol */
+#mes_onglets_page_transaction > QTabBar::tab:hover {
+    background-color: rgba(50, 54, 60, 0.8);
+    color: rgb(200, 200, 255);
+}
+
+/* Onglet actif */
+#mes_onglets_page_transaction > QTabBar::tab:selected:hover {
+    background-color: rgb(45, 47, 50);
+}
+
+/* Indicateur de sélection (ligne du bas) */
+#mes_onglets_page_transaction > QTabBar::tab:selected {
+    border-bottom: 2px solid #2962FF;
+    margin-bottom: -1px; /* Alignement avec la bordure */
+}
+
+/* Flèches de navigation quand il y a beaucoup d'onglets */
+#mes_onglets_page_transaction > QTabBar QToolButton {
+    background: rgb(50, 54, 60);
+    border-radius: 3px;
+    margin: 4px;
+}
+
+/* Icônes des flèches */
+#mes_onglets_page_transaction > QTabBar QToolButton::right-arrow,
+#mes_onglets_page_transaction > QTabBar QToolButton::left-arrow {
+    image: url(:/icon_gris/chevron-right.svg);
+    width: 12px;
+    height: 12px;
 }

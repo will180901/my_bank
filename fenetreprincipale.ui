@@ -20,7 +20,7 @@
    <string>FenetrePrincipale</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/* ===============================================
+   <string notr="true">/*===============================================
    STYLES GLOBAUX
    =============================================== */
 
@@ -631,6 +631,85 @@ Line {
     background-color: rgba(180, 180, 180, 74);
     border-radius: 1px;
     outline: none;
+}
+
+
+
+/* ===============================================
+   STYLE DES ONGLETS DE TRANSACTION
+   =============================================== */
+
+#mes_onglets_page_transaction {
+    background-color: rgb(30, 32, 35);
+    border: none;
+    border-radius: 4px;
+}
+
+/* Panneau de contenu des onglets */
+#mes_onglets_page_transaction::pane {
+    border-top: 1px solid rgb(50, 54, 60);
+    border-radius: 0 0 4px 4px;
+    top: -1px; /* Chevauchement de la bordure */
+    background-color: rgb(40, 42, 45);
+}
+
+/* Barre d'onglets */
+#mes_onglets_page_transaction &gt; QTabBar {
+    background-color: rgb(40, 42, 45);
+    border-bottom: 1px solid rgb(50, 54, 60);
+    spacing: 4px;
+}
+
+/* Onglets individuels */
+#mes_onglets_page_transaction &gt; QTabBar::tab {
+    background-color: rgba(50, 54, 60, 0.5);
+    border: 1px solid rgb(50, 54, 60);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    padding: 8px 16px;
+    margin-right: 2px;
+    min-width: 100px;
+    color: rgb(180, 180, 180);
+}
+
+/* Onglet sélectionné */
+#mes_onglets_page_transaction &gt; QTabBar::tab:selected {
+    background-color: rgb(40, 42, 45);
+    border-color: rgb(50, 54, 60);
+    color: rgb(220, 220, 220);
+    font-weight: 600;
+}
+
+/* Onglet au survol */
+#mes_onglets_page_transaction &gt; QTabBar::tab:hover {
+    background-color: rgba(50, 54, 60, 0.8);
+    color: rgb(200, 200, 255);
+}
+
+/* Onglet actif */
+#mes_onglets_page_transaction &gt; QTabBar::tab:selected:hover {
+    background-color: rgb(45, 47, 50);
+}
+
+/* Indicateur de sélection (ligne du bas) */
+#mes_onglets_page_transaction &gt; QTabBar::tab:selected {
+    border-bottom: 2px solid #2962FF;
+    margin-bottom: -1px; /* Alignement avec la bordure */
+}
+
+/* Flèches de navigation quand il y a beaucoup d'onglets */
+#mes_onglets_page_transaction &gt; QTabBar QToolButton {
+    background: rgb(50, 54, 60);
+    border-radius: 3px;
+    margin: 4px;
+}
+
+/* Icônes des flèches */
+#mes_onglets_page_transaction &gt; QTabBar QToolButton::right-arrow,
+#mes_onglets_page_transaction &gt; QTabBar QToolButton::left-arrow {
+    image: url(:/icon_gris/chevron-right.svg);
+    width: 12px;
+    height: 12px;
 }</string>
   </property>
   <widget class="QWidget" name="ConteneurPrincipal">
@@ -2330,8 +2409,8 @@ Line {
                <widget class="QWidget" name="carte_effectuer_un_virement" native="true">
                 <property name="minimumSize">
                  <size>
-                  <width>300</width>
-                  <height>480</height>
+                  <width>600</width>
+                  <height>500</height>
                  </size>
                 </property>
                 <property name="maximumSize">
@@ -2340,23 +2419,8 @@ Line {
                   <height>500</height>
                  </size>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_21">
-                 <property name="spacing">
-                  <number>2</number>
-                 </property>
-                 <property name="leftMargin">
-                  <number>15</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>15</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>15</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>15</number>
-                 </property>
-                 <item alignment="Qt::AlignmentFlag::AlignLeft">
+                <layout class="QVBoxLayout" name="verticalLayout">
+                 <item>
                   <widget class="QWidget" name="widget_27" native="true">
                    <property name="minimumSize">
                     <size>
@@ -2366,7 +2430,7 @@ Line {
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_28">
                     <property name="spacing">
-                     <number>2</number>
+                     <number>8</number>
                     </property>
                     <property name="leftMargin">
                      <number>2</number>
@@ -2380,14 +2444,14 @@ Line {
                     <property name="bottomMargin">
                      <number>2</number>
                     </property>
-                    <item>
+                    <item alignment="Qt::AlignmentFlag::AlignHCenter">
                      <widget class="QLabel" name="label_4">
                       <property name="text">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:700; color:#1a267e;&quot;&gt;Effectuer un virement (dépot ) ou  débiter un compte ( retrait ) &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:700; color:#1a267e;&quot;&gt;Effectuer une transaction bancaire &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
-                    <item>
+                    <item alignment="Qt::AlignmentFlag::AlignHCenter">
                      <widget class="QLabel" name="label_5">
                       <property name="text">
                        <string>Transférez des fonds rapidement et en toute  sécurité.</string>
@@ -2398,181 +2462,26 @@ Line {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QWidget" name="widget_28" native="true">
+                  <widget class="QTabWidget" name="mes_onglets_page_transaction">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
                      <height>0</height>
                     </size>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_26">
-                    <item>
-                     <widget class="QGroupBox" name="groupBox_4">
-                      <property name="title">
-                       <string>Type d'opération ( dépot ou  Retrait )</string>
-                      </property>
-                      <layout class="QVBoxLayout" name="verticalLayout">
-                       <property name="topMargin">
-                        <number>10</number>
-                       </property>
-                       <item>
-                        <widget class="QComboBox" name="combo_choix_type_operation"/>
-                       </item>
-                      </layout>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QGroupBox" name="groupBox_2">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="title">
-                       <string>Compte source</string>
-                      </property>
-                      <layout class="QVBoxLayout" name="verticalLayout_22">
-                       <property name="spacing">
-                        <number>2</number>
-                       </property>
-                       <property name="leftMargin">
-                        <number>2</number>
-                       </property>
-                       <property name="topMargin">
-                        <number>10</number>
-                       </property>
-                       <property name="rightMargin">
-                        <number>2</number>
-                       </property>
-                       <property name="bottomMargin">
-                        <number>2</number>
-                       </property>
-                       <item>
-                        <widget class="QComboBox" name="combo_choix_compte">
-                         <property name="cursor">
-                          <cursorShape>PointingHandCursor</cursorShape>
-                         </property>
-                         <property name="placeholderText">
-                          <string/>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QGroupBox" name="groupBox_3">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="title">
-                       <string>Numéro de compte</string>
-                      </property>
-                      <layout class="QVBoxLayout" name="verticalLayout_23">
-                       <property name="spacing">
-                        <number>2</number>
-                       </property>
-                       <property name="leftMargin">
-                        <number>2</number>
-                       </property>
-                       <property name="topMargin">
-                        <number>10</number>
-                       </property>
-                       <property name="rightMargin">
-                        <number>2</number>
-                       </property>
-                       <property name="bottomMargin">
-                        <number>2</number>
-                       </property>
-                       <item>
-                        <widget class="QLineEdit" name="sai_num_compte_beneficiaire_virement">
-                         <property name="placeholderText">
-                          <string>Ex :  CC12001</string>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QGroupBox" name="groupBox_5">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="title">
-                       <string>Montant ( XOF )</string>
-                      </property>
-                      <layout class="QVBoxLayout" name="verticalLayout_25">
-                       <property name="spacing">
-                        <number>2</number>
-                       </property>
-                       <property name="leftMargin">
-                        <number>2</number>
-                       </property>
-                       <property name="topMargin">
-                        <number>10</number>
-                       </property>
-                       <property name="rightMargin">
-                        <number>2</number>
-                       </property>
-                       <property name="bottomMargin">
-                        <number>2</number>
-                       </property>
-                       <item>
-                        <widget class="QDoubleSpinBox" name="choix_montant_spin_box"/>
-                       </item>
-                      </layout>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QGroupBox" name="groupBox_6">
-                      <property name="title">
-                       <string>Motif du virement ( optionnel )</string>
-                      </property>
-                      <layout class="QVBoxLayout" name="verticalLayout_27">
-                       <property name="spacing">
-                        <number>2</number>
-                       </property>
-                       <property name="leftMargin">
-                        <number>2</number>
-                       </property>
-                       <property name="topMargin">
-                        <number>20</number>
-                       </property>
-                       <property name="rightMargin">
-                        <number>2</number>
-                       </property>
-                       <property name="bottomMargin">
-                        <number>2</number>
-                       </property>
-                       <item>
-                        <widget class="QTextEdit" name="motif_text_edit">
-                         <property name="minimumSize">
-                          <size>
-                           <width>0</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </widget>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="message_recherche">
-                   <property name="text">
-                    <string/>
+                   <property name="currentIndex">
+                    <number>1</number>
                    </property>
+                   <widget class="QWidget" name="onglet_depot_retrait">
+                    <attribute name="title">
+                     <string>onglet_depot_retrait</string>
+                    </attribute>
+                   </widget>
+                   <widget class="QWidget" name="onglet_virement">
+                    <attribute name="title">
+                     <string>onglet_virement_page_transaction</string>
+                    </attribute>
+                   </widget>
                   </widget>
                  </item>
                  <item>

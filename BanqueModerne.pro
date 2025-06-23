@@ -18,7 +18,8 @@ SOURCES += \
     gestionbd.cpp \
     main.cpp \
     fenetreprincipale.cpp \
-    monboutonbascule.cpp
+    monboutonbascule.cpp \
+    utilitairesmotdepasse.cpp
 
 HEADERS += \
     animationsolde.h \
@@ -29,7 +30,8 @@ HEADERS += \
     compteepargne.h \
     fenetreprincipale.h \
     gestionbd.h \
-    monboutonbascule.h
+    monboutonbascule.h \
+    utilitairesmotdepasse.h
 
 FORMS += \
     authentification.ui \
