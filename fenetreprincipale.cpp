@@ -939,9 +939,9 @@ void FenetrePrincipale::on_btn_lateral_depot_et_retrait_clicked()
 {
     ui->mes_pages->setCurrentWidget(ui->page_transaction);
 
-    if (ui->combo_choix_type_operation->count() == 0) {
-        ui->combo_choix_type_operation->addItem("Dépot");
-        ui->combo_choix_type_operation->addItem("Retrait");
+    if (ui->combo_choix_type_operation_onglet_DR->count() == 0) {
+        ui->combo_choix_type_operation_onglet_DR->addItem("Dépot");
+        ui->combo_choix_type_operation_onglet_DR->addItem("Retrait");
     }
     mettreAJourStyleBoutonsLateraux();
     cacherMenuCompte();
@@ -1051,7 +1051,7 @@ void FenetrePrincipale::on_btn_sauvegarde_modification_parametre_clicked()
 
 void FenetrePrincipale::gererChangementTypeOperation(int index)
 {
-    QString operation = ui->combo_choix_type_operation->itemText(index);
+    QString operation = ui->combo_choix_type_operation_onglet_DR->itemText(index);
     qDebug() << "Opération sélectionnée:" << operation;
 
     if (operation == "Dépot") {
