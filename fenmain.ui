@@ -1,0 +1,1999 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>fenMain</class>
+ <widget class="QMainWindow" name="fenMain">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1144</width>
+    <height>688</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>900</width>
+    <height>500</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>fenMain</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="icons.qrc">
+    <normaloff>:/icon_personnalises/Banking_00017_A_icon-icons.com_59837.svg</normaloff>:/icon_personnalises/Banking_00017_A_icon-icons.com_59837.svg</iconset>
+  </property>
+  <property name="windowOpacity">
+   <double>2.000000000000000</double>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/*===============================================
+   STYLES GLOBAUX - THÈME CLAIR
+   =============================================== */
+
+* {
+    color: rgb(33, 37, 41);
+    font-family: 'Segoe UI', Arial, sans-serif;
+/*    border: 1px solid rgb(0, 0, 0); 
+	  background-color: rgb(248, 249, 250);  */
+}
+
+
+
+#indicat_recherche {
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+#ZoneRecherche {
+    border: none;
+    background: transparent;
+}
+
+#BarreRecherche {
+    border: 1px solid rgba(206, 212, 218, 180);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 250);
+    padding: 6px;
+}
+
+#BarreRecherche:hover {
+    border-bottom: 1px solid rgb(13, 110, 253);
+    background-color: rgba(240, 244, 248, 200);
+}
+
+
+
+.solde-label {
+    font-size: 14pt;
+    font-weight: 700;
+	
+	color: rgb(82, 82, 82);
+}
+
+.solde-masque {
+    font-size: 14pt;
+    font-weight: 700;
+	color: rgb(82, 82, 82);
+    font-style: italic;
+}
+
+#zone_liste_header{
+
+	background-color: rgb(248, 249, 250);
+
+}
+
+
+/* Boutons de la barre latérale */
+#BarreLaterale QToolButton {
+    background-color: transparent;
+    border: none;
+    color: rgb(73, 80, 87);
+    padding: 4px 4px;
+    text-align: left;
+    border-radius: 4px;
+}
+
+#BarreLaterale QToolButton:hover {
+    background-color: #f8f9fa;
+}
+
+#BarreLaterale QToolButton:pressed {
+    background-color: rgba(229, 234, 239, 150);
+    color: rgb(13, 110, 253);
+    font-weight: bold;
+}
+
+#BarreLaterale QToolButton:focus {
+    outline: 2px solid #0d6efd !important;
+    outline-offset: -1px !important;
+    background-color: #e9ecef !important;
+}
+
+
+#carte_courant_principal, #carte_epargne,   
+#carte_effectuer_un_virement, #carte_consulter_profil, 
+#carte_parametres_compte, #carte_liste_activite_recentes,
+#carte_liste_historique_transaction ,
+#zone_liste_des_transaction {
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    border: 1px solid rgb(229, 234, 239);
+}
+
+#zone_carte_compte{
+
+background-color: rgba(255, 255, 255,0.1);
+    border-radius: 4px;
+    border: 1px solid rgba(229, 234, 239,0.1);
+
+}
+
+#bar_nav {
+    border-bottom: 1px solid rgb(229, 234, 239);
+}
+
+#BarreLaterale {
+    background-color: rgb(255, 255, 255);
+    border-right: 2px solid rgb(229, 234, 239);
+}
+
+
+#btn_menu_compte {
+    border-radius: 13px;
+    border: 1px solid rgb(111, 66, 193);
+    color: rgba(111, 66, 193, 0.8);
+    background-color: rgba(111, 66, 193, 0.1);
+    margin: 2px;
+    font: 700 12pt &quot;Segoe UI&quot;;
+}
+
+/* ===============================================
+   CONTENEURS ET PAGES PRINCIPALES
+   =============================================== */
+
+#centralMain, #fenMain, 
+#page_dashboard, #page_transaction, #page_parametres, 
+#page_historique, #page_profil {
+    background-color: rgb(248, 249, 250);
+    border: none;
+}
+
+#page_4 {
+    background-color: rgba(248, 249, 250, 0.8);
+    border: none;
+}
+
+
+/* ===============================================
+   LABELS ET TEXTES
+   =============================================== */
+
+#label_solde_compte_courant, 
+#label_solde_compte_epargne {
+    font-size: 14pt;
+    font-weight: 700;
+	
+	color: rgb(82, 82, 82);
+}
+
+#label_decouvert_autorise_compte_courant , #label_numero_de_compte_courant
+,#label_date_creation_compte_courant,#label_derniere_transaction_compte_courant,
+#label_taux_interet_compte_epargne , #label_numero_de_compte_epargne
+,#label_date_creation_compte_epargne,#label_derniere_transaction_compte_epargne{
+
+	color: rgb(85, 85, 85);
+	font: 300 10pt &quot;Segoe UI&quot;;
+
+}
+
+#labelBienvenue {
+    font-size: 14pt;
+    font-weight: 700;
+    color: #6f42c1;
+}
+
+
+
+#zone_message_erreur_page_parametre {
+    opacity: 0;
+    color: #dc3545;
+    font-style: italic;
+}
+
+
+
+
+/* ===============================================
+   BARRE DE NAVIGATION ET RECHERCHE
+   =============================================== */
+
+
+
+/* ===============================================
+   CARTES ET GROUPES
+   =============================================== */
+
+
+
+QGroupBox {
+    border: none;
+    border-radius: 4px;
+    margin-top: 6px;
+    padding: 8px 6px 6px 6px;
+    background: rgba(248, 249, 250, 0.8);
+    font-weight: 500;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 8px;
+    padding: 0 6px;
+    color: #495057;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+/* ===============================================
+   ÉLÉMENTS DE FORMULAIRE
+   =============================================== */
+
+/* Inputs de base */
+QLineEdit, QTextEdit {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 6px;
+    color: #495057;
+}
+
+QLineEdit:hover, QTextEdit:hover {
+    border: 1px solid #0d6efd;
+    background-color: rgb(248, 249, 250);
+}
+
+QLineEdit:focus, QTextEdit:focus, 
+QComboBox:focus, QDoubleSpinBox:focus {
+    border: 1px solid #0d6efd;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+
+/* ===============================================
+   BOUTONS
+   =============================================== */
+
+/* Boutons standards */
+QPushButton {
+    background-color: rgb(13, 110, 253);
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: none;
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+    min-height: 18px;
+}
+
+QPushButton:hover {
+    background-color: rgb(10, 88, 202);
+}
+
+QPushButton:pressed {
+    background-color: rgb(8, 77, 178);
+}
+
+
+
+#btn_effectuer_transaction_compte_courant, 
+#btn_effectuer_transaction_compte_epargne {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(229, 234, 239);
+    color: rgb(73, 80, 87);
+    border-radius: 4px;
+    padding: 6px 10px;
+}
+
+#btn_effectuer_transaction_compte_epargne:hover,
+#btn_effectuer_transaction_compte_courant:hover {
+    background-color: rgba(248, 249, 250, 200);
+}
+
+#btn_voir_liste_complete_transaction:hover {
+    color: rgb(13, 110, 253);
+}
+
+
+
+QToolButton {
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+
+
+/* ===============================================
+   ÉLÉMENTS DE PROFIL
+   =============================================== */
+
+#zone_photo, #zone_photo_parametre {
+    border-radius: 50%;
+    border: 3px solid rgb(111, 66, 193);
+    padding: 0;
+    margin: 0;
+    background-color: rgba(111, 66, 193, 0.1);
+}
+
+#zone_photo:hover, #zone_photo_parametre:hover {
+    background-color: rgba(111, 66, 193, 0.2);
+}
+
+#zone_info_perso_profil {
+    border-bottom: 2px solid rgba(73, 80, 87, 0.2);
+}
+
+
+
+/* ===============================================
+   COMBOBOX
+   =============================================== */
+
+QComboBox {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 6px 24px 6px 8px;
+    color: #495057;
+    font-size: 13px;
+    min-height: 18px;
+    selection-background-color: #0d6efd;
+}
+
+QComboBox:hover {
+    border-color: #0d6efd;
+    background-color: rgb(248, 249, 250);
+}
+
+QComboBox:focus {
+    border: 1px solid #0d6efd;
+    outline: none;
+}
+
+QComboBox:pressed {
+    background-color: rgb(240, 244, 248);
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border: none;
+    background-color: transparent;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+QComboBox::drop-down:hover {
+    background-color: rgba(229, 234, 239, 0.3);
+}
+
+QComboBox::drop-down:pressed {
+    background-color: rgba(229, 234, 239, 0.5);
+}
+
+QComboBox::down-arrow {
+    image: url(:/icon_gris/chevron-down.svg);
+    width: 12px;
+    height: 12px;
+}
+
+QComboBox::down-arrow:pressed {
+    image: url(:/icon_noir/chevron-down.svg);
+}
+
+QComboBox QAbstractItemView {
+    border: 1px solid #0d6efd;
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    selection-background-color: #0d6efd;
+    selection-color: white;
+    padding: 2px;
+    outline: none;
+    show-decoration-selected: 1;
+}
+
+QComboBox QAbstractItemView::item {
+    height: 28px;
+    padding: 0 8px;
+    border-bottom: 1px solid rgba(229, 234, 239, 0.5);
+    color: #495057;
+}
+
+QComboBox QAbstractItemView::item:last {
+    border-bottom: none;
+}
+
+QComboBox QAbstractItemView::item:hover {
+    background-color: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+}
+
+QComboBox QAbstractItemView::item:selected {
+    background-color: #0d6efd;
+    color: white;
+}
+
+/* ===============================================
+   SPINBOX ET DOUBLESPINBOX
+   =============================================== */
+
+QDoubleSpinBox, QSpinBox {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 6px 8px;
+    color: #495057;
+    font-size: 13px;
+    min-height: 18px;
+    selection-background-color: #0d6efd;
+}
+
+QDoubleSpinBox:hover, QSpinBox:hover {
+    border-color: #0d6efd;
+    background-color: rgb(248, 249, 250);
+}
+
+QDoubleSpinBox:focus, QSpinBox:focus {
+    border: 1px solid #0d6efd;
+    outline: none;
+}
+
+QDoubleSpinBox::up-button, QSpinBox::up-button {
+    subcontrol-origin: border;
+    subcontrol-position: top right;
+    width: 18px;
+    height: 10px;
+    border: none;
+    background-color: transparent;
+    margin-top: 1px;
+    margin-right: 1px;
+}
+
+QDoubleSpinBox::up-button:hover, QSpinBox::up-button:hover {
+    background-color: rgba(229, 234, 239, 0.3);
+}
+
+QDoubleSpinBox::up-button:pressed, QSpinBox::up-button:pressed {
+    background-color: rgba(229, 234, 239, 0.5);
+}
+
+QDoubleSpinBox::down-button, QSpinBox::down-button {
+    subcontrol-origin: border;
+    subcontrol-position: bottom right;
+    width: 18px;
+    height: 10px;
+    border: none;
+    background-color: transparent;
+    margin-bottom: 1px;
+    margin-right: 1px;
+}
+
+QDoubleSpinBox::down-button:hover, QSpinBox::down-button:hover {
+    background-color: rgba(229, 234, 239, 0.3);
+}
+
+QDoubleSpinBox::down-button:pressed, QSpinBox::down-button:pressed {
+    background-color: rgba(229, 234, 239, 0.5);
+}
+
+QDoubleSpinBox::up-arrow, QSpinBox::up-arrow {
+    image: url(:/icon_gris/chevron-up.svg);
+    width: 8px;
+    height: 8px;
+}
+
+QDoubleSpinBox::up-arrow:hover, QSpinBox::up-arrow:hover {
+    image: url(:/icon_noir/chevron-up.svg);
+}
+
+QDoubleSpinBox::down-arrow, QSpinBox::down-arrow {
+    image: url(:/icon_gris/chevron-down.svg);
+    width: 8px;
+    height: 8px;
+}
+
+QDoubleSpinBox::down-arrow:hover, QSpinBox::down-arrow:hover {
+    image: url(:/icon_noir/chevron-down.svg);
+}
+
+QDoubleSpinBox::up-arrow:disabled, QSpinBox::up-arrow:disabled {
+    image: url(:/icon_gris/chevron-up-disabled.svg);
+}
+
+QDoubleSpinBox::down-arrow:disabled, QSpinBox::down-arrow:disabled {
+    image: url(:/icon_gris/chevron-down-disabled.svg);
+}
+
+/* ===============================================
+   DATEEDIT
+   =============================================== */
+
+QDateEdit {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 6px 24px 6px 8px;
+    background-color: rgb(255, 255, 255);
+    color: #495057;
+    font-size: 13px;
+    min-height: 18px;
+}
+
+QDateEdit:hover {
+    border-color: #0d6efd;
+    background-color: rgb(248, 249, 250);
+}
+
+QDateEdit:focus {
+    border: 1px solid #0d6efd;
+    outline: none;
+}
+
+QDateEdit::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border: none;
+    border-left: 1px solid #ced4da;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color: rgba(229, 234, 239, 0.3);
+}
+
+QDateEdit::drop-down:hover {
+    background-color: rgba(229, 234, 239, 0.6);
+}
+
+QDateEdit::down-arrow {
+    image: url(:/icon_gris/calendar.svg);
+    width: 12px;
+    height: 12px;
+}
+
+/* ===============================================
+   BARRES DE DÉFILEMENT
+   =============================================== */
+
+QScrollBar:vertical {
+    border: none;
+    background-color: rgba(248, 249, 250, 0);
+    width: 10px;
+    margin: 0;
+}
+
+QScrollBar:horizontal {
+    border: none;
+    background-color: rgba(248, 249, 250, 0);
+    height: 10px;
+    margin: 0;
+}
+
+QScrollBar::handle:vertical,
+QScrollBar::handle:horizontal {
+    background-color: rgba(206, 212, 218, 0.5);
+    border-radius: 4px;
+    min-height: 20px;
+    min-width: 20px;
+    opacity: 0;
+    transition: opacity 300ms ease, background-color 300ms ease;
+}
+
+QScrollBar::handle:vertical:hover,
+QScrollBar::handle:horizontal:hover {
+    background-color: rgba(13, 110, 253, 0.6);
+    opacity: 1;
+}
+
+QScrollBar::handle:vertical:pressed,
+QScrollBar::handle:horizontal:pressed {
+    background-color: rgba(8, 77, 178, 0.8);
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical,
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {
+    border: none;
+    background: none;
+    height: 0;
+    width: 0;
+}
+
+QScrollBar:vertical:hover,
+QScrollBar:horizontal:hover {
+    background-color: rgba(248, 249, 250, 0.3);
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical,
+QScrollBar::add-page:horizontal,
+QScrollBar::sub-page:horizontal {
+    background: none;
+}
+
+/* ===============================================
+   SÉPARATEURS
+   =============================================== */
+
+Line {
+    background-color: rgb(229, 234, 239);
+    border-radius: 1px;
+    border: 1px solid rgb(229, 234, 239);
+    width: 1px;
+}
+
+#line, #line_2 {
+    border: none;
+    background-color: rgba(206, 212, 218, 0.7);
+    border-radius: 1px;
+    outline: none;
+}
+
+/* ===============================================
+   STYLE DES ONGLETS DE TRANSACTION
+   =============================================== */
+
+#mes_onglets_page_transaction {
+    background-color: rgb(248, 249, 250);
+    border: none;
+    border-radius: 4px;
+}
+
+#onglet_virement ,#onglet_depot_retrait{
+	
+	background-color: rgb(248, 249, 250);
+
+}
+
+/* Panneau de contenu des onglets */
+#mes_onglets_page_transaction::pane {
+    border: none;
+    border-radius: 0 0 4px 4px;
+    background-color: rgb(248, 249, 250);
+}
+
+/* Barre d'onglets */
+#mes_onglets_page_transaction &gt; QTabBar {
+    background: transparent;
+    border: none;
+    spacing: 4px;
+}
+
+/* Onglets individuels */
+#mes_onglets_page_transaction &gt; QTabBar::tab {
+    background-color: rgba(229, 234, 239, 0.5);
+    border: 1px solid rgb(229, 234, 239);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    padding: 8px 16px;
+    margin-right: 2px;
+    min-width: 100px;
+    color: rgb(108, 117, 125);
+}
+
+/* Onglet sélectionné */
+#mes_onglets_page_transaction &gt; QTabBar::tab:selected {
+    background-color: rgb(248, 249, 250);
+    border-color: rgb(229, 234, 239);
+    color: rgb(73, 80, 87);
+    font-weight: 600;
+}
+
+/* Onglet au survol */
+#mes_onglets_page_transaction &gt; QTabBar::tab:hover {
+    background-color: rgba(229, 234, 239, 0.8);
+    color: rgb(13, 110, 253);
+}
+
+/* Onglet actif */
+#mes_onglets_page_transaction &gt; QTabBar::tab:selected:hover {
+    background-color: rgb(233, 236, 239);
+}
+
+/* Indicateur de sélection (ligne du bas) */
+#mes_onglets_page_transaction &gt; QTabBar::tab:selected {
+    border-bottom: 2px solid #0d6efd;
+    margin-bottom: -1px; /* Alignement avec la bordure */
+}
+
+/* Flèches de navigation quand il y a beaucoup d'onglets */
+#mes_onglets_page_transaction &gt; QTabBar QToolButton {
+    background: rgb(229, 234, 239);
+    border-radius: 3px;
+    margin: 4px;
+}
+
+/* Icônes des flèches */
+#mes_onglets_page_transaction &gt; QTabBar QToolButton::right-arrow,
+#mes_onglets_page_transaction &gt; QTabBar QToolButton::left-arrow {
+    image: url(:/icon_gris/chevron-right.svg);
+    width: 12px;
+    height: 12px;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralMain">
+   <layout class="QVBoxLayout" name="verticalLayout_6">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>2</number>
+    </property>
+    <property name="topMargin">
+     <number>2</number>
+    </property>
+    <property name="rightMargin">
+     <number>2</number>
+    </property>
+    <property name="bottomMargin">
+     <number>2</number>
+    </property>
+    <item>
+     <widget class="QWidget" name="bar_nav" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>561</width>
+        <height>51</height>
+       </size>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="spacing">
+        <number>2</number>
+       </property>
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="topMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <property name="bottomMargin">
+        <number>2</number>
+       </property>
+       <item alignment="Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter">
+        <widget class="QWidget" name="widget_4" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item alignment="Qt::AlignmentFlag::AlignHCenter">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700; color:#00aaff;&quot;&gt;MyBank&lt;/span&gt;&lt;span style=&quot; font-size:22pt; color:#00aaff;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignmentFlag::AlignRight">
+        <widget class="QWidget" name="zone_btn_compte_et_notification" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QToolButton" name="btn_notification">
+            <property name="minimumSize">
+             <size>
+              <width>18</width>
+              <height>19</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="icons.qrc">
+              <normaloff>:/icon_gris/bell.svg</normaloff>:/icon_gris/bell.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="btn_menu_compte">
+            <property name="minimumSize">
+             <size>
+              <width>31</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="widget_2" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>561</width>
+        <height>401</height>
+       </size>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="topMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <property name="bottomMargin">
+        <number>2</number>
+       </property>
+       <item alignment="Qt::AlignmentFlag::AlignLeft">
+        <widget class="QWidget" name="BarreLaterale" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item alignment="Qt::AlignmentFlag::AlignTop">
+           <widget class="QWidget" name="widget_5" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <item>
+              <widget class="QToolButton" name="btn_dashboard_barre_latterale">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="text">
+                <string>Dashboard</string>
+               </property>
+               <property name="icon">
+                <iconset resource="icons.qrc">
+                 <normaloff>:/icon_gris/grid.svg</normaloff>:/icon_gris/grid.svg</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="btn_historique_barre_latterale">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="text">
+                <string>Historique</string>
+               </property>
+               <property name="icon">
+                <iconset resource="icons.qrc">
+                 <normaloff>:/icon_gris/clock.svg</normaloff>:/icon_gris/clock.svg</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="btn_parametres_barre_latterale">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="text">
+                <string>paramètres</string>
+               </property>
+               <property name="icon">
+                <iconset resource="icons.qrc">
+                 <normaloff>:/icon_gris/settings.svg</normaloff>:/icon_gris/settings.svg</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignmentFlag::AlignBottom">
+           <widget class="QWidget" name="widget" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <widget class="QToolButton" name="btn_aide_et_supports_barre_latterale">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="text">
+                <string>Aide et Supports</string>
+               </property>
+               <property name="icon">
+                <iconset resource="icons.qrc">
+                 <normaloff>:/icon_gris/help-circle.svg</normaloff>:/icon_gris/help-circle.svg</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="btn_deconnexion_barre_latterale">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="text">
+                <string>Deconnexion</string>
+               </property>
+               <property name="icon">
+                <iconset resource="icons.qrc">
+                 <normaloff>:/icon_gris/log-out.svg</normaloff>:/icon_gris/log-out.svg</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="mes_pages">
+         <widget class="QWidget" name="page_dashboard">
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <item>
+            <widget class="QWidget" name="widget_7" native="true">
+             <property name="minimumSize">
+              <size>
+               <width>421</width>
+               <height>51</height>
+              </size>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item alignment="Qt::AlignmentFlag::AlignLeft">
+               <widget class="QWidget" name="widget_8" native="true">
+                <layout class="QVBoxLayout" name="verticalLayout_5">
+                 <item>
+                  <widget class="QLabel" name="labelBienvenue">
+                   <property name="text">
+                    <string>Bienvenue , DEO !</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_2">
+                   <property name="text">
+                    <string>Bienvenue sur votre tableau de bord </string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="Line" name="line">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="zone_mes_comptes">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="title">
+              <string>Mes Comptes </string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_8">
+              <property name="spacing">
+               <number>4</number>
+              </property>
+              <item alignment="Qt::AlignmentFlag::AlignHCenter">
+               <widget class="QWidget" name="zone_carte_compte" native="true">
+                <property name="minimumSize">
+                 <size>
+                  <width>923</width>
+                  <height>243</height>
+                 </size>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_6">
+                 <property name="spacing">
+                  <number>50</number>
+                 </property>
+                 <item>
+                  <widget class="QWidget" name="carte_courant_principal" native="true">
+                   <property name="minimumSize">
+                    <size>
+                     <width>420</width>
+                     <height>200</height>
+                    </size>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_13">
+                    <item>
+                     <widget class="QWidget" name="zone_rideau_compte_courant" native="true">
+                      <layout class="QVBoxLayout" name="verticalLayout_14">
+                       <item>
+                        <widget class="QWidget" name="widget_6" native="true">
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <layout class="QHBoxLayout" name="horizontalLayout_7">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <property name="leftMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>2</number>
+                          </property>
+                          <item alignment="Qt::AlignmentFlag::AlignLeft">
+                           <widget class="QWidget" name="widget_10" native="true">
+                            <layout class="QVBoxLayout" name="verticalLayout_11">
+                             <item>
+                              <widget class="QLabel" name="label_titre_compte_courant_2">
+                               <property name="text">
+                                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:700; color:#00007f;&quot;&gt;Compte courant principale&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLabel" name="label_5">
+                               <property name="text">
+                                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:7pt; color:#696969;&quot;&gt;consulter les informations de votre compte courant principale&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QWidget" name="widget_13" native="true">
+                            <layout class="QGridLayout" name="gridLayout">
+                             <item row="0" column="0">
+                              <widget class="QGroupBox" name="groupBox_2">
+                               <property name="title">
+                                <string>Date de création </string>
+                               </property>
+                               <layout class="QVBoxLayout" name="verticalLayout_12">
+                                <property name="spacing">
+                                 <number>2</number>
+                                </property>
+                                <property name="leftMargin">
+                                 <number>2</number>
+                                </property>
+                                <property name="topMargin">
+                                 <number>2</number>
+                                </property>
+                                <property name="rightMargin">
+                                 <number>2</number>
+                                </property>
+                                <property name="bottomMargin">
+                                 <number>2</number>
+                                </property>
+                                <item>
+                                 <widget class="QLabel" name="label_date_creation_compte_courant">
+                                  <property name="text">
+                                   <string>25/06/2025</string>
+                                  </property>
+                                 </widget>
+                                </item>
+                               </layout>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QWidget" name="widget_12" native="true">
+                         <layout class="QHBoxLayout" name="horizontalLayout_12">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <property name="leftMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>2</number>
+                          </property>
+                          <item>
+                           <widget class="QGroupBox" name="groupBox">
+                            <property name="title">
+                             <string>Solde</string>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_10">
+                             <property name="spacing">
+                              <number>10</number>
+                             </property>
+                             <item>
+                              <widget class="QLabel" name="label_solde_compte_courant">
+                               <property name="minimumSize">
+                                <size>
+                                 <width>89</width>
+                                 <height>20</height>
+                                </size>
+                               </property>
+                               <property name="text">
+                                <string>2000.00 FCFA</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QToolButton" name="btn_masquer_solde_compte_courant">
+                               <property name="cursor">
+                                <cursorShape>PointingHandCursor</cursorShape>
+                               </property>
+                               <property name="text">
+                                <string/>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="icons.qrc">
+                                 <normaloff>:/icon_gris/eye-off.svg</normaloff>:/icon_gris/eye-off.svg</iconset>
+                               </property>
+                               <property name="iconSize">
+                                <size>
+                                 <width>15</width>
+                                 <height>15</height>
+                                </size>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QGroupBox" name="groupBox_3">
+                            <property name="title">
+                             <string>Découvert autorisé</string>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_9">
+                             <item alignment="Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter">
+                              <widget class="QLabel" name="label_6">
+                               <property name="minimumSize">
+                                <size>
+                                 <width>20</width>
+                                 <height>20</height>
+                                </size>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">border-image: url(:/icon_orange_warning/shield.svg);</string>
+                               </property>
+                               <property name="text">
+                                <string/>
+                               </property>
+                               <property name="scaledContents">
+                                <bool>true</bool>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLabel" name="label_decouvert_autorise_compte_courant">
+                               <property name="text">
+                                <string>35000.00 FCFA</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QGroupBox" name="groupBox_4">
+                            <property name="title">
+                             <string>Numéro de compte</string>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_8">
+                             <item>
+                              <widget class="QLabel" name="label_numero_de_compte_courant">
+                               <property name="text">
+                                <string>N° CC000325</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QGroupBox" name="groupBox_5">
+                         <property name="title">
+                          <string>Dernière opération</string>
+                         </property>
+                         <layout class="QHBoxLayout" name="horizontalLayout_11">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <property name="leftMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>2</number>
+                          </property>
+                          <item>
+                           <widget class="QLabel" name="label_derniere_transaction_compte_courant">
+                            <property name="text">
+                             <string>Dépot - 10/06/2025 - compte - courant</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QWidget" name="widget_14" native="true">
+                         <layout class="QHBoxLayout" name="horizontalLayout_13">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <property name="leftMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>2</number>
+                          </property>
+                          <item alignment="Qt::AlignmentFlag::AlignLeft">
+                           <widget class="QPushButton" name="btn_effectuer_transaction_compte_courant">
+                            <property name="cursor">
+                             <cursorShape>PointingHandCursor</cursorShape>
+                            </property>
+                            <property name="text">
+                             <string>Effectuer une transaction</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignmentFlag::AlignRight">
+                           <widget class="QPushButton" name="btn_consulter_compte_courant">
+                            <property name="cursor">
+                             <cursorShape>PointingHandCursor</cursorShape>
+                            </property>
+                            <property name="text">
+                             <string>Consulter le compte</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QWidget" name="carte_epargne" native="true">
+                   <property name="minimumSize">
+                    <size>
+                     <width>420</width>
+                     <height>200</height>
+                    </size>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_18">
+                    <item>
+                     <widget class="QWidget" name="zone_rideau_compte_epargne" native="true">
+                      <layout class="QVBoxLayout" name="verticalLayout_15">
+                       <item>
+                        <widget class="QWidget" name="widget_15" native="true">
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <layout class="QHBoxLayout" name="horizontalLayout_14">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <property name="leftMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>2</number>
+                          </property>
+                          <item alignment="Qt::AlignmentFlag::AlignLeft">
+                           <widget class="QWidget" name="widget_16" native="true">
+                            <layout class="QVBoxLayout" name="verticalLayout_16">
+                             <item>
+                              <widget class="QLabel" name="label_titre_compte_epargne">
+                               <property name="text">
+                                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:700; color:#00007f;&quot;&gt;Compte épargne&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLabel" name="label_9">
+                               <property name="text">
+                                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:7pt; color:#696969;&quot;&gt;consulter les informations de votre compte courant principale&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QWidget" name="widget_17" native="true">
+                            <layout class="QGridLayout" name="gridLayout_2">
+                             <item row="0" column="0">
+                              <widget class="QGroupBox" name="groupBox_6">
+                               <property name="title">
+                                <string>Date de création </string>
+                               </property>
+                               <layout class="QVBoxLayout" name="verticalLayout_17">
+                                <property name="spacing">
+                                 <number>2</number>
+                                </property>
+                                <property name="leftMargin">
+                                 <number>2</number>
+                                </property>
+                                <property name="topMargin">
+                                 <number>2</number>
+                                </property>
+                                <property name="rightMargin">
+                                 <number>2</number>
+                                </property>
+                                <property name="bottomMargin">
+                                 <number>2</number>
+                                </property>
+                                <item>
+                                 <widget class="QLabel" name="label_date_creation_compte_epargne">
+                                  <property name="text">
+                                   <string>25/06/2025</string>
+                                  </property>
+                                 </widget>
+                                </item>
+                               </layout>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QWidget" name="widget_18" native="true">
+                         <layout class="QHBoxLayout" name="horizontalLayout_15">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <property name="leftMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>2</number>
+                          </property>
+                          <item>
+                           <widget class="QGroupBox" name="groupBox_7">
+                            <property name="title">
+                             <string>Solde</string>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_16">
+                             <property name="spacing">
+                              <number>10</number>
+                             </property>
+                             <item>
+                              <widget class="QLabel" name="label_solde_compte_epargne">
+                               <property name="minimumSize">
+                                <size>
+                                 <width>89</width>
+                                 <height>19</height>
+                                </size>
+                               </property>
+                               <property name="text">
+                                <string>2000.00 FCFA</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item alignment="Qt::AlignmentFlag::AlignTop">
+                              <widget class="QToolButton" name="btn_masquer_solde_compte_epargne">
+                               <property name="cursor">
+                                <cursorShape>PointingHandCursor</cursorShape>
+                               </property>
+                               <property name="text">
+                                <string/>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="icons.qrc">
+                                 <normaloff>:/icon_gris/eye-off.svg</normaloff>:/icon_gris/eye-off.svg</iconset>
+                               </property>
+                               <property name="iconSize">
+                                <size>
+                                 <width>15</width>
+                                 <height>15</height>
+                                </size>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignmentFlag::AlignHCenter">
+                           <widget class="QGroupBox" name="groupBox_8">
+                            <property name="minimumSize">
+                             <size>
+                              <width>100</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="title">
+                             <string>Taux d'interêt</string>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_17">
+                             <property name="spacing">
+                              <number>2</number>
+                             </property>
+                             <property name="leftMargin">
+                              <number>2</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>2</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>2</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>2</number>
+                             </property>
+                             <item alignment="Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter">
+                              <widget class="QLabel" name="label_3">
+                               <property name="minimumSize">
+                                <size>
+                                 <width>20</width>
+                                 <height>20</height>
+                                </size>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">border-image: url(:/icon_vert_succes/percent.svg);</string>
+                               </property>
+                               <property name="text">
+                                <string/>
+                               </property>
+                               <property name="scaledContents">
+                                <bool>true</bool>
+                               </property>
+                               <property name="alignment">
+                                <set>Qt::AlignmentFlag::AlignCenter</set>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLabel" name="label_taux_interet_compte_epargne">
+                               <property name="sizePolicy">
+                                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                                 <horstretch>0</horstretch>
+                                 <verstretch>0</verstretch>
+                                </sizepolicy>
+                               </property>
+                               <property name="text">
+                                <string>5%</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QGroupBox" name="groupBox_9">
+                            <property name="title">
+                             <string>Numéro de compte</string>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_18">
+                             <item>
+                              <widget class="QLabel" name="label_numero_de_compte_epargne">
+                               <property name="text">
+                                <string>N° CC000325</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QGroupBox" name="groupBox_10">
+                         <property name="title">
+                          <string>Dernière opération</string>
+                         </property>
+                         <layout class="QHBoxLayout" name="horizontalLayout_19">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <property name="leftMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>2</number>
+                          </property>
+                          <item>
+                           <widget class="QLabel" name="label_derniere_transaction_compte_epargne">
+                            <property name="text">
+                             <string>Dépot - 10/06/2025 - compte - courant</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QWidget" name="widget_19" native="true">
+                         <layout class="QHBoxLayout" name="horizontalLayout_20">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <property name="leftMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>2</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>2</number>
+                          </property>
+                          <item alignment="Qt::AlignmentFlag::AlignLeft">
+                           <widget class="QPushButton" name="btn_effectuer_transaction_compte_epargne">
+                            <property name="cursor">
+                             <cursorShape>PointingHandCursor</cursorShape>
+                            </property>
+                            <property name="text">
+                             <string>Effectuer une transaction</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignmentFlag::AlignRight">
+                           <widget class="QPushButton" name="btn_consulter_compte_epargne">
+                            <property name="cursor">
+                             <cursorShape>PointingHandCursor</cursorShape>
+                            </property>
+                            <property name="text">
+                             <string>Consulter le compte</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QWidget" name="carte_liste_activite_recentes" native="true">
+             <property name="minimumSize">
+              <size>
+               <width>531</width>
+               <height>191</height>
+              </size>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_9">
+              <item alignment="Qt::AlignmentFlag::AlignTop">
+               <widget class="QWidget" name="zone_liste_header" native="true">
+                <property name="minimumSize">
+                 <size>
+                  <width>511</width>
+                  <height>61</height>
+                 </size>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <item alignment="Qt::AlignmentFlag::AlignLeft">
+                  <widget class="QWidget" name="widget_9" native="true">
+                   <layout class="QVBoxLayout" name="verticalLayout_7">
+                    <item>
+                     <widget class="QLabel" name="label_titre_activite_recentes">
+                      <property name="text">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:700; color:#5d5f65;&quot;&gt;Activité Récentes &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_4">
+                      <property name="text">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:7pt; color:#696969;&quot;&gt;Dernières opérations sur tous vos comptes &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="btn_voir_liste_complete_transaction">
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="text">
+                    <string>voir tout</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QWidget" name="widget_11" native="true">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_historique">
+          <layout class="QVBoxLayout" name="verticalLayout_19">
+           <property name="topMargin">
+            <number>40</number>
+           </property>
+           <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop">
+            <widget class="QWidget" name="carte_liste_historique_transaction" native="true">
+             <property name="minimumSize">
+              <size>
+               <width>921</width>
+               <height>400</height>
+              </size>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_21">
+              <item>
+               <widget class="QWidget" name="widget_3" native="true">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>911</width>
+                  <height>71</height>
+                 </size>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_24">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <widget class="QWidget" name="widget_20" native="true">
+                   <layout class="QVBoxLayout" name="verticalLayout_20">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_titre_compte_courant_3">
+                      <property name="text">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:700; color:#00007f;&quot;&gt;Historique des transactions &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_7">
+                      <property name="text">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#696969;&quot;&gt;consulter et filtrer vos opérations bancaires &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="Line" name="line_2">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QWidget" name="widget_21" native="true">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>901</width>
+                  <height>51</height>
+                 </size>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_23">
+                 <item alignment="Qt::AlignmentFlag::AlignRight">
+                  <widget class="QWidget" name="widget_22" native="true">
+                   <layout class="QHBoxLayout" name="horizontalLayout_22">
+                    <item>
+                     <widget class="QToolButton" name="btn_modifier_la_transaction">
+                      <property name="cursor">
+                       <cursorShape>PointingHandCursor</cursorShape>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="icons.qrc">
+                        <normaloff>:/icon_gris/edit-3.svg</normaloff>:/icon_gris/edit-3.svg</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>15</width>
+                        <height>15</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QToolButton" name="btn_supprimer_transaction">
+                      <property name="cursor">
+                       <cursorShape>PointingHandCursor</cursorShape>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="icons.qrc">
+                        <normaloff>:/icon_rouge/trash-2.svg</normaloff>:/icon_rouge/trash-2.svg</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>15</width>
+                        <height>15</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QWidget" name="BarreRecherche" native="true">
+                      <layout class="QHBoxLayout" name="horizontalLayout_21">
+                       <property name="spacing">
+                        <number>2</number>
+                       </property>
+                       <property name="leftMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>2</number>
+                       </property>
+                       <item>
+                        <widget class="QLineEdit" name="ZoneRecherche">
+                         <property name="minimumSize">
+                          <size>
+                           <width>257</width>
+                           <height>27</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QToolButton" name="indicat_recherche">
+                         <property name="cursor">
+                          <cursorShape>PointingHandCursor</cursorShape>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="icon">
+                          <iconset resource="icons.qrc">
+                           <normaloff>:/icon_gris/search.svg</normaloff>:/icon_gris/search.svg</iconset>
+                         </property>
+                         <property name="iconSize">
+                          <size>
+                           <width>15</width>
+                           <height>15</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QWidget" name="zone_liste_des_transaction" native="true">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>911</width>
+                  <height>251</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_parametres"/>
+         <widget class="QWidget" name="page_transaction"/>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>
