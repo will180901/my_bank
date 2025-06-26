@@ -46,6 +46,10 @@ private slots:
 
     void on_btn_valider_transaction_clicked();
 
+    void on_btn_supprimer_transaction_clicked();
+
+    void on_btn_modifier_la_transaction_clicked();
+
 private:
     Ui::fenMain *ui;
     AnimationSolde *m_soldeAnimation;

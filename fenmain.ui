@@ -39,6 +39,12 @@
 }
 
 
+#message_page_en_construction{
+
+	background-color: rgba(81, 81, 81,0.1);
+
+}
+
 #motif_transaction_depot_retrait{
 
     background-color: rgb(248, 249, 250); 
@@ -1761,7 +1767,7 @@ Line {
                </widget>
               </item>
               <item>
-               <widget class="QWidget" name="widget_11" native="true">
+               <widget class="QWidget" name="zone_affichage_tableau" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
                   <horstretch>0</horstretch>
@@ -2012,7 +2018,35 @@ Line {
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="page_parametres"/>
+         <widget class="QWidget" name="page_parametres">
+          <layout class="QGridLayout" name="gridLayout_3">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item row="0" column="0">
+            <widget class="QLabel" name="message_page_en_construction">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-style:italic; color:#727286;&quot;&gt;- cette page est en construction -&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
          <widget class="QWidget" name="page_transaction">
           <layout class="QVBoxLayout" name="verticalLayout_26">
            <item alignment="Qt::AlignmentFlag::AlignHCenter">

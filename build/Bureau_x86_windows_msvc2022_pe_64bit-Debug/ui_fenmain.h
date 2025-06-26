@@ -151,7 +151,7 @@ public:
     QLabel *label_titre_activite_recentes;
     QLabel *label_4;
     QToolButton *btn_voir_liste_complete_transaction;
-    QWidget *widget_11;
+    QWidget *zone_affichage_tableau;
     QWidget *page_historique;
     QVBoxLayout *verticalLayout_19;
     QWidget *carte_liste_historique_transaction;
@@ -176,6 +176,8 @@ public:
     QComboBox *cbo_filtre_transactions;
     QWidget *zone_liste_des_transaction;
     QWidget *page_parametres;
+    QGridLayout *gridLayout_3;
+    QLabel *message_page_en_construction;
     QWidget *page_transaction;
     QVBoxLayout *verticalLayout_26;
     QWidget *carte_effectuer_transaction;
@@ -243,6 +245,12 @@ public:
 "}\n"
 "\n"
 "\n"
+"#message_page_en_construction{\n"
+"\n"
+"	background-color: rgba(81, 81, 81,0.1);\n"
+"\n"
+"}\n"
+"\n"
 "#motif_transaction_depot_retrait{\n"
 "\n"
 "    background-color: rgb(248, 249, 250); \n"
@@ -273,12 +281,12 @@ public:
 "\n"
 "#ZoneRecherche {\n"
 "    border: none;\n"
-"    background: transparent;\n"
+" "
+                        "   background: transparent;\n"
 "}\n"
 "\n"
 "#BarreRecherche {\n"
-"    border: 1px solid rgba(206, 212,"
-                        " 218, 180);\n"
+"    border: 1px solid rgba(206, 212, 218, 180);\n"
 "    border-radius: 4px;\n"
 "    background-color: rgba(255, 255, 255, 250);\n"
 "    padding: 6px;\n"
@@ -322,13 +330,13 @@ public:
 "    border-radius: 4px;\n"
 "}\n"
 "\n"
-"#BarreLaterale QToolButton:hover {\n"
+"#BarreLaterale QToolButton:hove"
+                        "r {\n"
 "    background-color: #f8f9fa;\n"
 "}\n"
 "\n"
 "#BarreLaterale QToolButton:pressed {\n"
-"    ba"
-                        "ckground-color: rgba(229, 234, 239, 150);\n"
+"    background-color: rgba(229, 234, 239, 150);\n"
 "    color: rgb(13, 110, 253);\n"
 "    font-weight: bold;\n"
 "}\n"
@@ -360,14 +368,14 @@ public:
 "#zone_carte_compte{\n"
 "\n"
 "background-color: rgba(255, 255, 255,0.1);\n"
-"    border-radius: 4px;\n"
+"    border-radius: 4p"
+                        "x;\n"
 "    border: 1px solid rgba(229, 234, 239,0.1);\n"
 "\n"
 "}\n"
 "\n"
 "#bar_nav {\n"
-"    border-b"
-                        "ottom: 1px solid rgb(229, 234, 239);\n"
+"    border-bottom: 1px solid rgb(229, 234, 239);\n"
 "}\n"
 "\n"
 "#BarreLaterale {\n"
@@ -402,10 +410,10 @@ public:
 "}\n"
 "\n"
 "\n"
-"/* ===============================================\n"
+"/* ============"
+                        "===================================\n"
 "   LABELS ET TEXTES\n"
-"   =================================="
-                        "============= */\n"
+"   =============================================== */\n"
 "\n"
 "#label_solde_compte_courant, \n"
 "#label_solde_compte_epargne {\n"
@@ -444,10 +452,10 @@ public:
 "\n"
 "\n"
 "\n"
-"/* ===============================================\n"
+"/* ============="
+                        "==================================\n"
 "   CARTES ET GROUPES\n"
-"   =================================="
-                        "============= */\n"
+"   =============================================== */\n"
 "\n"
 "\n"
 "\n"
@@ -484,13 +492,13 @@ public:
 "\n"
 "QLineEdit:hover, QTextEdit:hover {\n"
 "    border: 1px solid #0d6efd;\n"
-"    background-color: rgb(248, 249, 250);\n"
+"    background-color: rgb(248, 249, 250"
+                        ");\n"
 "}\n"
 "\n"
 "QLineEdit:focus, QTextEdit:focus, \n"
 "QComboBox:focus, QDoubleSpinBox:focus {\n"
-""
-                        "    border: 1px solid #0d6efd;\n"
+"    border: 1px solid #0d6efd;\n"
 "    outline: none;\n"
 "    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);\n"
 "}\n"
@@ -526,12 +534,12 @@ public:
 "    background-color: rgb(255, 255, 255);\n"
 "    border: 1px solid rgb(229, 234, 239);\n"
 "    color: rgb(73, 80, 87);\n"
-"    border-radius: 4px;\n"
+"   "
+                        " border-radius: 4px;\n"
 "    padding: 6px 10px;\n"
 "}\n"
 "\n"
-"#btn_effectuer_transaction_compte_epar"
-                        "gne:hover,\n"
+"#btn_effectuer_transaction_compte_epargne:hover,\n"
 "#btn_effectuer_transaction_compte_courant:hover {\n"
 "    background-color: rgba(248, 249, 250, 200);\n"
 "}\n"
@@ -568,14 +576,14 @@ public:
 "\n"
 "#zone_info_perso_profil {\n"
 "    border-bottom: 2px solid rgba(73, 80, 87, 0.2);\n"
-"}\n"
+""
+                        "}\n"
 "\n"
 "\n"
 "\n"
 "/* ===============================================\n"
 "   COMBOBOX\n"
-"   ==="
-                        "============================================ */\n"
+"   =============================================== */\n"
 "\n"
 "QComboBox {\n"
 "    background-color: rgb(255, 255, 255);\n"
@@ -612,12 +620,12 @@ public:
 "    border-bottom-right-radius: 4px;\n"
 "}\n"
 "\n"
-"QComboBox::drop-down:hover {\n"
+"QComboBox::drop-down:h"
+                        "over {\n"
 "    background-color: rgba(229, 234, 239, 0.3);\n"
 "}\n"
 "\n"
-"QComboBox::drop-down:pre"
-                        "ssed {\n"
+"QComboBox::drop-down:pressed {\n"
 "    background-color: rgba(229, 234, 239, 0.5);\n"
 "}\n"
 "\n"
@@ -654,12 +662,12 @@ public:
 "}\n"
 "\n"
 "QComboBox QAbstractItemView::item:hover {\n"
-"    background-color: rgba(13, 110, 253, 0.1);\n"
+""
+                        "    background-color: rgba(13, 110, 253, 0.1);\n"
 "    color: #0d6efd;\n"
 "}\n"
 "\n"
-"QComboBox QA"
-                        "bstractItemView::item:selected {\n"
+"QComboBox QAbstractItemView::item:selected {\n"
 "    background-color: #0d6efd;\n"
 "    color: white;\n"
 "}\n"
@@ -692,12 +700,12 @@ public:
 "QDoubleSpinBox::up-button, QSpinBox::up-button {\n"
 "    subcontrol-origin: border;\n"
 "    subcontrol-position: top right;\n"
-"    width: 18px;\n"
+"    "
+                        "width: 18px;\n"
 "    height: 10px;\n"
 "    border: none;\n"
 "    background-color: transparent;\n"
-""
-                        "    margin-top: 1px;\n"
+"    margin-top: 1px;\n"
 "    margin-right: 1px;\n"
 "}\n"
 "\n"
@@ -728,11 +736,11 @@ public:
 "    background-color: rgba(229, 234, 239, 0.5);\n"
 "}\n"
 "\n"
-"QDoubleSpinBox::up-arrow, QSpinBox::up-arrow {\n"
+"QDoubleSpinBox::up-arrow, QSp"
+                        "inBox::up-arrow {\n"
 "    image: url(:/icon_gris/chevron-up.svg);\n"
 "    width: 8px;\n"
-"    height"
-                        ": 8px;\n"
+"    height: 8px;\n"
 "}\n"
 "\n"
 "QDoubleSpinBox::up-arrow:hover, QSpinBox::up-arrow:hover {\n"
@@ -764,11 +772,11 @@ public:
 "QDateEdit {\n"
 "    border: 1px solid #ced4da;\n"
 "    border-radius: 4px;\n"
-"    padding: 6px 24px 6px 8px;\n"
+"   "
+                        " padding: 6px 24px 6px 8px;\n"
 "    background-color: rgb(255, 255, 255);\n"
 "    color: #495057;\n"
-""
-                        "    font-size: 13px;\n"
+"    font-size: 13px;\n"
 "    min-height: 18px;\n"
 "}\n"
 "\n"
@@ -805,12 +813,12 @@ public:
 "\n"
 "/* ===============================================\n"
 "   BARRES DE D\303\211FILEMENT\n"
-"   =============================================== */\n"
+"   ==============="
+                        "================================ */\n"
 "\n"
 "QScrollBar:vertical {\n"
 "    border: none;\n"
-"    backg"
-                        "round-color: rgba(248, 249, 250, 0);\n"
+"    background-color: rgba(248, 249, 250, 0);\n"
 "    width: 10px;\n"
 "    margin: 0;\n"
 "}\n"
@@ -845,11 +853,11 @@ public:
 "\n"
 "QScrollBar::add-line:vertical,\n"
 "QScrollBar::sub-line:vertical,\n"
-"QScrollBar::add-line:horizontal,\n"
+"Q"
+                        "ScrollBar::add-line:horizontal,\n"
 "QScrollBar::sub-line:horizontal {\n"
 "    border: none;\n"
-"    ba"
-                        "ckground: none;\n"
+"    background: none;\n"
 "    height: 0;\n"
 "    width: 0;\n"
 "}\n"
@@ -885,11 +893,11 @@ public:
 "}\n"
 "\n"
 "/* ===============================================\n"
-"   STYLE DES ONGLETS DE TRANSACTION\n"
+"   STYLE DES ONGLETS DE TRA"
+                        "NSACTION\n"
 "   =============================================== */\n"
 "\n"
-"#mes_onglets_page_transact"
-                        "ion {\n"
+"#mes_onglets_page_transaction {\n"
 "    background-color: rgb(248, 249, 250);\n"
 "    border: none;\n"
 "    border-radius: 4px;\n"
@@ -924,12 +932,12 @@ public:
 "    padding: 8px 16px;\n"
 "    margin-right: 2px;\n"
 "    min-width: 100px;\n"
-"    color: rgb(108, 117, 125);\n"
+"    color: rgb"
+                        "(108, 117, 125);\n"
 "}\n"
 "\n"
 "/* Onglet s\303\251lectionn\303\251 */\n"
-"#mes_onglets_page_transacti"
-                        "on > QTabBar::tab:selected {\n"
+"#mes_onglets_page_transaction > QTabBar::tab:selected {\n"
 "    background-color: rgb(248, 249, 250);\n"
 "    border-color: rgb(229, 234, 239);\n"
 "    color: rgb(73, 80, 87);\n"
@@ -956,13 +964,13 @@ public:
 "/* Fl\303\250ches de navigation quand il y a beaucoup d'onglets */\n"
 "#mes_onglets_page_transaction > QTabBar QToolButton {\n"
 "    background: rgb(229, 234, 239);\n"
-"    border-radius: 3px;\n"
+"    bo"
+                        "rder-radius: 3px;\n"
 "    margin: 4px;\n"
 "}\n"
 "\n"
 "/* Ic\303\264nes des fl\303\250ches */\n"
-"#mes_"
-                        "onglets_page_transaction > QTabBar QToolButton::right-arrow,\n"
+"#mes_onglets_page_transaction > QTabBar QToolButton::right-arrow,\n"
 "#mes_onglets_page_transaction > QTabBar QToolButton::left-arrow {\n"
 "    image: url(:/icon_gris/chevron-right.svg);\n"
 "    width: 12px;\n"
@@ -1543,16 +1551,16 @@ public:
 
         verticalLayout_9->addWidget(zone_liste_header, 0, Qt::AlignmentFlag::AlignTop);
 
-        widget_11 = new QWidget(carte_liste_activite_recentes);
-        widget_11->setObjectName("widget_11");
+        zone_affichage_tableau = new QWidget(carte_liste_activite_recentes);
+        zone_affichage_tableau->setObjectName("zone_affichage_tableau");
         QSizePolicy sizePolicy3(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::MinimumExpanding);
         sizePolicy3.setHorizontalStretch(0);
         sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(widget_11->sizePolicy().hasHeightForWidth());
-        widget_11->setSizePolicy(sizePolicy3);
-        widget_11->setMinimumSize(QSize(0, 0));
+        sizePolicy3.setHeightForWidth(zone_affichage_tableau->sizePolicy().hasHeightForWidth());
+        zone_affichage_tableau->setSizePolicy(sizePolicy3);
+        zone_affichage_tableau->setMinimumSize(QSize(0, 0));
 
-        verticalLayout_9->addWidget(widget_11);
+        verticalLayout_9->addWidget(zone_affichage_tableau);
 
 
         verticalLayout_10->addWidget(carte_liste_activite_recentes);
@@ -1690,6 +1698,16 @@ public:
         mes_pages->addWidget(page_historique);
         page_parametres = new QWidget();
         page_parametres->setObjectName("page_parametres");
+        gridLayout_3 = new QGridLayout(page_parametres);
+        gridLayout_3->setSpacing(0);
+        gridLayout_3->setObjectName("gridLayout_3");
+        gridLayout_3->setContentsMargins(0, 0, 0, 0);
+        message_page_en_construction = new QLabel(page_parametres);
+        message_page_en_construction->setObjectName("message_page_en_construction");
+        message_page_en_construction->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        gridLayout_3->addWidget(message_page_en_construction, 0, 0, 1, 1);
+
         mes_pages->addWidget(page_parametres);
         page_transaction = new QWidget();
         page_transaction->setObjectName("page_transaction");
@@ -1896,7 +1914,7 @@ public:
 
         retranslateUi(fenMain);
 
-        mes_onglets_page_transaction->setCurrentIndex(0);
+        mes_onglets_page_transaction->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(fenMain);
@@ -1957,14 +1975,18 @@ public:
         btn_supprimer_transaction->setText(QString());
         ZoneRecherche->setPlaceholderText(QCoreApplication::translate("fenMain", "Recherche dans la liste des transactions ...", nullptr));
         indicat_recherche->setText(QString());
+        message_page_en_construction->setText(QCoreApplication::translate("fenMain", "<html><head/><body><p><span style=\" font-size:12pt; font-style:italic; color:#727286;\">- cette page est en construction -</span></p></body></html>", nullptr));
         label_titre_compte_courant_4->setText(QCoreApplication::translate("fenMain", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:700; color:#00007f;\">Effectuer un virement </span></p></body></html>", nullptr));
         label_8->setText(QCoreApplication::translate("fenMain", "<html><head/><body><p><span style=\" font-size:7pt; color:#696969;\">Effectuer vos transactions en toute s\303\251curit\303\251 </span></p></body></html>", nullptr));
         groupBox_11->setTitle(QCoreApplication::translate("fenMain", "num\303\251ro de compte", nullptr));
+        sai_numero_compte_onglet_depot_retrait->setPlaceholderText(QCoreApplication::translate("fenMain", "Ex :  CC000125 ou  CE000625", nullptr));
         groupBox_12->setTitle(QCoreApplication::translate("fenMain", "montant", nullptr));
         groupBox_13->setTitle(QCoreApplication::translate("fenMain", "motif ( optionnel)", nullptr));
         mes_onglets_page_transaction->setTabText(mes_onglets_page_transaction->indexOf(onglet_depot_retrait), QCoreApplication::translate("fenMain", "D\303\251pot et Retrait", nullptr));
         groupBox_14->setTitle(QCoreApplication::translate("fenMain", "num\303\251ro de compte compte source", nullptr));
+        sai_numero_compte_source_onglet_virement->setPlaceholderText(QCoreApplication::translate("fenMain", "Ex :  CC000125 ou  CE000625", nullptr));
         groupBox_17->setTitle(QCoreApplication::translate("fenMain", "num\303\251ro de compte b\303\251n\303\251ficiaire", nullptr));
+        sai_numero_compte_beneficiaire_onglet_virement->setPlaceholderText(QCoreApplication::translate("fenMain", "Ex :  CC000125 ou  CE000625", nullptr));
         groupBox_15->setTitle(QCoreApplication::translate("fenMain", "montant", nullptr));
         groupBox_16->setTitle(QCoreApplication::translate("fenMain", "motif ( optionnel)", nullptr));
         mes_onglets_page_transaction->setTabText(mes_onglets_page_transaction->indexOf(onglet_virement), QCoreApplication::translate("fenMain", "Virement", nullptr));
