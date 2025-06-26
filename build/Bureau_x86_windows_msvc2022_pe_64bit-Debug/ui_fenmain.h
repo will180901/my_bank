@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
@@ -169,9 +170,12 @@ public:
     QHBoxLayout *horizontalLayout_21;
     QLineEdit *ZoneRecherche;
     QToolButton *indicat_recherche;
+    QComboBox *cbo_filtre_transactions;
     QWidget *zone_liste_des_transaction;
     QWidget *page_parametres;
     QWidget *page_transaction;
+    QWidget *carte_effectuer_transaction;
+    QWidget *widget_23;
 
     void setupUi(QMainWindow *fenMain)
     {
@@ -190,7 +194,7 @@ public:
 "* {\n"
 "    color: rgb(33, 37, 41);\n"
 "    font-family: 'Segoe UI', Arial, sans-serif;\n"
-"/*    border: 1px solid rgb(0, 0, 0); \n"
+"  /* border: 1px solid rgb(0, 0, 0); /*\n"
 "	  background-color: rgb(248, 249, 250);  */\n"
 "}\n"
 "\n"
@@ -228,8 +232,8 @@ public:
 "	color: rgb(82, 82, 82);\n"
 "}\n"
 "\n"
-".solde"
-                        "-masque {\n"
+".sold"
+                        "e-masque {\n"
 "    font-size: 14pt;\n"
 "    font-weight: 700;\n"
 "	color: rgb(82, 82, 82);\n"
@@ -271,16 +275,23 @@ public:
 "\n"
 "\n"
 "#carte_courant_principal, #carte_epargne,   \n"
-"#carte_effectuer_un_virement, #carte_consulter_p"
-                        "rofil, \n"
+"#carte_effectuer_transaction, #carte_consulter_"
+                        "profil, \n"
 "#carte_parametres_compte, #carte_liste_activite_recentes,\n"
-"#carte_liste_historique_transaction ,\n"
-"#zone_liste_des_transaction {\n"
+"#carte_liste_historique_transaction  {\n"
 "    background-color: rgb(255, 255, 255);\n"
 "    border-radius: 4px;\n"
 "    border: 1px solid rgb(229, 234, 239);\n"
 "}\n"
 "\n"
+"#zone_liste_des_transaction{\n"
+"\n"
+"		background-color: rgb(248, 249, 250); \n"
+"	   border-radius: 4px;\n"
+"      border: 1px solid rgb(229, 234, 239);\n"
+"\n"
+"\n"
+"}\n"
 "#zone_carte_compte{\n"
 "\n"
 "background-color: rgba(255, 255, 255,0.1);\n"
@@ -305,13 +316,13 @@ public:
 "    color: rgba(111, 66, 193, 0.8);\n"
 "    background-color: rgba(111, 66, 193, 0.1);\n"
 "    margin: 2px;\n"
-"    font: 700 12pt \"Segoe UI\";\n"
+"    fon"
+                        "t: 700 12pt \"Segoe UI\";\n"
 "}\n"
 "\n"
 "/* ===============================================\n"
 "   CONTENEURS ET PAGES PRINCIPALES\n"
-"   ====="
-                        "========================================== */\n"
+"   =============================================== */\n"
 "\n"
 "#centralMain, #fenMain, \n"
 "#page_dashboard, #page_transaction, #page_parametres, \n"
@@ -340,12 +351,12 @@ public:
 "\n"
 "#label_decouvert_autorise_compte_courant , #label_numero_de_compte_courant\n"
 ",#label_date_creation_compte_courant,#label_derniere_transaction_compte_courant,\n"
-"#label_taux_interet_compte_epargne , #label_numero_de_compte_epargne\n"
+"#label_taux_interet_compte_epargne , #label_nume"
+                        "ro_de_compte_epargne\n"
 ",#label_date_creation_compte_epargne,#label_derniere_transaction_compte_epargne{\n"
 "\n"
 "	color: rgb(85, 85, 85);\n"
-""
-                        "	font: 300 10pt \"Segoe UI\";\n"
+"	font: 300 10pt \"Segoe UI\";\n"
 "\n"
 "}\n"
 "\n"
@@ -388,7 +399,8 @@ public:
 "}\n"
 "\n"
 "QGroupBox::title {\n"
-"    subcontrol-origin: margin;\n"
+"    subcontrol-origin"
+                        ": margin;\n"
 "    left: 8px;\n"
 "    padding: 0 6px;\n"
 "    color: #495057;\n"
@@ -396,8 +408,7 @@ public:
 "    font-size: 13px;\n"
 "}\n"
 "\n"
-"/"
-                        "* ===============================================\n"
+"/* ===============================================\n"
 "   \303\211L\303\211MENTS DE FORMULAIRE\n"
 "   =============================================== */\n"
 "\n"
@@ -427,14 +438,14 @@ public:
 "   BOUTONS\n"
 "   =============================================== */\n"
 "\n"
-"/* Boutons standards */\n"
+"/* Boutons standards *"
+                        "/\n"
 "QPushButton {\n"
 "    background-color: rgb(13, 110, 253);\n"
 "    padding: 6px 12px;\n"
 "    border-radius: 4px;\n"
 "    border: none;\n"
-""
-                        "    color: rgb(255, 255, 255);\n"
+"    color: rgb(255, 255, 255);\n"
 "    font-weight: 500;\n"
 "    min-height: 18px;\n"
 "}\n"
@@ -471,15 +482,15 @@ public:
 "\n"
 "QToolButton {\n"
 "    background: transparent;\n"
-"    border: none;\n"
+" "
+                        "   border: none;\n"
 "    outline: none;\n"
 "}\n"
 "\n"
 "\n"
 "\n"
 "/* ===============================================\n"
-"   \303\211L\303\211MENTS "
-                        "DE PROFIL\n"
+"   \303\211L\303\211MENTS DE PROFIL\n"
 "   =============================================== */\n"
 "\n"
 "#zone_photo, #zone_photo_parametre {\n"
@@ -512,13 +523,13 @@ public:
 "    color: #495057;\n"
 "    font-size: 13px;\n"
 "    min-height: 18px;\n"
-"    selection-background-color: #0d6efd;\n"
+""
+                        "    selection-background-color: #0d6efd;\n"
 "}\n"
 "\n"
 "QComboBox:hover {\n"
 "    border-color: #0d6efd;\n"
-"    background-color: rgb(248, 24"
-                        "9, 250);\n"
+"    background-color: rgb(248, 249, 250);\n"
 "}\n"
 "\n"
 "QComboBox:focus {\n"
@@ -556,13 +567,13 @@ public:
 "\n"
 "QComboBox::down-arrow:pressed {\n"
 "    image: url(:/icon_noir/chevron-down.svg);\n"
-"}\n"
+""
+                        "}\n"
 "\n"
 "QComboBox QAbstractItemView {\n"
 "    border: 1px solid #0d6efd;\n"
 "    border-radius: 4px;\n"
-"    background-color: rgb(255, 255"
-                        ", 255);\n"
+"    background-color: rgb(255, 255, 255);\n"
 "    selection-background-color: #0d6efd;\n"
 "    selection-color: white;\n"
 "    padding: 2px;\n"
@@ -596,12 +607,12 @@ public:
 "   =============================================== */\n"
 "\n"
 "QDoubleSpinBox, QSpinBox {\n"
-"    background-color: rgb(255, 255, 255);\n"
+"    ba"
+                        "ckground-color: rgb(255, 255, 255);\n"
 "    border: 1px solid #ced4da;\n"
 "    border-radius: 4px;\n"
 "    padding: 6px 8px;\n"
-"    color: #4"
-                        "95057;\n"
+"    color: #495057;\n"
 "    font-size: 13px;\n"
 "    min-height: 18px;\n"
 "    selection-background-color: #0d6efd;\n"
@@ -633,13 +644,13 @@ public:
 "}\n"
 "\n"
 "QDoubleSpinBox::up-button:pressed, QSpinBox::up-button:pressed {\n"
-"    background-color: rgba(229, 234, 239, 0.5);\n"
+"    background-color: rgba(229"
+                        ", 234, 239, 0.5);\n"
 "}\n"
 "\n"
 "QDoubleSpinBox::down-button, QSpinBox::down-button {\n"
 "    subcontrol-origin: border;\n"
-"    subcontrol-po"
-                        "sition: bottom right;\n"
+"    subcontrol-position: bottom right;\n"
 "    width: 18px;\n"
 "    height: 10px;\n"
 "    border: none;\n"
@@ -670,14 +681,14 @@ public:
 "    image: url(:/icon_gris/chevron-down.svg);\n"
 "    width: 8px;\n"
 "    height: 8px;\n"
-"}\n"
+""
+                        "}\n"
 "\n"
 "QDoubleSpinBox::down-arrow:hover, QSpinBox::down-arrow:hover {\n"
 "    image: url(:/icon_noir/chevron-down.svg);\n"
 "}\n"
 "\n"
-"QDo"
-                        "ubleSpinBox::up-arrow:disabled, QSpinBox::up-arrow:disabled {\n"
+"QDoubleSpinBox::up-arrow:disabled, QSpinBox::up-arrow:disabled {\n"
 "    image: url(:/icon_gris/chevron-up-disabled.svg);\n"
 "}\n"
 "\n"
@@ -710,12 +721,12 @@ public:
 "}\n"
 "\n"
 "QDateEdit::drop-down {\n"
-"    subcontrol-origin: padding;\n"
+""
+                        "    subcontrol-origin: padding;\n"
 "    subcontrol-position: top right;\n"
 "    width: 20px;\n"
 "    border: none;\n"
-"    border-left: 1px "
-                        "solid #ced4da;\n"
+"    border-left: 1px solid #ced4da;\n"
 "    border-top-right-radius: 4px;\n"
 "    border-bottom-right-radius: 4px;\n"
 "    background-color: rgba(229, 234, 239, 0.3);\n"
@@ -750,12 +761,12 @@ public:
 "}\n"
 "\n"
 "QScrollBar::handle:vertical,\n"
-"QScrollBar::handle:horizontal {\n"
+"QScrollBar::h"
+                        "andle:horizontal {\n"
 "    background-color: rgba(206, 212, 218, 0.5);\n"
 "    border-radius: 4px;\n"
 "    min-height: 20px;\n"
-"    min-wid"
-                        "th: 20px;\n"
+"    min-width: 20px;\n"
 "    opacity: 0;\n"
 "    transition: opacity 300ms ease, background-color 300ms ease;\n"
 "}\n"
@@ -788,14 +799,14 @@ public:
 "\n"
 "QScrollBar::add-page:vertical,\n"
 "QScrollBar::sub-page:vertical,\n"
-"QScrollBar::add-page:horizontal,\n"
+"QScrollBar::add-page:hor"
+                        "izontal,\n"
 "QScrollBar::sub-page:horizontal {\n"
 "    background: none;\n"
 "}\n"
 "\n"
 "/* ===============================================\n"
-""
-                        "   S\303\211PARATEURS\n"
+"   S\303\211PARATEURS\n"
 "   =============================================== */\n"
 "\n"
 "Line {\n"
@@ -829,14 +840,14 @@ public:
 "}\n"
 "\n"
 "/* Panneau de contenu des onglets */\n"
-"#mes_onglets_page_transaction::pane {\n"
+"#mes_onglets_page_tran"
+                        "saction::pane {\n"
 "    border: none;\n"
 "    border-radius: 0 0 4px 4px;\n"
 "    background-color: rgb(248, 249, 250);\n"
 "}\n"
 "\n"
-"/* Barre"
-                        " d'onglets */\n"
+"/* Barre d'onglets */\n"
 "#mes_onglets_page_transaction > QTabBar {\n"
 "    background: transparent;\n"
 "    border: none;\n"
@@ -865,13 +876,13 @@ public:
 "\n"
 "/* Onglet au survol */\n"
 "#mes_onglets_page_transaction > QTabBar::tab:hover {\n"
-"    background-color: rgba(229, 234, 239, 0.8);\n"
+"    background-c"
+                        "olor: rgba(229, 234, 239, 0.8);\n"
 "    color: rgb(13, 110, 253);\n"
 "}\n"
 "\n"
 "/* Onglet actif */\n"
-"#mes_onglets_page_transaction > QTabBar"
-                        "::tab:selected:hover {\n"
+"#mes_onglets_page_transaction > QTabBar::tab:selected:hover {\n"
 "    background-color: rgb(233, 236, 239);\n"
 "}\n"
 "\n"
@@ -1592,6 +1603,11 @@ public:
 
         horizontalLayout_22->addWidget(BarreRecherche);
 
+        cbo_filtre_transactions = new QComboBox(widget_22);
+        cbo_filtre_transactions->setObjectName("cbo_filtre_transactions");
+
+        horizontalLayout_22->addWidget(cbo_filtre_transactions);
+
 
         horizontalLayout_23->addWidget(widget_22, 0, Qt::AlignmentFlag::AlignRight);
 
@@ -1615,6 +1631,13 @@ public:
         mes_pages->addWidget(page_parametres);
         page_transaction = new QWidget();
         page_transaction->setObjectName("page_transaction");
+        carte_effectuer_transaction = new QWidget(page_transaction);
+        carte_effectuer_transaction->setObjectName("carte_effectuer_transaction");
+        carte_effectuer_transaction->setGeometry(QRect(150, 20, 591, 501));
+        carte_effectuer_transaction->setMinimumSize(QSize(591, 501));
+        widget_23 = new QWidget(carte_effectuer_transaction);
+        widget_23->setObjectName("widget_23");
+        widget_23->setGeometry(QRect(10, 10, 401, 80));
         mes_pages->addWidget(page_transaction);
 
         horizontalLayout_3->addWidget(mes_pages);
@@ -1682,6 +1705,7 @@ public:
         label_7->setText(QCoreApplication::translate("fenMain", "<html><head/><body><p><span style=\" color:#696969;\">consulter et filtrer vos op\303\251rations bancaires </span></p></body></html>", nullptr));
         btn_modifier_la_transaction->setText(QString());
         btn_supprimer_transaction->setText(QString());
+        ZoneRecherche->setPlaceholderText(QCoreApplication::translate("fenMain", "Recherche dans la liste des transactions ...", nullptr));
         indicat_recherche->setText(QString());
     } // retranslateUi
 

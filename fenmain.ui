@@ -34,7 +34,7 @@
 * {
     color: rgb(33, 37, 41);
     font-family: 'Segoe UI', Arial, sans-serif;
-/*    border: 1px solid rgb(0, 0, 0); 
+  /* border: 1px solid rgb(0, 0, 0); /*
 	  background-color: rgb(248, 249, 250);  */
 }
 
@@ -114,15 +114,22 @@
 
 
 #carte_courant_principal, #carte_epargne,   
-#carte_effectuer_un_virement, #carte_consulter_profil, 
+#carte_effectuer_transaction, #carte_consulter_profil, 
 #carte_parametres_compte, #carte_liste_activite_recentes,
-#carte_liste_historique_transaction ,
-#zone_liste_des_transaction {
+#carte_liste_historique_transaction  {
     background-color: rgb(255, 255, 255);
     border-radius: 4px;
     border: 1px solid rgb(229, 234, 239);
 }
 
+#zone_liste_des_transaction{
+
+		background-color: rgb(248, 249, 250); 
+	   border-radius: 4px;
+      border: 1px solid rgb(229, 234, 239);
+
+
+}
 #zone_carte_compte{
 
 background-color: rgba(255, 255, 255,0.1);
@@ -1930,6 +1937,9 @@ Line {
                            <height>27</height>
                           </size>
                          </property>
+                         <property name="placeholderText">
+                          <string>Recherche dans la liste des transactions ...</string>
+                         </property>
                         </widget>
                        </item>
                        <item>
@@ -1954,6 +1964,9 @@ Line {
                        </item>
                       </layout>
                      </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="cbo_filtre_transactions"/>
                     </item>
                    </layout>
                   </widget>
@@ -1983,7 +1996,34 @@ Line {
           </layout>
          </widget>
          <widget class="QWidget" name="page_parametres"/>
-         <widget class="QWidget" name="page_transaction"/>
+         <widget class="QWidget" name="page_transaction">
+          <widget class="QWidget" name="carte_effectuer_transaction" native="true">
+           <property name="geometry">
+            <rect>
+             <x>150</x>
+             <y>20</y>
+             <width>591</width>
+             <height>501</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>591</width>
+             <height>501</height>
+            </size>
+           </property>
+           <widget class="QWidget" name="widget_23" native="true">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>10</y>
+              <width>401</width>
+              <height>80</height>
+             </rect>
+            </property>
+           </widget>
+          </widget>
+         </widget>
         </widget>
        </item>
       </layout>

@@ -10,11 +10,13 @@ CONFIG += c++17
 
 SOURCES += \
     animationsolde.cpp \
+    comptebancaire.cpp \
     main.cpp \
     fenmain.cpp
 
 HEADERS += \
     animationsolde.h \
+    comptebancaire.h \
     fenmain.h
 
 FORMS += \

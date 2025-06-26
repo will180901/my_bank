@@ -195,3 +195,50 @@ void fenMain::on_btn_parametres_barre_latterale_clicked()
     ui->mes_pages->setCurrentWidget(ui->page_parametres);
     mettreAJourStyleBoutonsLateraux();
 }
+
+void fenMain::on_btn_consulter_compte_epargne_clicked()
+{
+    // il  va positionner le choix dans le combo de filter comme element de recheche
+
+    // focntion à  completer obligatoirement
+
+    ui->mes_pages->setCurrentWidget(ui->page_historique);
+    mettreAJourStyleBoutonsLateraux();
+
+
+}
+
+
+void fenMain::on_btn_consulter_compte_courant_clicked()
+{
+    ui->mes_pages->setCurrentWidget(ui->page_historique);
+    mettreAJourStyleBoutonsLateraux();
+
+    // il  va positionner le choix dans le combo de filter comme element de recheche
+
+    // focntion à  completer obligatoirement
+}
+
+
+void fenMain::on_btn_effectuer_transaction_compte_epargne_clicked()
+{
+    ui->mes_pages->setCurrentWidget(ui->page_transaction);
+    mettreAJourStyleBoutonsLateraux();
+}
+
+
+void fenMain::on_btn_effectuer_transaction_compte_courant_clicked()
+{
+
+    ui->mes_pages->setCurrentWidget(ui->page_transaction);
+    mettreAJourStyleBoutonsLateraux();
+
+}
+
+
+void fenMain::on_btn_voir_liste_complete_transaction_clicked()
+{
+    ui->mes_pages->setCurrentWidget(ui->page_historique);
+    mettreAJourStyleBoutonsLateraux();
+}
+
