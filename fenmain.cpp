@@ -248,3 +248,15 @@ void fenMain::on_btn_valider_transaction_clicked()
     /// à implementer  en tenant compte de l'onglet courant
 }
 
+
+void fenMain::on_btn_supprimer_transaction_clicked()
+{
+    // à implementer
+}
+
+
+void fenMain::on_btn_modifier_la_transaction_clicked()
+{
+    // à implementer
+}
+

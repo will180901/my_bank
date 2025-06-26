@@ -2074,7 +2074,7 @@ Line {
                  <item>
                   <widget class="QTabWidget" name="mes_onglets_page_transaction">
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>1</number>
                    </property>
                    <property name="documentMode">
                     <bool>false</bool>
@@ -2103,7 +2103,11 @@ Line {
                           </property>
                           <layout class="QVBoxLayout" name="verticalLayout_27">
                            <item>
-                            <widget class="QLineEdit" name="sai_numero_compte_onglet_depot_retrait"/>
+                            <widget class="QLineEdit" name="sai_numero_compte_onglet_depot_retrait">
+                             <property name="placeholderText">
+                              <string>Ex :  CC000125 ou  CE000625</string>
+                             </property>
+                            </widget>
                            </item>
                           </layout>
                          </widget>
@@ -2173,7 +2177,11 @@ Line {
                           </property>
                           <layout class="QVBoxLayout" name="verticalLayout_33">
                            <item>
-                            <widget class="QLineEdit" name="sai_numero_compte_source_onglet_virement"/>
+                            <widget class="QLineEdit" name="sai_numero_compte_source_onglet_virement">
+                             <property name="placeholderText">
+                              <string>Ex :  CC000125 ou  CE000625</string>
+                             </property>
+                            </widget>
                            </item>
                           </layout>
                          </widget>
@@ -2185,7 +2193,11 @@ Line {
                           </property>
                           <layout class="QVBoxLayout" name="verticalLayout_36">
                            <item>
-                            <widget class="QLineEdit" name="sai_numero_compte_beneficiaire_onglet_virement"/>
+                            <widget class="QLineEdit" name="sai_numero_compte_beneficiaire_onglet_virement">
+                             <property name="placeholderText">
+                              <string>Ex :  CC000125 ou  CE000625</string>
+                             </property>
+                            </widget>
                            </item>
                           </layout>
                          </widget>
