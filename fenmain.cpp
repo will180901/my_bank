@@ -242,3 +242,9 @@ void fenMain::on_btn_voir_liste_complete_transaction_clicked()
     mettreAJourStyleBoutonsLateraux();
 }
 
+
+void fenMain::on_btn_valider_transaction_clicked()
+{
+    /// à implementer  en tenant compte de l'onglet courant
+}
+

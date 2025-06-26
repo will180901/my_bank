@@ -13,6 +13,7 @@
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
@@ -22,6 +23,8 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStackedWidget>
+#include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -174,8 +177,49 @@ public:
     QWidget *zone_liste_des_transaction;
     QWidget *page_parametres;
     QWidget *page_transaction;
+    QVBoxLayout *verticalLayout_26;
     QWidget *carte_effectuer_transaction;
+    QVBoxLayout *verticalLayout_24;
     QWidget *widget_23;
+    QVBoxLayout *verticalLayout_23;
+    QWidget *widget_24;
+    QVBoxLayout *verticalLayout_22;
+    QLabel *label_titre_compte_courant_4;
+    QLabel *label_8;
+    QWidget *widget_25;
+    QVBoxLayout *verticalLayout_25;
+    QTabWidget *mes_onglets_page_transaction;
+    QWidget *onglet_depot_retrait;
+    QVBoxLayout *verticalLayout_31;
+    QWidget *widget_26;
+    QVBoxLayout *verticalLayout_30;
+    QGroupBox *groupBox_11;
+    QVBoxLayout *verticalLayout_27;
+    QLineEdit *sai_numero_compte_onglet_depot_retrait;
+    QGroupBox *groupBox_12;
+    QVBoxLayout *verticalLayout_28;
+    QDoubleSpinBox *doubleSpinBox_montant_onglet_depot_retrait;
+    QGroupBox *groupBox_13;
+    QVBoxLayout *verticalLayout_29;
+    QTextEdit *textEdit_motif_onglet_depot_retrait;
+    QWidget *onglet_virement;
+    QVBoxLayout *verticalLayout_37;
+    QWidget *widget_27;
+    QVBoxLayout *verticalLayout_32;
+    QGroupBox *groupBox_14;
+    QVBoxLayout *verticalLayout_33;
+    QLineEdit *sai_numero_compte_source_onglet_virement;
+    QGroupBox *groupBox_17;
+    QVBoxLayout *verticalLayout_36;
+    QLineEdit *sai_numero_compte_beneficiaire_onglet_virement;
+    QGroupBox *groupBox_15;
+    QVBoxLayout *verticalLayout_34;
+    QDoubleSpinBox *doubleSpinBox_montant_onglet_virement;
+    QGroupBox *groupBox_16;
+    QVBoxLayout *verticalLayout_35;
+    QTextEdit *textEdit_motif_onglet_virement;
+    QLabel *label_erreur_dans_chmps;
+    QPushButton *btn_valider_transaction;
 
     void setupUi(QMainWindow *fenMain)
     {
@@ -199,6 +243,27 @@ public:
 "}\n"
 "\n"
 "\n"
+"#motif_transaction_depot_retrait{\n"
+"\n"
+"    background-color: rgb(248, 249, 250); \n"
+"	border-radius:8px ;\n"
+"	\n"
+"}\n"
+"\n"
+"#zone_message_erreur_page_parametre ,#label_erreur_dans_chmps{\n"
+"    opacity: 0;\n"
+"    color: #dc3545;\n"
+"    font-style: italic;\n"
+"}\n"
+"\n"
+"\n"
+"#onglet_depot_retrait , #onglet_virement{\n"
+"\n"
+"	background-color: rgb(248, 249, 250); \n"
+"\n"
+"}\n"
+"\n"
+"\n"
 "\n"
 "#indicat_recherche {\n"
 "    background: transparent;\n"
@@ -212,7 +277,8 @@ public:
 "}\n"
 "\n"
 "#BarreRecherche {\n"
-"    border: 1px solid rgba(206, 212, 218, 180);\n"
+"    border: 1px solid rgba(206, 212,"
+                        " 218, 180);\n"
 "    border-radius: 4px;\n"
 "    background-color: rgba(255, 255, 255, 250);\n"
 "    padding: 6px;\n"
@@ -232,8 +298,7 @@ public:
 "	color: rgb(82, 82, 82);\n"
 "}\n"
 "\n"
-".sold"
-                        "e-masque {\n"
+".solde-masque {\n"
 "    font-size: 14pt;\n"
 "    font-weight: 700;\n"
 "	color: rgb(82, 82, 82);\n"
@@ -262,7 +327,8 @@ public:
 "}\n"
 "\n"
 "#BarreLaterale QToolButton:pressed {\n"
-"    background-color: rgba(229, 234, 239, 150);\n"
+"    ba"
+                        "ckground-color: rgba(229, 234, 239, 150);\n"
 "    color: rgb(13, 110, 253);\n"
 "    font-weight: bold;\n"
 "}\n"
@@ -275,8 +341,7 @@ public:
 "\n"
 "\n"
 "#carte_courant_principal, #carte_epargne,   \n"
-"#carte_effectuer_transaction, #carte_consulter_"
-                        "profil, \n"
+"#carte_effectuer_transaction, #carte_consulter_profil, \n"
 "#carte_parametres_compte, #carte_liste_activite_recentes,\n"
 "#carte_liste_historique_transaction  {\n"
 "    background-color: rgb(255, 255, 255);\n"
@@ -301,7 +366,8 @@ public:
 "}\n"
 "\n"
 "#bar_nav {\n"
-"    border-bottom: 1px solid rgb(229, 234, 239);\n"
+"    border-b"
+                        "ottom: 1px solid rgb(229, 234, 239);\n"
 "}\n"
 "\n"
 "#BarreLaterale {\n"
@@ -316,8 +382,7 @@ public:
 "    color: rgba(111, 66, 193, 0.8);\n"
 "    background-color: rgba(111, 66, 193, 0.1);\n"
 "    margin: 2px;\n"
-"    fon"
-                        "t: 700 12pt \"Segoe UI\";\n"
+"    font: 700 12pt \"Segoe UI\";\n"
 "}\n"
 "\n"
 "/* ===============================================\n"
@@ -339,7 +404,8 @@ public:
 "\n"
 "/* ===============================================\n"
 "   LABELS ET TEXTES\n"
-"   =============================================== */\n"
+"   =================================="
+                        "============= */\n"
 "\n"
 "#label_solde_compte_courant, \n"
 "#label_solde_compte_epargne {\n"
@@ -351,8 +417,7 @@ public:
 "\n"
 "#label_decouvert_autorise_compte_courant , #label_numero_de_compte_courant\n"
 ",#label_date_creation_compte_courant,#label_derniere_transaction_compte_courant,\n"
-"#label_taux_interet_compte_epargne , #label_nume"
-                        "ro_de_compte_epargne\n"
+"#label_taux_interet_compte_epargne , #label_numero_de_compte_epargne\n"
 ",#label_date_creation_compte_epargne,#label_derniere_transaction_compte_epargne{\n"
 "\n"
 "	color: rgb(85, 85, 85);\n"
@@ -368,11 +433,7 @@ public:
 "\n"
 "\n"
 "\n"
-"#zone_message_erreur_page_parametre {\n"
-"    opacity: 0;\n"
-"    color: #dc3545;\n"
-"    font-style: italic;\n"
-"}\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -385,7 +446,8 @@ public:
 "\n"
 "/* ===============================================\n"
 "   CARTES ET GROUPES\n"
-"   =============================================== */\n"
+"   =================================="
+                        "============= */\n"
 "\n"
 "\n"
 "\n"
@@ -399,8 +461,7 @@ public:
 "}\n"
 "\n"
 "QGroupBox::title {\n"
-"    subcontrol-origin"
-                        ": margin;\n"
+"    subcontrol-origin: margin;\n"
 "    left: 8px;\n"
 "    padding: 0 6px;\n"
 "    color: #495057;\n"
@@ -428,7 +489,8 @@ public:
 "\n"
 "QLineEdit:focus, QTextEdit:focus, \n"
 "QComboBox:focus, QDoubleSpinBox:focus {\n"
-"    border: 1px solid #0d6efd;\n"
+""
+                        "    border: 1px solid #0d6efd;\n"
 "    outline: none;\n"
 "    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);\n"
 "}\n"
@@ -438,8 +500,7 @@ public:
 "   BOUTONS\n"
 "   =============================================== */\n"
 "\n"
-"/* Boutons standards *"
-                        "/\n"
+"/* Boutons standards */\n"
 "QPushButton {\n"
 "    background-color: rgb(13, 110, 253);\n"
 "    padding: 6px 12px;\n"
@@ -469,7 +530,8 @@ public:
 "    padding: 6px 10px;\n"
 "}\n"
 "\n"
-"#btn_effectuer_transaction_compte_epargne:hover,\n"
+"#btn_effectuer_transaction_compte_epar"
+                        "gne:hover,\n"
 "#btn_effectuer_transaction_compte_courant:hover {\n"
 "    background-color: rgba(248, 249, 250, 200);\n"
 "}\n"
@@ -482,8 +544,7 @@ public:
 "\n"
 "QToolButton {\n"
 "    background: transparent;\n"
-" "
-                        "   border: none;\n"
+"    border: none;\n"
 "    outline: none;\n"
 "}\n"
 "\n"
@@ -513,7 +574,8 @@ public:
 "\n"
 "/* ===============================================\n"
 "   COMBOBOX\n"
-"   =============================================== */\n"
+"   ==="
+                        "============================================ */\n"
 "\n"
 "QComboBox {\n"
 "    background-color: rgb(255, 255, 255);\n"
@@ -523,8 +585,7 @@ public:
 "    color: #495057;\n"
 "    font-size: 13px;\n"
 "    min-height: 18px;\n"
-""
-                        "    selection-background-color: #0d6efd;\n"
+"    selection-background-color: #0d6efd;\n"
 "}\n"
 "\n"
 "QComboBox:hover {\n"
@@ -555,7 +616,8 @@ public:
 "    background-color: rgba(229, 234, 239, 0.3);\n"
 "}\n"
 "\n"
-"QComboBox::drop-down:pressed {\n"
+"QComboBox::drop-down:pre"
+                        "ssed {\n"
 "    background-color: rgba(229, 234, 239, 0.5);\n"
 "}\n"
 "\n"
@@ -567,8 +629,7 @@ public:
 "\n"
 "QComboBox::down-arrow:pressed {\n"
 "    image: url(:/icon_noir/chevron-down.svg);\n"
-""
-                        "}\n"
+"}\n"
 "\n"
 "QComboBox QAbstractItemView {\n"
 "    border: 1px solid #0d6efd;\n"
@@ -597,7 +658,8 @@ public:
 "    color: #0d6efd;\n"
 "}\n"
 "\n"
-"QComboBox QAbstractItemView::item:selected {\n"
+"QComboBox QA"
+                        "bstractItemView::item:selected {\n"
 "    background-color: #0d6efd;\n"
 "    color: white;\n"
 "}\n"
@@ -607,8 +669,7 @@ public:
 "   =============================================== */\n"
 "\n"
 "QDoubleSpinBox, QSpinBox {\n"
-"    ba"
-                        "ckground-color: rgb(255, 255, 255);\n"
+"    background-color: rgb(255, 255, 255);\n"
 "    border: 1px solid #ced4da;\n"
 "    border-radius: 4px;\n"
 "    padding: 6px 8px;\n"
@@ -635,7 +696,8 @@ public:
 "    height: 10px;\n"
 "    border: none;\n"
 "    background-color: transparent;\n"
-"    margin-top: 1px;\n"
+""
+                        "    margin-top: 1px;\n"
 "    margin-right: 1px;\n"
 "}\n"
 "\n"
@@ -644,8 +706,7 @@ public:
 "}\n"
 "\n"
 "QDoubleSpinBox::up-button:pressed, QSpinBox::up-button:pressed {\n"
-"    background-color: rgba(229"
-                        ", 234, 239, 0.5);\n"
+"    background-color: rgba(229, 234, 239, 0.5);\n"
 "}\n"
 "\n"
 "QDoubleSpinBox::down-button, QSpinBox::down-button {\n"
@@ -670,7 +731,8 @@ public:
 "QDoubleSpinBox::up-arrow, QSpinBox::up-arrow {\n"
 "    image: url(:/icon_gris/chevron-up.svg);\n"
 "    width: 8px;\n"
-"    height: 8px;\n"
+"    height"
+                        ": 8px;\n"
 "}\n"
 "\n"
 "QDoubleSpinBox::up-arrow:hover, QSpinBox::up-arrow:hover {\n"
@@ -681,8 +743,7 @@ public:
 "    image: url(:/icon_gris/chevron-down.svg);\n"
 "    width: 8px;\n"
 "    height: 8px;\n"
-""
-                        "}\n"
+"}\n"
 "\n"
 "QDoubleSpinBox::down-arrow:hover, QSpinBox::down-arrow:hover {\n"
 "    image: url(:/icon_noir/chevron-down.svg);\n"
@@ -706,7 +767,8 @@ public:
 "    padding: 6px 24px 6px 8px;\n"
 "    background-color: rgb(255, 255, 255);\n"
 "    color: #495057;\n"
-"    font-size: 13px;\n"
+""
+                        "    font-size: 13px;\n"
 "    min-height: 18px;\n"
 "}\n"
 "\n"
@@ -721,8 +783,7 @@ public:
 "}\n"
 "\n"
 "QDateEdit::drop-down {\n"
-""
-                        "    subcontrol-origin: padding;\n"
+"    subcontrol-origin: padding;\n"
 "    subcontrol-position: top right;\n"
 "    width: 20px;\n"
 "    border: none;\n"
@@ -748,7 +809,8 @@ public:
 "\n"
 "QScrollBar:vertical {\n"
 "    border: none;\n"
-"    background-color: rgba(248, 249, 250, 0);\n"
+"    backg"
+                        "round-color: rgba(248, 249, 250, 0);\n"
 "    width: 10px;\n"
 "    margin: 0;\n"
 "}\n"
@@ -761,8 +823,7 @@ public:
 "}\n"
 "\n"
 "QScrollBar::handle:vertical,\n"
-"QScrollBar::h"
-                        "andle:horizontal {\n"
+"QScrollBar::handle:horizontal {\n"
 "    background-color: rgba(206, 212, 218, 0.5);\n"
 "    border-radius: 4px;\n"
 "    min-height: 20px;\n"
@@ -787,7 +848,8 @@ public:
 "QScrollBar::add-line:horizontal,\n"
 "QScrollBar::sub-line:horizontal {\n"
 "    border: none;\n"
-"    background: none;\n"
+"    ba"
+                        "ckground: none;\n"
 "    height: 0;\n"
 "    width: 0;\n"
 "}\n"
@@ -799,8 +861,7 @@ public:
 "\n"
 "QScrollBar::add-page:vertical,\n"
 "QScrollBar::sub-page:vertical,\n"
-"QScrollBar::add-page:hor"
-                        "izontal,\n"
+"QScrollBar::add-page:horizontal,\n"
 "QScrollBar::sub-page:horizontal {\n"
 "    background: none;\n"
 "}\n"
@@ -827,7 +888,8 @@ public:
 "   STYLE DES ONGLETS DE TRANSACTION\n"
 "   =============================================== */\n"
 "\n"
-"#mes_onglets_page_transaction {\n"
+"#mes_onglets_page_transact"
+                        "ion {\n"
 "    background-color: rgb(248, 249, 250);\n"
 "    border: none;\n"
 "    border-radius: 4px;\n"
@@ -840,8 +902,7 @@ public:
 "}\n"
 "\n"
 "/* Panneau de contenu des onglets */\n"
-"#mes_onglets_page_tran"
-                        "saction::pane {\n"
+"#mes_onglets_page_transaction::pane {\n"
 "    border: none;\n"
 "    border-radius: 0 0 4px 4px;\n"
 "    background-color: rgb(248, 249, 250);\n"
@@ -867,7 +928,8 @@ public:
 "}\n"
 "\n"
 "/* Onglet s\303\251lectionn\303\251 */\n"
-"#mes_onglets_page_transaction > QTabBar::tab:selected {\n"
+"#mes_onglets_page_transacti"
+                        "on > QTabBar::tab:selected {\n"
 "    background-color: rgb(248, 249, 250);\n"
 "    border-color: rgb(229, 234, 239);\n"
 "    color: rgb(73, 80, 87);\n"
@@ -876,8 +938,7 @@ public:
 "\n"
 "/* Onglet au survol */\n"
 "#mes_onglets_page_transaction > QTabBar::tab:hover {\n"
-"    background-c"
-                        "olor: rgba(229, 234, 239, 0.8);\n"
+"    background-color: rgba(229, 234, 239, 0.8);\n"
 "    color: rgb(13, 110, 253);\n"
 "}\n"
 "\n"
@@ -900,7 +961,8 @@ public:
 "}\n"
 "\n"
 "/* Ic\303\264nes des fl\303\250ches */\n"
-"#mes_onglets_page_transaction > QTabBar QToolButton::right-arrow,\n"
+"#mes_"
+                        "onglets_page_transaction > QTabBar QToolButton::right-arrow,\n"
 "#mes_onglets_page_transaction > QTabBar QToolButton::left-arrow {\n"
 "    image: url(:/icon_gris/chevron-right.svg);\n"
 "    width: 12px;\n"
@@ -1631,13 +1693,198 @@ public:
         mes_pages->addWidget(page_parametres);
         page_transaction = new QWidget();
         page_transaction->setObjectName("page_transaction");
+        verticalLayout_26 = new QVBoxLayout(page_transaction);
+        verticalLayout_26->setObjectName("verticalLayout_26");
         carte_effectuer_transaction = new QWidget(page_transaction);
         carte_effectuer_transaction->setObjectName("carte_effectuer_transaction");
-        carte_effectuer_transaction->setGeometry(QRect(150, 20, 591, 501));
-        carte_effectuer_transaction->setMinimumSize(QSize(591, 501));
+        QSizePolicy sizePolicy5(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::MinimumExpanding);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(carte_effectuer_transaction->sizePolicy().hasHeightForWidth());
+        carte_effectuer_transaction->setSizePolicy(sizePolicy5);
+        carte_effectuer_transaction->setMinimumSize(QSize(591, 0));
+        verticalLayout_24 = new QVBoxLayout(carte_effectuer_transaction);
+        verticalLayout_24->setObjectName("verticalLayout_24");
         widget_23 = new QWidget(carte_effectuer_transaction);
         widget_23->setObjectName("widget_23");
-        widget_23->setGeometry(QRect(10, 10, 401, 80));
+        widget_23->setMinimumSize(QSize(571, 80));
+        verticalLayout_23 = new QVBoxLayout(widget_23);
+        verticalLayout_23->setObjectName("verticalLayout_23");
+        widget_24 = new QWidget(widget_23);
+        widget_24->setObjectName("widget_24");
+        verticalLayout_22 = new QVBoxLayout(widget_24);
+        verticalLayout_22->setObjectName("verticalLayout_22");
+        label_titre_compte_courant_4 = new QLabel(widget_24);
+        label_titre_compte_courant_4->setObjectName("label_titre_compte_courant_4");
+
+        verticalLayout_22->addWidget(label_titre_compte_courant_4);
+
+        label_8 = new QLabel(widget_24);
+        label_8->setObjectName("label_8");
+
+        verticalLayout_22->addWidget(label_8);
+
+
+        verticalLayout_23->addWidget(widget_24);
+
+
+        verticalLayout_24->addWidget(widget_23);
+
+        widget_25 = new QWidget(carte_effectuer_transaction);
+        widget_25->setObjectName("widget_25");
+        widget_25->setMinimumSize(QSize(571, 341));
+        verticalLayout_25 = new QVBoxLayout(widget_25);
+        verticalLayout_25->setObjectName("verticalLayout_25");
+        mes_onglets_page_transaction = new QTabWidget(widget_25);
+        mes_onglets_page_transaction->setObjectName("mes_onglets_page_transaction");
+        mes_onglets_page_transaction->setDocumentMode(false);
+        onglet_depot_retrait = new QWidget();
+        onglet_depot_retrait->setObjectName("onglet_depot_retrait");
+        verticalLayout_31 = new QVBoxLayout(onglet_depot_retrait);
+        verticalLayout_31->setObjectName("verticalLayout_31");
+        verticalLayout_31->setContentsMargins(-1, 30, -1, -1);
+        widget_26 = new QWidget(onglet_depot_retrait);
+        widget_26->setObjectName("widget_26");
+        sizePolicy1.setHeightForWidth(widget_26->sizePolicy().hasHeightForWidth());
+        widget_26->setSizePolicy(sizePolicy1);
+        verticalLayout_30 = new QVBoxLayout(widget_26);
+        verticalLayout_30->setObjectName("verticalLayout_30");
+        groupBox_11 = new QGroupBox(widget_26);
+        groupBox_11->setObjectName("groupBox_11");
+        verticalLayout_27 = new QVBoxLayout(groupBox_11);
+        verticalLayout_27->setObjectName("verticalLayout_27");
+        sai_numero_compte_onglet_depot_retrait = new QLineEdit(groupBox_11);
+        sai_numero_compte_onglet_depot_retrait->setObjectName("sai_numero_compte_onglet_depot_retrait");
+
+        verticalLayout_27->addWidget(sai_numero_compte_onglet_depot_retrait);
+
+
+        verticalLayout_30->addWidget(groupBox_11);
+
+        groupBox_12 = new QGroupBox(widget_26);
+        groupBox_12->setObjectName("groupBox_12");
+        verticalLayout_28 = new QVBoxLayout(groupBox_12);
+        verticalLayout_28->setObjectName("verticalLayout_28");
+        doubleSpinBox_montant_onglet_depot_retrait = new QDoubleSpinBox(groupBox_12);
+        doubleSpinBox_montant_onglet_depot_retrait->setObjectName("doubleSpinBox_montant_onglet_depot_retrait");
+
+        verticalLayout_28->addWidget(doubleSpinBox_montant_onglet_depot_retrait);
+
+
+        verticalLayout_30->addWidget(groupBox_12);
+
+        groupBox_13 = new QGroupBox(widget_26);
+        groupBox_13->setObjectName("groupBox_13");
+        QSizePolicy sizePolicy6(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Minimum);
+        sizePolicy6.setHorizontalStretch(0);
+        sizePolicy6.setVerticalStretch(0);
+        sizePolicy6.setHeightForWidth(groupBox_13->sizePolicy().hasHeightForWidth());
+        groupBox_13->setSizePolicy(sizePolicy6);
+        groupBox_13->setMinimumSize(QSize(0, 0));
+        verticalLayout_29 = new QVBoxLayout(groupBox_13);
+        verticalLayout_29->setObjectName("verticalLayout_29");
+        textEdit_motif_onglet_depot_retrait = new QTextEdit(groupBox_13);
+        textEdit_motif_onglet_depot_retrait->setObjectName("textEdit_motif_onglet_depot_retrait");
+
+        verticalLayout_29->addWidget(textEdit_motif_onglet_depot_retrait);
+
+
+        verticalLayout_30->addWidget(groupBox_13);
+
+
+        verticalLayout_31->addWidget(widget_26);
+
+        mes_onglets_page_transaction->addTab(onglet_depot_retrait, QString());
+        onglet_virement = new QWidget();
+        onglet_virement->setObjectName("onglet_virement");
+        verticalLayout_37 = new QVBoxLayout(onglet_virement);
+        verticalLayout_37->setObjectName("verticalLayout_37");
+        verticalLayout_37->setContentsMargins(-1, 30, -1, -1);
+        widget_27 = new QWidget(onglet_virement);
+        widget_27->setObjectName("widget_27");
+        sizePolicy1.setHeightForWidth(widget_27->sizePolicy().hasHeightForWidth());
+        widget_27->setSizePolicy(sizePolicy1);
+        verticalLayout_32 = new QVBoxLayout(widget_27);
+        verticalLayout_32->setObjectName("verticalLayout_32");
+        groupBox_14 = new QGroupBox(widget_27);
+        groupBox_14->setObjectName("groupBox_14");
+        verticalLayout_33 = new QVBoxLayout(groupBox_14);
+        verticalLayout_33->setObjectName("verticalLayout_33");
+        sai_numero_compte_source_onglet_virement = new QLineEdit(groupBox_14);
+        sai_numero_compte_source_onglet_virement->setObjectName("sai_numero_compte_source_onglet_virement");
+
+        verticalLayout_33->addWidget(sai_numero_compte_source_onglet_virement);
+
+
+        verticalLayout_32->addWidget(groupBox_14);
+
+        groupBox_17 = new QGroupBox(widget_27);
+        groupBox_17->setObjectName("groupBox_17");
+        verticalLayout_36 = new QVBoxLayout(groupBox_17);
+        verticalLayout_36->setObjectName("verticalLayout_36");
+        sai_numero_compte_beneficiaire_onglet_virement = new QLineEdit(groupBox_17);
+        sai_numero_compte_beneficiaire_onglet_virement->setObjectName("sai_numero_compte_beneficiaire_onglet_virement");
+
+        verticalLayout_36->addWidget(sai_numero_compte_beneficiaire_onglet_virement);
+
+
+        verticalLayout_32->addWidget(groupBox_17);
+
+        groupBox_15 = new QGroupBox(widget_27);
+        groupBox_15->setObjectName("groupBox_15");
+        verticalLayout_34 = new QVBoxLayout(groupBox_15);
+        verticalLayout_34->setObjectName("verticalLayout_34");
+        doubleSpinBox_montant_onglet_virement = new QDoubleSpinBox(groupBox_15);
+        doubleSpinBox_montant_onglet_virement->setObjectName("doubleSpinBox_montant_onglet_virement");
+
+        verticalLayout_34->addWidget(doubleSpinBox_montant_onglet_virement);
+
+
+        verticalLayout_32->addWidget(groupBox_15);
+
+        groupBox_16 = new QGroupBox(widget_27);
+        groupBox_16->setObjectName("groupBox_16");
+        sizePolicy6.setHeightForWidth(groupBox_16->sizePolicy().hasHeightForWidth());
+        groupBox_16->setSizePolicy(sizePolicy6);
+        groupBox_16->setMinimumSize(QSize(0, 0));
+        verticalLayout_35 = new QVBoxLayout(groupBox_16);
+        verticalLayout_35->setObjectName("verticalLayout_35");
+        textEdit_motif_onglet_virement = new QTextEdit(groupBox_16);
+        textEdit_motif_onglet_virement->setObjectName("textEdit_motif_onglet_virement");
+
+        verticalLayout_35->addWidget(textEdit_motif_onglet_virement);
+
+
+        verticalLayout_32->addWidget(groupBox_16);
+
+
+        verticalLayout_37->addWidget(widget_27);
+
+        mes_onglets_page_transaction->addTab(onglet_virement, QString());
+
+        verticalLayout_25->addWidget(mes_onglets_page_transaction);
+
+        label_erreur_dans_chmps = new QLabel(widget_25);
+        label_erreur_dans_chmps->setObjectName("label_erreur_dans_chmps");
+        label_erreur_dans_chmps->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        verticalLayout_25->addWidget(label_erreur_dans_chmps);
+
+
+        verticalLayout_24->addWidget(widget_25);
+
+        btn_valider_transaction = new QPushButton(carte_effectuer_transaction);
+        btn_valider_transaction->setObjectName("btn_valider_transaction");
+        btn_valider_transaction->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
+        QIcon icon11;
+        icon11.addFile(QString::fromUtf8(":/icon_blanc/send.svg"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        btn_valider_transaction->setIcon(icon11);
+
+        verticalLayout_24->addWidget(btn_valider_transaction);
+
+
+        verticalLayout_26->addWidget(carte_effectuer_transaction, 0, Qt::AlignmentFlag::AlignHCenter);
+
         mes_pages->addWidget(page_transaction);
 
         horizontalLayout_3->addWidget(mes_pages);
@@ -1648,6 +1895,9 @@ public:
         fenMain->setCentralWidget(centralMain);
 
         retranslateUi(fenMain);
+
+        mes_onglets_page_transaction->setCurrentIndex(0);
+
 
         QMetaObject::connectSlotsByName(fenMain);
     } // setupUi
@@ -1707,6 +1957,19 @@ public:
         btn_supprimer_transaction->setText(QString());
         ZoneRecherche->setPlaceholderText(QCoreApplication::translate("fenMain", "Recherche dans la liste des transactions ...", nullptr));
         indicat_recherche->setText(QString());
+        label_titre_compte_courant_4->setText(QCoreApplication::translate("fenMain", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:700; color:#00007f;\">Effectuer un virement </span></p></body></html>", nullptr));
+        label_8->setText(QCoreApplication::translate("fenMain", "<html><head/><body><p><span style=\" font-size:7pt; color:#696969;\">Effectuer vos transactions en toute s\303\251curit\303\251 </span></p></body></html>", nullptr));
+        groupBox_11->setTitle(QCoreApplication::translate("fenMain", "num\303\251ro de compte", nullptr));
+        groupBox_12->setTitle(QCoreApplication::translate("fenMain", "montant", nullptr));
+        groupBox_13->setTitle(QCoreApplication::translate("fenMain", "motif ( optionnel)", nullptr));
+        mes_onglets_page_transaction->setTabText(mes_onglets_page_transaction->indexOf(onglet_depot_retrait), QCoreApplication::translate("fenMain", "D\303\251pot et Retrait", nullptr));
+        groupBox_14->setTitle(QCoreApplication::translate("fenMain", "num\303\251ro de compte compte source", nullptr));
+        groupBox_17->setTitle(QCoreApplication::translate("fenMain", "num\303\251ro de compte b\303\251n\303\251ficiaire", nullptr));
+        groupBox_15->setTitle(QCoreApplication::translate("fenMain", "montant", nullptr));
+        groupBox_16->setTitle(QCoreApplication::translate("fenMain", "motif ( optionnel)", nullptr));
+        mes_onglets_page_transaction->setTabText(mes_onglets_page_transaction->indexOf(onglet_virement), QCoreApplication::translate("fenMain", "Virement", nullptr));
+        label_erreur_dans_chmps->setText(QString());
+        btn_valider_transaction->setText(QCoreApplication::translate("fenMain", "valider la transaction", nullptr));
     } // retranslateUi
 
 };

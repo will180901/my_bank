@@ -39,6 +39,27 @@
 }
 
 
+#motif_transaction_depot_retrait{
+
+    background-color: rgb(248, 249, 250); 
+	border-radius:8px ;
+	
+}
+
+#zone_message_erreur_page_parametre ,#label_erreur_dans_chmps{
+    opacity: 0;
+    color: #dc3545;
+    font-style: italic;
+}
+
+
+#onglet_depot_retrait , #onglet_virement{
+
+	background-color: rgb(248, 249, 250); 
+
+}
+
+
 
 #indicat_recherche {
     background: transparent;
@@ -204,11 +225,7 @@ background-color: rgba(255, 255, 255,0.1);
 
 
 
-#zone_message_erreur_page_parametre {
-    opacity: 0;
-    color: #dc3545;
-    font-style: italic;
-}
+
 
 
 
@@ -1997,32 +2014,256 @@ Line {
          </widget>
          <widget class="QWidget" name="page_parametres"/>
          <widget class="QWidget" name="page_transaction">
-          <widget class="QWidget" name="carte_effectuer_transaction" native="true">
-           <property name="geometry">
-            <rect>
-             <x>150</x>
-             <y>20</y>
-             <width>591</width>
-             <height>501</height>
-            </rect>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>591</width>
-             <height>501</height>
-            </size>
-           </property>
-           <widget class="QWidget" name="widget_23" native="true">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>401</width>
-              <height>80</height>
-             </rect>
-            </property>
-           </widget>
-          </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_26">
+           <item alignment="Qt::AlignmentFlag::AlignHCenter">
+            <widget class="QWidget" name="carte_effectuer_transaction" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="MinimumExpanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>591</width>
+               <height>0</height>
+              </size>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_24">
+              <item>
+               <widget class="QWidget" name="widget_23" native="true">
+                <property name="minimumSize">
+                 <size>
+                  <width>571</width>
+                  <height>80</height>
+                 </size>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_23">
+                 <item>
+                  <widget class="QWidget" name="widget_24" native="true">
+                   <layout class="QVBoxLayout" name="verticalLayout_22">
+                    <item>
+                     <widget class="QLabel" name="label_titre_compte_courant_4">
+                      <property name="text">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#00007f;&quot;&gt;Effectuer un virement &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_8">
+                      <property name="text">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:7pt; color:#696969;&quot;&gt;Effectuer vos transactions en toute sécurité &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QWidget" name="widget_25" native="true">
+                <property name="minimumSize">
+                 <size>
+                  <width>571</width>
+                  <height>341</height>
+                 </size>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_25">
+                 <item>
+                  <widget class="QTabWidget" name="mes_onglets_page_transaction">
+                   <property name="currentIndex">
+                    <number>0</number>
+                   </property>
+                   <property name="documentMode">
+                    <bool>false</bool>
+                   </property>
+                   <widget class="QWidget" name="onglet_depot_retrait">
+                    <attribute name="title">
+                     <string>Dépot et Retrait</string>
+                    </attribute>
+                    <layout class="QVBoxLayout" name="verticalLayout_31">
+                     <property name="topMargin">
+                      <number>30</number>
+                     </property>
+                     <item>
+                      <widget class="QWidget" name="widget_26" native="true">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_30">
+                        <item>
+                         <widget class="QGroupBox" name="groupBox_11">
+                          <property name="title">
+                           <string>numéro de compte</string>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_27">
+                           <item>
+                            <widget class="QLineEdit" name="sai_numero_compte_onglet_depot_retrait"/>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QGroupBox" name="groupBox_12">
+                          <property name="title">
+                           <string>montant</string>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_28">
+                           <item>
+                            <widget class="QDoubleSpinBox" name="doubleSpinBox_montant_onglet_depot_retrait"/>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QGroupBox" name="groupBox_13">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="title">
+                           <string>motif ( optionnel)</string>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_29">
+                           <item>
+                            <widget class="QTextEdit" name="textEdit_motif_onglet_depot_retrait"/>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                   <widget class="QWidget" name="onglet_virement">
+                    <attribute name="title">
+                     <string>Virement</string>
+                    </attribute>
+                    <layout class="QVBoxLayout" name="verticalLayout_37">
+                     <property name="topMargin">
+                      <number>30</number>
+                     </property>
+                     <item>
+                      <widget class="QWidget" name="widget_27" native="true">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_32">
+                        <item>
+                         <widget class="QGroupBox" name="groupBox_14">
+                          <property name="title">
+                           <string>numéro de compte compte source</string>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_33">
+                           <item>
+                            <widget class="QLineEdit" name="sai_numero_compte_source_onglet_virement"/>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QGroupBox" name="groupBox_17">
+                          <property name="title">
+                           <string>numéro de compte bénéficiaire</string>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_36">
+                           <item>
+                            <widget class="QLineEdit" name="sai_numero_compte_beneficiaire_onglet_virement"/>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QGroupBox" name="groupBox_15">
+                          <property name="title">
+                           <string>montant</string>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_34">
+                           <item>
+                            <widget class="QDoubleSpinBox" name="doubleSpinBox_montant_onglet_virement"/>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QGroupBox" name="groupBox_16">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="title">
+                           <string>motif ( optionnel)</string>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_35">
+                           <item>
+                            <widget class="QTextEdit" name="textEdit_motif_onglet_virement"/>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_erreur_dans_chmps">
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignmentFlag::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_valider_transaction">
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="text">
+                 <string>valider la transaction</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="icons.qrc">
+                  <normaloff>:/icon_blanc/send.svg</normaloff>:/icon_blanc/send.svg</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </widget>
        </item>
