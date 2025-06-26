@@ -18,12 +18,14 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTableView>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
@@ -175,6 +177,8 @@ public:
     QToolButton *indicat_recherche;
     QComboBox *cbo_filtre_transactions;
     QWidget *zone_liste_des_transaction;
+    QGridLayout *gridLayout_4;
+    QTableView *tableView_transactions;
     QWidget *page_parametres;
     QGridLayout *gridLayout_3;
     QLabel *message_page_en_construction;
@@ -1689,6 +1693,13 @@ public:
         sizePolicy1.setHeightForWidth(zone_liste_des_transaction->sizePolicy().hasHeightForWidth());
         zone_liste_des_transaction->setSizePolicy(sizePolicy1);
         zone_liste_des_transaction->setMinimumSize(QSize(911, 251));
+        gridLayout_4 = new QGridLayout(zone_liste_des_transaction);
+        gridLayout_4->setObjectName("gridLayout_4");
+        tableView_transactions = new QTableView(zone_liste_des_transaction);
+        tableView_transactions->setObjectName("tableView_transactions");
+
+        gridLayout_4->addWidget(tableView_transactions, 0, 0, 1, 1);
+
 
         verticalLayout_21->addWidget(zone_liste_des_transaction);
 

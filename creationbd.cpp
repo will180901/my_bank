@@ -87,12 +87,14 @@ bool CreationBD::creerTables()
                                     "numero_compte TEXT NOT NULL UNIQUE, "
                                     "nom_titulaire TEXT NOT NULL, "
                                     "solde REAL NOT NULL DEFAULT 0, "
-                                    "type_compte TEXT NOT NULL, " // 'courant' ou 'epargne'
+                                    "type_compte TEXT NOT NULL, "
                                     "decouvert_autorise REAL DEFAULT 0, "
-                                    "taux_interet REAL DEFAULT 0)");
+                                    "taux_interet REAL DEFAULT 0, "
+                                    "date_creation TEXT, " // Colonne ajoutée
+                                    "derniere_operation TEXT)"); // Colonne ajoutée
 
     // Table Transaction (avec date système)
-    success = success && query.exec("CREATE TABLE IF NOT EXISTS transaction ("
+    success = success && query.exec("CREATE TABLE IF NOT EXISTS transactions (" // Changé transaction -> transactions
                                     "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                                     "id_compte INTEGER NOT NULL, "
                                     "type_operation TEXT NOT NULL, " // 'depot', 'retrait', 'virement'

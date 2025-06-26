@@ -26,3 +26,20 @@ double CompteBancaire::getSolde() const
 {
     return m_solde;
 }
+
+
+QString CompteBancaire::getDateCreation() const {
+    return m_dateCreation;
+}
+
+QString CompteBancaire::getDerniereOperation() const {
+    return m_derniereOperation;
+}
+
+void CompteBancaire::setDateCreation(const QString& date) {
+    m_dateCreation = date;
+}
+
+void CompteBancaire::setDerniereOperation(const QString& date) {
+    m_derniereOperation = date;
+}

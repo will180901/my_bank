@@ -7,8 +7,15 @@
 #include <QToolButton>
 #include <QLabel>
 #include <QEvent>
+#include <QList>
+#include <QSqlTableModel>
 
 #include "animationsolde.h"
+#include "comptecourant.h"
+#include "compteepargne.h"
+#include "creationbd.h"
+#include "banque.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -26,7 +33,6 @@ public:
 
 protected:
     bool eventFilter(QObject* obj, QEvent* event) override;
-
 private slots:
     void on_btn_dashboard_barre_latterale_clicked();
     void on_btn_masquer_solde_compte_courant_clicked();
@@ -58,10 +64,29 @@ private:
     bool m_soldeVisibleCompteCourant;
     bool m_soldeVisibleCompteEpargne;
 
+    // Ajout des membres pour la base de données et la banque
+    CreationBD m_gestionBD;
+    Banque m_banque;
+
+    // Comptes spécifiques (pour un accès rapide)
+    CompteCourant* m_compteCourant = nullptr;
+    CompteEpargne* m_compteEpargne = nullptr;
+
     void appliquerEffetFlou(QLabel* label, bool masquer);
     void mettreAJourStyleBoutonsLateraux();
     void mettreAjourIcon(QToolButton* button, bool visible);
     void appliquerStyleBoutonMasquage(QToolButton* button, bool survole);
+
+    // Méthodes pour charger et afficher les données
+    void chargerDonneesDepuisBD();
+    void afficherCompteCourant();
+    void afficherCompteEpargne();
+
+    QSqlTableModel* m_modelTransactions;
+
+    void initialiserTableTransactions();
+    void mettreAJourSoldesApresSuppression(int idTransaction);
+    void mettreAJourSoldesApresModification(int idTransaction, double ancienMontant, double nouveauMontant);
 };
 
 #endif // FENMAIN_H

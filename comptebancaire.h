@@ -18,10 +18,18 @@ public:
     QString getNomTitulaire() const;
     double getSolde() const;
 
+
+    QString getDateCreation() const;
+    QString getDerniereOperation() const;
+    void setDateCreation(const QString& date);
+    void setDerniereOperation(const QString& date);
+
 protected:
     QString m_numeroCompte;
     QString m_nomTitulaire;
     double m_solde;
+    QString m_dateCreation;
+    QString m_derniereOperation;
 };
 
 #endif // COMPTEBANCAIRE_H

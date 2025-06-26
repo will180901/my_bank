@@ -2011,6 +2011,11 @@ Line {
                   <height>251</height>
                  </size>
                 </property>
+                <layout class="QGridLayout" name="gridLayout_4">
+                 <item row="0" column="0">
+                  <widget class="QTableView" name="tableView_transactions"/>
+                 </item>
+                </layout>
                </widget>
               </item>
              </layout>
