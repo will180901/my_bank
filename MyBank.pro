@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -10,13 +10,21 @@ CONFIG += c++17
 
 SOURCES += \
     animationsolde.cpp \
+    banque.cpp \
     comptebancaire.cpp \
+    comptecourant.cpp \
+    compteepargne.cpp \
+    creationbd.cpp \
     main.cpp \
     fenmain.cpp
 
 HEADERS += \
     animationsolde.h \
+    banque.h \
     comptebancaire.h \
+    comptecourant.h \
+    compteepargne.h \
+    creationbd.h \
     fenmain.h
 
 FORMS += \

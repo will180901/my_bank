@@ -1,0 +1,46 @@
+#include "Banque.h"
+
+Banque::Banque(const QString& nom) : m_nom(nom)
+{
+}
+
+void Banque::ajouterCompte(CompteBancaire* compte)
+{
+    if (compte && !trouverCompte(compte->getNumeroCompte())) {
+        m_comptes.append(compte);
+    }
+}
+
+CompteBancaire* Banque::trouverCompte(const QString& numeroCompte) const
+{
+    for (CompteBancaire* compte : m_comptes) {
+        if (compte->getNumeroCompte() == numeroCompte) {
+            return compte;
+        }
+    }
+    return nullptr;
+}
+
+bool Banque::effectuerVirement(const QString& compteSource, const QString& compteDest, double montant)
+{
+    CompteBancaire* source = trouverCompte(compteSource);
+    CompteBancaire* dest = trouverCompte(compteDest);
+
+    if (!source || !dest || montant <= 0) return false;
+
+    if (source->retirer(montant)) {
+        dest->deposer(montant);
+        return true;
+    }
+    return false;
+}
+
+QString Banque::getNom() const
+{
+    return m_nom;
+}
+
+QList<CompteBancaire*> Banque::getComptes() const
+{
+    return m_comptes;
+}

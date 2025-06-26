@@ -984,7 +984,7 @@ public:
         verticalLayout_6->setContentsMargins(2, 2, 2, 2);
         bar_nav = new QWidget(centralMain);
         bar_nav->setObjectName("bar_nav");
-        bar_nav->setMinimumSize(QSize(561, 51));
+        bar_nav->setMinimumSize(QSize(0, 0));
         horizontalLayout_2 = new QHBoxLayout(bar_nav);
         horizontalLayout_2->setSpacing(2);
         horizontalLayout_2->setObjectName("horizontalLayout_2");
@@ -999,7 +999,7 @@ public:
         verticalLayout->addWidget(label, 0, Qt::AlignmentFlag::AlignHCenter);
 
 
-        horizontalLayout_2->addWidget(widget_4, 0, Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter);
+        horizontalLayout_2->addWidget(widget_4, 0, Qt::AlignmentFlag::AlignLeft);
 
         zone_btn_compte_et_notification = new QWidget(bar_nav);
         zone_btn_compte_et_notification->setObjectName("zone_btn_compte_et_notification");
@@ -1914,7 +1914,7 @@ public:
 
         retranslateUi(fenMain);
 
-        mes_onglets_page_transaction->setCurrentIndex(1);
+        mes_onglets_page_transaction->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(fenMain);

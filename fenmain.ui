@@ -774,8 +774,8 @@ Line {
      <widget class="QWidget" name="bar_nav" native="true">
       <property name="minimumSize">
        <size>
-        <width>561</width>
-        <height>51</height>
+        <width>0</width>
+        <height>0</height>
        </size>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -794,7 +794,7 @@ Line {
        <property name="bottomMargin">
         <number>2</number>
        </property>
-       <item alignment="Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter">
+       <item alignment="Qt::AlignmentFlag::AlignLeft">
         <widget class="QWidget" name="widget_4" native="true">
          <layout class="QVBoxLayout" name="verticalLayout">
           <item alignment="Qt::AlignmentFlag::AlignHCenter">
@@ -2108,7 +2108,7 @@ Line {
                  <item>
                   <widget class="QTabWidget" name="mes_onglets_page_transaction">
                    <property name="currentIndex">
-                    <number>1</number>
+                    <number>0</number>
                    </property>
                    <property name="documentMode">
                     <bool>false</bool>
