@@ -12,6 +12,7 @@ public:
 
     // Méthodes de gestion des comptes
     void ajouterCompte(CompteBancaire* compte);
+
     CompteBancaire* trouverCompte(const QString& numeroCompte) const;
 
     // Opérations bancaires
@@ -19,6 +20,7 @@ public:
 
     // Getters
     QString getNom() const;
+
     QList<CompteBancaire*> getComptes() const;
 
 private:

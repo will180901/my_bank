@@ -248,6 +248,14 @@ public:
 "	  background-color: rgb(248, 249, 250);  */\n"
 "}\n"
 "\n"
+"#tableView_transactions{\n"
+"\n"
+"		background-color: rgb(248, 249, 250);\n"
+"\n"
+"		border:none ;\n"
+"\n"
+"}\n"
+"\n"
 "\n"
 "#message_page_en_construction{\n"
 "\n"
@@ -278,15 +286,15 @@ public:
 "\n"
 "\n"
 "#indicat_recherche {\n"
-"    background: transparent;\n"
+"    backgro"
+                        "und: transparent;\n"
 "    border: none;\n"
 "    padding: 0;\n"
 "}\n"
 "\n"
 "#ZoneRecherche {\n"
 "    border: none;\n"
-" "
-                        "   background: transparent;\n"
+"    background: transparent;\n"
 "}\n"
 "\n"
 "#BarreRecherche {\n"
@@ -329,13 +337,13 @@ public:
 "    background-color: transparent;\n"
 "    border: none;\n"
 "    color: rgb(73, 80, 87);\n"
-"    padding: 4px 4px;\n"
+"   "
+                        " padding: 4px 4px;\n"
 "    text-align: left;\n"
 "    border-radius: 4px;\n"
 "}\n"
 "\n"
-"#BarreLaterale QToolButton:hove"
-                        "r {\n"
+"#BarreLaterale QToolButton:hover {\n"
 "    background-color: #f8f9fa;\n"
 "}\n"
 "\n"
@@ -365,15 +373,15 @@ public:
 "\n"
 "		background-color: rgb(248, 249, 250); \n"
 "	   border-radius: 4px;\n"
-"      border: 1px solid rgb(229, 234, 239);\n"
+"      border: 1px solid rgb(229, 234, 239)"
+                        ";\n"
 "\n"
 "\n"
 "}\n"
 "#zone_carte_compte{\n"
 "\n"
 "background-color: rgba(255, 255, 255,0.1);\n"
-"    border-radius: 4p"
-                        "x;\n"
+"    border-radius: 4px;\n"
 "    border: 1px solid rgba(229, 234, 239,0.1);\n"
 "\n"
 "}\n"
@@ -408,14 +416,14 @@ public:
 "    border: none;\n"
 "}\n"
 "\n"
-"#page_4 {\n"
+""
+                        "#page_4 {\n"
 "    background-color: rgba(248, 249, 250, 0.8);\n"
 "    border: none;\n"
 "}\n"
 "\n"
 "\n"
-"/* ============"
-                        "===================================\n"
+"/* ===============================================\n"
 "   LABELS ET TEXTES\n"
 "   =============================================== */\n"
 "\n"
@@ -451,13 +459,13 @@ public:
 "\n"
 "\n"
 "/* ===============================================\n"
-"   BARRE DE NAVIGATION ET RECHERCHE\n"
+"   BARRE D"
+                        "E NAVIGATION ET RECHERCHE\n"
 "   =============================================== */\n"
 "\n"
 "\n"
 "\n"
-"/* ============="
-                        "==================================\n"
+"/* ===============================================\n"
 "   CARTES ET GROUPES\n"
 "   =============================================== */\n"
 "\n"
@@ -493,11 +501,11 @@ public:
 "    padding: 6px;\n"
 "    color: #495057;\n"
 "}\n"
-"\n"
+""
+                        "\n"
 "QLineEdit:hover, QTextEdit:hover {\n"
 "    border: 1px solid #0d6efd;\n"
-"    background-color: rgb(248, 249, 250"
-                        ");\n"
+"    background-color: rgb(248, 249, 250);\n"
 "}\n"
 "\n"
 "QLineEdit:focus, QTextEdit:focus, \n"
@@ -535,11 +543,11 @@ public:
 "\n"
 "#btn_effectuer_transaction_compte_courant, \n"
 "#btn_effectuer_transaction_compte_epargne {\n"
-"    background-color: rgb(255, 255, 255);\n"
+"    backg"
+                        "round-color: rgb(255, 255, 255);\n"
 "    border: 1px solid rgb(229, 234, 239);\n"
 "    color: rgb(73, 80, 87);\n"
-"   "
-                        " border-radius: 4px;\n"
+"    border-radius: 4px;\n"
 "    padding: 6px 10px;\n"
 "}\n"
 "\n"
@@ -575,13 +583,13 @@ public:
 "}\n"
 "\n"
 "#zone_photo:hover, #zone_photo_parametre:hover {\n"
-"    background-color: rgba(111, 66, 193, 0.2);\n"
+"    background-color: rgba("
+                        "111, 66, 193, 0.2);\n"
 "}\n"
 "\n"
 "#zone_info_perso_profil {\n"
 "    border-bottom: 2px solid rgba(73, 80, 87, 0.2);\n"
-""
-                        "}\n"
+"}\n"
 "\n"
 "\n"
 "\n"
@@ -619,13 +627,13 @@ public:
 "    subcontrol-position: top right;\n"
 "    width: 20px;\n"
 "    border: none;\n"
-"    background-color: transparent;\n"
+"    background-color: transpar"
+                        "ent;\n"
 "    border-top-right-radius: 4px;\n"
 "    border-bottom-right-radius: 4px;\n"
 "}\n"
 "\n"
-"QComboBox::drop-down:h"
-                        "over {\n"
+"QComboBox::drop-down:hover {\n"
 "    background-color: rgba(229, 234, 239, 0.3);\n"
 "}\n"
 "\n"
@@ -661,13 +669,13 @@ public:
 "    color: #495057;\n"
 "}\n"
 "\n"
-"QComboBox QAbstractItemView::item:last {\n"
+"QComboBox "
+                        "QAbstractItemView::item:last {\n"
 "    border-bottom: none;\n"
 "}\n"
 "\n"
 "QComboBox QAbstractItemView::item:hover {\n"
-""
-                        "    background-color: rgba(13, 110, 253, 0.1);\n"
+"    background-color: rgba(13, 110, 253, 0.1);\n"
 "    color: #0d6efd;\n"
 "}\n"
 "\n"
@@ -701,11 +709,11 @@ public:
 "    outline: none;\n"
 "}\n"
 "\n"
-"QDoubleSpinBox::up-button, QSpinBox::up-button {\n"
+"QDoubleSpin"
+                        "Box::up-button, QSpinBox::up-button {\n"
 "    subcontrol-origin: border;\n"
 "    subcontrol-position: top right;\n"
-"    "
-                        "width: 18px;\n"
+"    width: 18px;\n"
 "    height: 10px;\n"
 "    border: none;\n"
 "    background-color: transparent;\n"
@@ -736,12 +744,12 @@ public:
 "    background-color: rgba(229, 234, 239, 0.3);\n"
 "}\n"
 "\n"
-"QDoubleSpinBox::down-button:pressed, QSpinBox::down-button:pressed {\n"
+"QDoubleSpinBox::down-button:pressed, QSpinBo"
+                        "x::down-button:pressed {\n"
 "    background-color: rgba(229, 234, 239, 0.5);\n"
 "}\n"
 "\n"
-"QDoubleSpinBox::up-arrow, QSp"
-                        "inBox::up-arrow {\n"
+"QDoubleSpinBox::up-arrow, QSpinBox::up-arrow {\n"
 "    image: url(:/icon_gris/chevron-up.svg);\n"
 "    width: 8px;\n"
 "    height: 8px;\n"
@@ -771,13 +779,13 @@ public:
 "\n"
 "/* ===============================================\n"
 "   DATEEDIT\n"
-"   =============================================== */\n"
+"   ====================="
+                        "========================== */\n"
 "\n"
 "QDateEdit {\n"
 "    border: 1px solid #ced4da;\n"
 "    border-radius: 4px;\n"
-"   "
-                        " padding: 6px 24px 6px 8px;\n"
+"    padding: 6px 24px 6px 8px;\n"
 "    background-color: rgb(255, 255, 255);\n"
 "    color: #495057;\n"
 "    font-size: 13px;\n"
@@ -813,12 +821,12 @@ public:
 "    image: url(:/icon_gris/calendar.svg);\n"
 "    width: 12px;\n"
 "    height: 12px;\n"
-"}\n"
+""
+                        "}\n"
 "\n"
 "/* ===============================================\n"
 "   BARRES DE D\303\211FILEMENT\n"
-"   ==============="
-                        "================================ */\n"
+"   =============================================== */\n"
 "\n"
 "QScrollBar:vertical {\n"
 "    border: none;\n"
@@ -852,13 +860,13 @@ public:
 "\n"
 "QScrollBar::handle:vertical:pressed,\n"
 "QScrollBar::handle:horizontal:pressed {\n"
-"    background-color: rgba(8, 77, 178, 0.8);\n"
+"    backgrou"
+                        "nd-color: rgba(8, 77, 178, 0.8);\n"
 "}\n"
 "\n"
 "QScrollBar::add-line:vertical,\n"
 "QScrollBar::sub-line:vertical,\n"
-"Q"
-                        "ScrollBar::add-line:horizontal,\n"
+"QScrollBar::add-line:horizontal,\n"
 "QScrollBar::sub-line:horizontal {\n"
 "    border: none;\n"
 "    background: none;\n"
@@ -893,12 +901,12 @@ public:
 "    border: none;\n"
 "    background-color: rgba(206, 212, 218, 0.7);\n"
 "    border-radius: 1px;\n"
-"    outline: none;\n"
+""
+                        "    outline: none;\n"
 "}\n"
 "\n"
 "/* ===============================================\n"
-"   STYLE DES ONGLETS DE TRA"
-                        "NSACTION\n"
+"   STYLE DES ONGLETS DE TRANSACTION\n"
 "   =============================================== */\n"
 "\n"
 "#mes_onglets_page_transaction {\n"
@@ -932,12 +940,12 @@ public:
 "    background-color: rgba(229, 234, 239, 0.5);\n"
 "    border: 1px solid rgb(229, 234, 239);\n"
 "    border-bottom: none;\n"
-"    border-radius: 4px 4px 0 0;\n"
+"    border-rad"
+                        "ius: 4px 4px 0 0;\n"
 "    padding: 8px 16px;\n"
 "    margin-right: 2px;\n"
 "    min-width: 100px;\n"
-"    color: rgb"
-                        "(108, 117, 125);\n"
+"    color: rgb(108, 117, 125);\n"
 "}\n"
 "\n"
 "/* Onglet s\303\251lectionn\303\251 */\n"
@@ -965,11 +973,11 @@ public:
 "    margin-bottom: -1px; /* Alignement avec la bordure */\n"
 "}\n"
 "\n"
-"/* Fl\303\250ches de navigation quand il y a beaucoup d'onglets */\n"
+"/* Fl\303\250ches de navigation quand il y a beaucoup d'ong"
+                        "lets */\n"
 "#mes_onglets_page_transaction > QTabBar QToolButton {\n"
 "    background: rgb(229, 234, 239);\n"
-"    bo"
-                        "rder-radius: 3px;\n"
+"    border-radius: 3px;\n"
 "    margin: 4px;\n"
 "}\n"
 "\n"
@@ -1245,8 +1253,13 @@ public:
         horizontalLayout_12->setContentsMargins(2, 2, 2, 2);
         groupBox = new QGroupBox(widget_12);
         groupBox->setObjectName("groupBox");
+        QSizePolicy sizePolicy2(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
+        groupBox->setSizePolicy(sizePolicy2);
+        groupBox->setMinimumSize(QSize(141, 51));
         horizontalLayout_10 = new QHBoxLayout(groupBox);
-        horizontalLayout_10->setSpacing(10);
         horizontalLayout_10->setObjectName("horizontalLayout_10");
         label_solde_compte_courant = new QLabel(groupBox);
         label_solde_compte_courant->setObjectName("label_solde_compte_courant");
@@ -1256,19 +1269,27 @@ public:
 
         btn_masquer_solde_compte_courant = new QToolButton(groupBox);
         btn_masquer_solde_compte_courant->setObjectName("btn_masquer_solde_compte_courant");
+        sizePolicy2.setHeightForWidth(btn_masquer_solde_compte_courant->sizePolicy().hasHeightForWidth());
+        btn_masquer_solde_compte_courant->setSizePolicy(sizePolicy2);
+        btn_masquer_solde_compte_courant->setMinimumSize(QSize(18, 18));
         btn_masquer_solde_compte_courant->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
         QIcon icon7;
         icon7.addFile(QString::fromUtf8(":/icon_gris/eye-off.svg"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
         btn_masquer_solde_compte_courant->setIcon(icon7);
         btn_masquer_solde_compte_courant->setIconSize(QSize(15, 15));
 
-        horizontalLayout_10->addWidget(btn_masquer_solde_compte_courant);
+        horizontalLayout_10->addWidget(btn_masquer_solde_compte_courant, 0, Qt::AlignmentFlag::AlignRight);
 
 
         horizontalLayout_12->addWidget(groupBox);
 
         groupBox_3 = new QGroupBox(widget_12);
         groupBox_3->setObjectName("groupBox_3");
+        QSizePolicy sizePolicy3(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(groupBox_3->sizePolicy().hasHeightForWidth());
+        groupBox_3->setSizePolicy(sizePolicy3);
         horizontalLayout_9 = new QHBoxLayout(groupBox_3);
         horizontalLayout_9->setObjectName("horizontalLayout_9");
         label_6 = new QLabel(groupBox_3);
@@ -1281,6 +1302,7 @@ public:
 
         label_decouvert_autorise_compte_courant = new QLabel(groupBox_3);
         label_decouvert_autorise_compte_courant->setObjectName("label_decouvert_autorise_compte_courant");
+        label_decouvert_autorise_compte_courant->setMinimumSize(QSize(62, 20));
 
         horizontalLayout_9->addWidget(label_decouvert_autorise_compte_courant);
 
@@ -1289,10 +1311,13 @@ public:
 
         groupBox_4 = new QGroupBox(widget_12);
         groupBox_4->setObjectName("groupBox_4");
+        sizePolicy3.setHeightForWidth(groupBox_4->sizePolicy().hasHeightForWidth());
+        groupBox_4->setSizePolicy(sizePolicy3);
         horizontalLayout_8 = new QHBoxLayout(groupBox_4);
         horizontalLayout_8->setObjectName("horizontalLayout_8");
         label_numero_de_compte_courant = new QLabel(groupBox_4);
         label_numero_de_compte_courant->setObjectName("label_numero_de_compte_courant");
+        label_numero_de_compte_courant->setMinimumSize(QSize(105, 20));
 
         horizontalLayout_8->addWidget(label_numero_de_compte_courant);
 
@@ -1408,6 +1433,9 @@ public:
         horizontalLayout_15->setContentsMargins(2, 2, 0, 2);
         groupBox_7 = new QGroupBox(widget_18);
         groupBox_7->setObjectName("groupBox_7");
+        sizePolicy2.setHeightForWidth(groupBox_7->sizePolicy().hasHeightForWidth());
+        groupBox_7->setSizePolicy(sizePolicy2);
+        groupBox_7->setMinimumSize(QSize(141, 51));
         horizontalLayout_16 = new QHBoxLayout(groupBox_7);
         horizontalLayout_16->setSpacing(10);
         horizontalLayout_16->setObjectName("horizontalLayout_16");
@@ -1419,6 +1447,9 @@ public:
 
         btn_masquer_solde_compte_epargne = new QToolButton(groupBox_7);
         btn_masquer_solde_compte_epargne->setObjectName("btn_masquer_solde_compte_epargne");
+        sizePolicy2.setHeightForWidth(btn_masquer_solde_compte_epargne->sizePolicy().hasHeightForWidth());
+        btn_masquer_solde_compte_epargne->setSizePolicy(sizePolicy2);
+        btn_masquer_solde_compte_epargne->setMinimumSize(QSize(18, 18));
         btn_masquer_solde_compte_epargne->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
         btn_masquer_solde_compte_epargne->setIcon(icon7);
         btn_masquer_solde_compte_epargne->setIconSize(QSize(15, 15));
@@ -1446,11 +1477,11 @@ public:
 
         label_taux_interet_compte_epargne = new QLabel(groupBox_8);
         label_taux_interet_compte_epargne->setObjectName("label_taux_interet_compte_epargne");
-        QSizePolicy sizePolicy2(QSizePolicy::Policy::MinimumExpanding, QSizePolicy::Policy::Preferred);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(label_taux_interet_compte_epargne->sizePolicy().hasHeightForWidth());
-        label_taux_interet_compte_epargne->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy4(QSizePolicy::Policy::MinimumExpanding, QSizePolicy::Policy::Preferred);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(label_taux_interet_compte_epargne->sizePolicy().hasHeightForWidth());
+        label_taux_interet_compte_epargne->setSizePolicy(sizePolicy4);
 
         horizontalLayout_17->addWidget(label_taux_interet_compte_epargne);
 
@@ -1557,11 +1588,11 @@ public:
 
         zone_affichage_tableau = new QWidget(carte_liste_activite_recentes);
         zone_affichage_tableau->setObjectName("zone_affichage_tableau");
-        QSizePolicy sizePolicy3(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::MinimumExpanding);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(zone_affichage_tableau->sizePolicy().hasHeightForWidth());
-        zone_affichage_tableau->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy5(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::MinimumExpanding);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(zone_affichage_tableau->sizePolicy().hasHeightForWidth());
+        zone_affichage_tableau->setSizePolicy(sizePolicy5);
         zone_affichage_tableau->setMinimumSize(QSize(0, 0));
 
         verticalLayout_9->addWidget(zone_affichage_tableau);
@@ -1582,11 +1613,8 @@ public:
         verticalLayout_21->setObjectName("verticalLayout_21");
         widget_3 = new QWidget(carte_liste_historique_transaction);
         widget_3->setObjectName("widget_3");
-        QSizePolicy sizePolicy4(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(widget_3->sizePolicy().hasHeightForWidth());
-        widget_3->setSizePolicy(sizePolicy4);
+        sizePolicy3.setHeightForWidth(widget_3->sizePolicy().hasHeightForWidth());
+        widget_3->setSizePolicy(sizePolicy3);
         widget_3->setMinimumSize(QSize(911, 71));
         horizontalLayout_24 = new QHBoxLayout(widget_3);
         horizontalLayout_24->setSpacing(2);
@@ -1726,11 +1754,11 @@ public:
         verticalLayout_26->setObjectName("verticalLayout_26");
         carte_effectuer_transaction = new QWidget(page_transaction);
         carte_effectuer_transaction->setObjectName("carte_effectuer_transaction");
-        QSizePolicy sizePolicy5(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::MinimumExpanding);
-        sizePolicy5.setHorizontalStretch(0);
-        sizePolicy5.setVerticalStretch(0);
-        sizePolicy5.setHeightForWidth(carte_effectuer_transaction->sizePolicy().hasHeightForWidth());
-        carte_effectuer_transaction->setSizePolicy(sizePolicy5);
+        QSizePolicy sizePolicy6(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::MinimumExpanding);
+        sizePolicy6.setHorizontalStretch(0);
+        sizePolicy6.setVerticalStretch(0);
+        sizePolicy6.setHeightForWidth(carte_effectuer_transaction->sizePolicy().hasHeightForWidth());
+        carte_effectuer_transaction->setSizePolicy(sizePolicy6);
         carte_effectuer_transaction->setMinimumSize(QSize(591, 0));
         verticalLayout_24 = new QVBoxLayout(carte_effectuer_transaction);
         verticalLayout_24->setObjectName("verticalLayout_24");
@@ -1796,6 +1824,8 @@ public:
         verticalLayout_28->setObjectName("verticalLayout_28");
         doubleSpinBox_montant_onglet_depot_retrait = new QDoubleSpinBox(groupBox_12);
         doubleSpinBox_montant_onglet_depot_retrait->setObjectName("doubleSpinBox_montant_onglet_depot_retrait");
+        doubleSpinBox_montant_onglet_depot_retrait->setDecimals(2);
+        doubleSpinBox_montant_onglet_depot_retrait->setMaximum(100000000000000004384584304507619735463404765184.000000000000000);
 
         verticalLayout_28->addWidget(doubleSpinBox_montant_onglet_depot_retrait);
 
@@ -1804,11 +1834,11 @@ public:
 
         groupBox_13 = new QGroupBox(widget_26);
         groupBox_13->setObjectName("groupBox_13");
-        QSizePolicy sizePolicy6(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Minimum);
-        sizePolicy6.setHorizontalStretch(0);
-        sizePolicy6.setVerticalStretch(0);
-        sizePolicy6.setHeightForWidth(groupBox_13->sizePolicy().hasHeightForWidth());
-        groupBox_13->setSizePolicy(sizePolicy6);
+        QSizePolicy sizePolicy7(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Minimum);
+        sizePolicy7.setHorizontalStretch(0);
+        sizePolicy7.setVerticalStretch(0);
+        sizePolicy7.setHeightForWidth(groupBox_13->sizePolicy().hasHeightForWidth());
+        groupBox_13->setSizePolicy(sizePolicy7);
         groupBox_13->setMinimumSize(QSize(0, 0));
         verticalLayout_29 = new QVBoxLayout(groupBox_13);
         verticalLayout_29->setObjectName("verticalLayout_29");
@@ -1865,6 +1895,8 @@ public:
         verticalLayout_34->setObjectName("verticalLayout_34");
         doubleSpinBox_montant_onglet_virement = new QDoubleSpinBox(groupBox_15);
         doubleSpinBox_montant_onglet_virement->setObjectName("doubleSpinBox_montant_onglet_virement");
+        doubleSpinBox_montant_onglet_virement->setDecimals(2);
+        doubleSpinBox_montant_onglet_virement->setMaximum(10000000000000000139372116959414099130712064.000000000000000);
 
         verticalLayout_34->addWidget(doubleSpinBox_montant_onglet_virement);
 
@@ -1873,8 +1905,8 @@ public:
 
         groupBox_16 = new QGroupBox(widget_27);
         groupBox_16->setObjectName("groupBox_16");
-        sizePolicy6.setHeightForWidth(groupBox_16->sizePolicy().hasHeightForWidth());
-        groupBox_16->setSizePolicy(sizePolicy6);
+        sizePolicy7.setHeightForWidth(groupBox_16->sizePolicy().hasHeightForWidth());
+        groupBox_16->setSizePolicy(sizePolicy7);
         groupBox_16->setMinimumSize(QSize(0, 0));
         verticalLayout_35 = new QVBoxLayout(groupBox_16);
         verticalLayout_35->setObjectName("verticalLayout_35");
@@ -1925,7 +1957,7 @@ public:
 
         retranslateUi(fenMain);
 
-        mes_onglets_page_transaction->setCurrentIndex(0);
+        mes_onglets_page_transaction->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(fenMain);
@@ -1948,33 +1980,33 @@ public:
         label_titre_compte_courant_2->setText(QCoreApplication::translate("fenMain", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:700; color:#00007f;\">Compte courant principale</span></p></body></html>", nullptr));
         label_5->setText(QCoreApplication::translate("fenMain", "<html><head/><body><p><span style=\" font-size:7pt; color:#696969;\">consulter les informations de votre compte courant principale</span></p></body></html>", nullptr));
         groupBox_2->setTitle(QCoreApplication::translate("fenMain", "Date de cr\303\251ation ", nullptr));
-        label_date_creation_compte_courant->setText(QCoreApplication::translate("fenMain", "25/06/2025", nullptr));
+        label_date_creation_compte_courant->setText(QString());
         groupBox->setTitle(QCoreApplication::translate("fenMain", "Solde", nullptr));
-        label_solde_compte_courant->setText(QCoreApplication::translate("fenMain", "2000.00 FCFA", nullptr));
+        label_solde_compte_courant->setText(QString());
         btn_masquer_solde_compte_courant->setText(QString());
         groupBox_3->setTitle(QCoreApplication::translate("fenMain", "D\303\251couvert autoris\303\251", nullptr));
         label_6->setText(QString());
-        label_decouvert_autorise_compte_courant->setText(QCoreApplication::translate("fenMain", "35000.00 FCFA", nullptr));
+        label_decouvert_autorise_compte_courant->setText(QString());
         groupBox_4->setTitle(QCoreApplication::translate("fenMain", "Num\303\251ro de compte", nullptr));
-        label_numero_de_compte_courant->setText(QCoreApplication::translate("fenMain", "N\302\260 CC000325", nullptr));
+        label_numero_de_compte_courant->setText(QString());
         groupBox_5->setTitle(QCoreApplication::translate("fenMain", "Derni\303\250re op\303\251ration", nullptr));
-        label_derniere_transaction_compte_courant->setText(QCoreApplication::translate("fenMain", "D\303\251pot - 10/06/2025 - compte - courant", nullptr));
+        label_derniere_transaction_compte_courant->setText(QString());
         btn_effectuer_transaction_compte_courant->setText(QCoreApplication::translate("fenMain", "Effectuer une transaction", nullptr));
         btn_consulter_compte_courant->setText(QCoreApplication::translate("fenMain", "Consulter le compte", nullptr));
         label_titre_compte_epargne->setText(QCoreApplication::translate("fenMain", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:700; color:#00007f;\">Compte \303\251pargne</span></p></body></html>", nullptr));
         label_9->setText(QCoreApplication::translate("fenMain", "<html><head/><body><p><span style=\" font-size:7pt; color:#696969;\">consulter les informations de votre compte courant principale</span></p></body></html>", nullptr));
         groupBox_6->setTitle(QCoreApplication::translate("fenMain", "Date de cr\303\251ation ", nullptr));
-        label_date_creation_compte_epargne->setText(QCoreApplication::translate("fenMain", "25/06/2025", nullptr));
+        label_date_creation_compte_epargne->setText(QString());
         groupBox_7->setTitle(QCoreApplication::translate("fenMain", "Solde", nullptr));
-        label_solde_compte_epargne->setText(QCoreApplication::translate("fenMain", "2000.00 FCFA", nullptr));
+        label_solde_compte_epargne->setText(QString());
         btn_masquer_solde_compte_epargne->setText(QString());
         groupBox_8->setTitle(QCoreApplication::translate("fenMain", "Taux d'inter\303\252t", nullptr));
         label_3->setText(QString());
-        label_taux_interet_compte_epargne->setText(QCoreApplication::translate("fenMain", "5%", nullptr));
+        label_taux_interet_compte_epargne->setText(QString());
         groupBox_9->setTitle(QCoreApplication::translate("fenMain", "Num\303\251ro de compte", nullptr));
-        label_numero_de_compte_epargne->setText(QCoreApplication::translate("fenMain", "N\302\260 CC000325", nullptr));
+        label_numero_de_compte_epargne->setText(QString());
         groupBox_10->setTitle(QCoreApplication::translate("fenMain", "Derni\303\250re op\303\251ration", nullptr));
-        label_derniere_transaction_compte_epargne->setText(QCoreApplication::translate("fenMain", "D\303\251pot - 10/06/2025 - compte - courant", nullptr));
+        label_derniere_transaction_compte_epargne->setText(QString());
         btn_effectuer_transaction_compte_epargne->setText(QCoreApplication::translate("fenMain", "Effectuer une transaction", nullptr));
         btn_consulter_compte_epargne->setText(QCoreApplication::translate("fenMain", "Consulter le compte", nullptr));
         label_titre_activite_recentes->setText(QCoreApplication::translate("fenMain", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:700; color:#5d5f65;\">Activit\303\251 R\303\251centes </span></p></body></html>", nullptr));

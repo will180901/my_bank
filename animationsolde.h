@@ -13,21 +13,12 @@ class AnimationSolde : public QObject
 public:
     explicit AnimationSolde(QObject *parent = nullptr);
     void appliquerAvecLabel(QLabel* label, bool masquer);
-    void restaurerLabel(QLabel* label);
 
 private:
-    struct StyleLabel {
-        QString texte;
-        QString feuilleStyle;
-        QFont police;
-    };
-
     QGraphicsBlurEffect* creerEffetFlou(QLabel* label);
     void animerFlou(QGraphicsBlurEffect* effet, bool masquer);
     void animerTransition(QLabel* label, bool masquer);
     QString genererTexteMasque(const QString& original);
-
-    QMap<QLabel*, StyleLabel> m_stylesOriginaux;
 };
 
 #endif // ANIMATIONSOLDE_H

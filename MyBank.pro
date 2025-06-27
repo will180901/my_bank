@@ -10,24 +10,29 @@ CONFIG += c++17
 
 SOURCES += \
     animationsolde.cpp \
+    authentification.cpp \
     banque.cpp \
     comptebancaire.cpp \
     comptecourant.cpp \
     compteepargne.cpp \
     creationbd.cpp \
     main.cpp \
-    fenmain.cpp
+    fenmain.cpp \
+    utilitairesmotdepasse.cpp
 
 HEADERS += \
     animationsolde.h \
+    authentification.h \
     banque.h \
     comptebancaire.h \
     comptecourant.h \
     compteepargne.h \
     creationbd.h \
-    fenmain.h
+    fenmain.h \
+    utilitairesmotdepasse.h
 
 FORMS += \
+    authentification.ui \
     fenmain.ui
 
 # Default rules for deployment.

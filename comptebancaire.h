@@ -30,6 +30,7 @@ protected:
     double m_solde;
     QString m_dateCreation;
     QString m_derniereOperation;
+
 };
 
 #endif // COMPTEBANCAIRE_H
