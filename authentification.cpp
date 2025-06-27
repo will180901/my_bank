@@ -99,26 +99,33 @@ void Authentification::verifierEtCreerAdminSiNecessaire()
         QString email = "admin@mybank.com";
         QString mdp = ""; // Mot de passe fort par défaut
 
-        if (creerUtilisateur(nom, email, mdp)) {
+        // Créer la banque en premier
+        if (!m_creationbd.insererBanqueParDefaut()) {
+            qCritical() << "Échec création banque par défaut";
+            return;
+        }
 
-            ui->lineEdit_email_connexion->setText(email) ;
+        // Créer l'utilisateur admin
+        if (creerUtilisateur(nom, email, mdp)) {
+            ui->lineEdit_email_connexion->setText(email);
             qDebug() << "Administrateur par défaut créé avec succès";
+
             QMessageBox::information(
                 this,
                 "Administrateur créé",
                 "Un compte administrateur par défaut a été créé :\n"
                 "Email: admin@mybank.com\n"
+                "Une banque par défaut a également été créée."
                 );
         } else {
             qCritical() << "Échec création administrateur par défaut";
         }
-
-    }else{
-
-
-         remplirEmailPremierUtilisateur();
+    } else {
+        remplirEmailPremierUtilisateur();
     }
 }
+
+
 
 
 void Authentification::remplirEmailPremierUtilisateur()

@@ -25,9 +25,8 @@ public:
     bool creerTables();
     void fermerBD();
 
-
-    bool insererBanqueParDefaut();
     bool sauvegarderBD(const QString& cheminSauvegarde);
+    bool insererBanqueParDefaut();
 
     // Getters
     QSqlDatabase getDatabase() const;

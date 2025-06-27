@@ -15,6 +15,44 @@ CreationBD::~CreationBD()
     fermerBD();
 }
 
+
+
+bool CreationBD::insererBanqueParDefaut()
+{
+    if (!m_estOuverte) {
+        return false;
+    }
+
+    QSqlQuery query(m_db);
+
+    // Vérifier si une banque existe déjà
+    if (!query.exec("SELECT COUNT(*) FROM banques")) {
+        qWarning() << "Erreur lors de la vérification des banques:" << query.lastError().text();
+        return false;
+    }
+
+    if (query.next() && query.value(0).toInt() == 0) {
+        // CORRECTION: Requête préparée correctement avec 2 valeurs
+        if (!query.prepare("INSERT INTO banques (nom, date_creation) "
+                           "VALUES (:nom, :date)")) {
+            qWarning() << "Erreur préparation insertion banque:" << query.lastError().text();
+            return false;
+        }
+
+        query.bindValue(":nom", "Mybank");
+        query.bindValue(":date", QDateTime::currentDateTime().toString(Qt::ISODate));
+
+        if (!query.exec()) {
+            qWarning() << "Erreur insertion banque par défaut:" << query.lastError().text();
+            return false;
+        }
+
+        qDebug() << "Banque par défaut créée avec succès";
+    }
+
+    return true;
+}
+
 bool CreationBD::creerDossierBD()
 {
     // Chemin par défaut pour les données d'application
@@ -163,42 +201,6 @@ bool CreationBD::creerTables()
 
 
 
-bool CreationBD::insererBanqueParDefaut()
-{
-    if (!m_estOuverte) {
-        return false;
-    }
-
-    QSqlQuery query(m_db);
-
-    // Vérifier si une banque existe déjà
-    if (!query.exec("SELECT COUNT(*) FROM banques")) {
-        qWarning() << "Erreur lors de la vérification des banques:" << query.lastError().text();
-        return false;
-    }
-
-    if (query.next() && query.value(0).toInt() == 0) {
-        // Insérer une banque par défaut
-        if (!query.prepare("INSERT INTO banques (nom, date_creation) "
-                           "VALUES (:nom, :code, :adresse, :date)")) {
-            qWarning() << "Erreur préparation insertion banque:" << query.lastError().text();
-            return false;
-        }
-
-        query.bindValue(":nom", "Mybank");
-
-        query.bindValue(":date", QDateTime::currentDateTime().toString(Qt::ISODate));
-
-        if (!query.exec()) {
-            qWarning() << "Erreur insertion banque par défaut:" << query.lastError().text();
-            return false;
-        }
-
-        qDebug() << "Banque par défaut créée avec succès";
-    }
-
-    return true;
-}
 
 QSqlDatabase CreationBD::getDatabase() const
 {

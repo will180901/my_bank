@@ -69,8 +69,14 @@ private:
     void appliquerStyleBoutonMasquage(QToolButton* button, bool survole);
 
     void chargerDonneesDepuisBD();
-    void afficherCompteCourant();
-    void afficherCompteEpargne();
+
+    void chargerInformationsUtilisateur();
+    void chargerComptesBancaires();
+    void sauvegarderDonnees();
+    void mettreAJourAffichageComptes();
+
+    CompteCourant* getCompteCourant() const;
+    CompteEpargne* getCompteEpargne() const;
 };
 
 #endif // FENMAIN_H

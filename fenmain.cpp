@@ -27,8 +27,6 @@ fenMain::fenMain(CreationBD& m_BD, QWidget *parent, const QString &utilisateur_i
 
     this->showMaximized();
 
-
-
     ui->mes_pages->setCurrentWidget(ui->page_dashboard);
     ui->btn_masquer_solde_compte_courant->installEventFilter(this);
     ui->btn_masquer_solde_compte_epargne->installEventFilter(this);
@@ -43,31 +41,197 @@ fenMain::fenMain(CreationBD& m_BD, QWidget *parent, const QString &utilisateur_i
     mettreAjourIcon(ui->btn_masquer_solde_compte_courant, m_soldeVisibleCompteCourant);
     mettreAjourIcon(ui->btn_masquer_solde_compte_epargne, m_soldeVisibleCompteEpargne);
 
+    chargerDonneesDepuisBD();
 
-     chargerDonneesDepuisBD();
-
-    // Afficher les données dans l'interface
-    afficherCompteCourant();
-    afficherCompteEpargne();
+    // Appliquer l'effet flou initial
+    appliquerEffetFlou(ui->label_solde_compte_courant, !m_soldeVisibleCompteCourant);
+    appliquerEffetFlou(ui->label_solde_compte_epargne, !m_soldeVisibleCompteEpargne);
 }
 
 fenMain::~fenMain()
 {
-
-
+    sauvegarderDonnees();
     delete ui;
 }
 
-
-
 void fenMain::chargerDonneesDepuisBD()
 {
-
-
-
+    chargerInformationsUtilisateur();
+    chargerComptesBancaires();
+    mettreAJourAffichageComptes();
 }
 
+void fenMain::chargerInformationsUtilisateur()
+{
+    if (!m_creationBD.estOuverte()) {
+        qWarning() << "Base de données non ouverte!";
+        return;
+    }
 
+    QSqlDatabase db = m_creationBD.getDatabase();
+    QSqlQuery query(db);
+
+    query.prepare("SELECT nom_complet FROM utilisateurs WHERE id = ?");
+    query.addBindValue(m_utilisateur_id);
+
+    if (query.exec() && query.next()) {
+        QString nomComplet = query.value("nom_complet").toString();
+        ui->labelBienvenue->setText("Bienvenue, " + nomComplet + " !");
+    } else {
+        qWarning() << "Erreur récupération nom utilisateur:" << query.lastError().text();
+        ui->labelBienvenue->setText("Bienvenue !");
+    }
+}
+
+void fenMain::chargerComptesBancaires()
+{
+    if (!m_creationBD.estOuverte()) {
+        qWarning() << "Base de données non ouverte!";
+        return;
+    }
+
+    // Vider les comptes existants
+    for (CompteBancaire* compte : m_banque.getComptes()) {
+        delete compte;
+    }
+    m_banque.getComptes().clear();
+
+    QSqlDatabase db = m_creationBD.getDatabase();
+    QSqlQuery query(db);
+
+    query.prepare("SELECT * FROM comptes WHERE id_utilisateur = ?");
+    query.addBindValue(m_utilisateur_id);
+
+    if (!query.exec()) {
+        qWarning() << "Erreur récupération comptes:" << query.lastError().text();
+        return;
+    }
+
+    while (query.next()) {
+        QString numeroCompte = query.value("numero_compte").toString();
+        QString nomTitulaire = query.value("nom_titulaire").toString();
+        double solde = query.value("solde").toDouble();
+        QString typeCompte = query.value("type_compte").toString();
+        QString dateCreation = query.value("date_creation").toString();
+        QString derniereOperation = query.value("derniere_operation").toString();
+
+        CompteBancaire* compte = nullptr;
+
+        if (typeCompte == "courant") {
+            double decouvert = query.value("decouvert_autorise").toDouble();
+            compte = new CompteCourant(numeroCompte, nomTitulaire, solde, decouvert);
+        } else if (typeCompte == "epargne") {
+            double taux = query.value("taux_interet").toDouble();
+            compte = new CompteEpargne(numeroCompte, nomTitulaire, solde, taux);
+        }
+
+        if (compte) {
+            compte->setDateCreation(dateCreation);
+            compte->setDerniereOperation(derniereOperation);
+            m_banque.ajouterCompte(compte);
+        }
+    }
+}
+
+void fenMain::sauvegarderDonnees()
+{
+    if (!m_creationBD.estOuverte()) {
+        qWarning() << "Base de données non ouverte! Impossible de sauvegarder.";
+        return;
+    }
+
+    QSqlDatabase db = m_creationBD.getDatabase();
+    QSqlQuery query(db);
+
+    // Sauvegarde des comptes
+    for (CompteBancaire* compte : m_banque.getComptes()) {
+        query.prepare("UPDATE comptes SET "
+                      "solde = ?, "
+                      "derniere_operation = ? "
+                      "WHERE numero_compte = ?");
+
+        query.addBindValue(compte->getSolde());
+        query.addBindValue(compte->getDerniereOperation());
+        query.addBindValue(compte->getNumeroCompte());
+
+        if (!query.exec()) {
+            qWarning() << "Erreur sauvegarde compte"
+                       << compte->getNumeroCompte()
+                       << ":" << query.lastError().text();
+        }
+    }
+}
+
+CompteCourant* fenMain::getCompteCourant() const
+{
+    for (CompteBancaire* compte : m_banque.getComptes()) {
+        if (CompteCourant* cc = dynamic_cast<CompteCourant*>(compte)) {
+            return cc;
+        }
+    }
+    return nullptr;
+}
+
+CompteEpargne* fenMain::getCompteEpargne() const
+{
+    for (CompteBancaire* compte : m_banque.getComptes()) {
+        if (CompteEpargne* ce = dynamic_cast<CompteEpargne*>(compte)) {
+            return ce;
+        }
+    }
+    return nullptr;
+}
+
+void fenMain::mettreAJourAffichageComptes()
+{
+    // Compte Courant
+    if (CompteCourant* compteCourant = getCompteCourant()) {
+        ui->label_solde_compte_courant->setText(
+            QString::number(compteCourant->getSolde(), 'f', 2) + " FCFA");
+
+        ui->label_decouvert_autorise_compte_courant->setText(
+            QString::number(compteCourant->getDecouvertAutorise(), 'f', 2) + " FCFA");
+
+        ui->label_numero_de_compte_courant->setText(
+            compteCourant->getNumeroCompte());
+
+        ui->label_date_creation_compte_courant->setText(
+            compteCourant->getDateCreation());
+
+        ui->label_derniere_transaction_compte_courant->setText(
+            compteCourant->getDerniereOperation());
+    } else {
+        ui->label_solde_compte_courant->setText("0.00 FCFA");
+        ui->label_decouvert_autorise_compte_courant->setText("0.00 FCFA");
+        ui->label_numero_de_compte_courant->setText("N/A");
+        ui->label_date_creation_compte_courant->setText("N/A");
+        ui->label_derniere_transaction_compte_courant->setText("N/A");
+    }
+
+    // Compte Épargne
+    if (CompteEpargne* compteEpargne = getCompteEpargne()) {
+        ui->label_solde_compte_epargne->setText(
+            QString::number(compteEpargne->getSolde(), 'f', 2) + " FCFA");
+
+        ui->label_taux_interet_compte_epargne->setText(
+            QString::number(compteEpargne->getTauxInteret(), 'f', 2) + "%");
+
+        ui->label_numero_de_compte_epargne->setText(
+            compteEpargne->getNumeroCompte());
+
+        ui->label_date_creation_compte_epargne->setText(
+            compteEpargne->getDateCreation());
+
+        ui->label_derniere_transaction_compte_epargne->setText(
+            compteEpargne->getDerniereOperation());
+    } else {
+        ui->label_solde_compte_epargne->setText("0.00 FCFA");
+        ui->label_taux_interet_compte_epargne->setText("0.00%");
+        ui->label_numero_de_compte_epargne->setText("N/A");
+        ui->label_date_creation_compte_epargne->setText("N/A");
+        ui->label_derniere_transaction_compte_epargne->setText("N/A");
+    }
+}
 
 bool fenMain::eventFilter(QObject* obj, QEvent* event)
 {
@@ -96,8 +260,6 @@ bool fenMain::eventFilter(QObject* obj, QEvent* event)
 
     return QMainWindow::eventFilter(obj, event);
 }
-
-
 
 void fenMain::mettreAJourStyleBoutonsLateraux()
 {
@@ -145,7 +307,6 @@ void fenMain::mettreAJourStyleBoutonsLateraux()
     }
 }
 
-
 void fenMain::appliquerStyleBoutonMasquage(QToolButton* button, bool survole)
 {
     if (!button) return;
@@ -169,8 +330,6 @@ void fenMain::appliquerStyleBoutonMasquage(QToolButton* button, bool survole)
 
     button->setStyleSheet(style);
 }
-
-
 
 void fenMain::appliquerEffetFlou(QLabel* label, bool masquer)
 {
@@ -197,8 +356,6 @@ void fenMain::mettreAjourIcon(QToolButton* button, bool visible)
     button->update();
 }
 
-
-
 void fenMain::on_btn_masquer_solde_compte_courant_clicked()
 {
     m_soldeVisibleCompteCourant = !m_soldeVisibleCompteCourant;
@@ -212,7 +369,6 @@ void fenMain::on_btn_masquer_solde_compte_epargne_clicked()
     appliquerEffetFlou(ui->label_solde_compte_epargne, !m_soldeVisibleCompteEpargne);
     mettreAjourIcon(ui->btn_masquer_solde_compte_epargne, m_soldeVisibleCompteEpargne);
 }
-
 
 void fenMain::on_btn_dashboard_barre_latterale_clicked()
 {
@@ -246,18 +402,13 @@ void fenMain::on_btn_consulter_compte_courant_clicked()
 
 void fenMain::on_btn_effectuer_transaction_compte_courant_clicked()
 {
-
     ui->mes_pages->setCurrentWidget(ui->page_transaction);
-
     mettreAJourStyleBoutonsLateraux();
 }
 
 void fenMain::on_btn_effectuer_transaction_compte_epargne_clicked()
 {
-
-
     ui->mes_pages->setCurrentWidget(ui->page_transaction);
-
     mettreAJourStyleBoutonsLateraux();
 }
 
@@ -267,42 +418,37 @@ void fenMain::on_btn_voir_liste_complete_transaction_clicked()
     mettreAJourStyleBoutonsLateraux();
 }
 
-
-
 void fenMain::on_btn_valider_transaction_clicked()
 {
+    // Exemple simplifié de transaction
+    QMessageBox::information(this, "Transaction", "Transaction effectuée avec succès!");
 
+    // Mettre à jour les données en mémoire
+    if (CompteCourant* compte = getCompteCourant()) {
+        compte->deposer(100.0); // Exemple
+        compte->setDerniereOperation(QDateTime::currentDateTime().toString());
+    }
 
+    // Rafraîchir l'affichage
+    mettreAJourAffichageComptes();
 }
-
-
-
 
 void fenMain::on_btn_supprimer_transaction_clicked()
 {
+    // Logique de suppression de transaction
+    QMessageBox::information(this, "Suppression", "Transaction supprimée!");
 
-
+    // Rafraîchir l'affichage
+    mettreAJourAffichageComptes();
 }
 
 void fenMain::on_btn_modifier_la_transaction_clicked()
 {
+    // Logique de modification de transaction
+    QMessageBox::information(this, "Modification", "Transaction modifiée!");
 
-
+    // Rafraîchir l'affichage
+    mettreAJourAffichageComptes();
 }
-
-
-
-void fenMain::afficherCompteCourant()
-{
-
-}
-
-void fenMain::afficherCompteEpargne()
-{
-
-
-
-}
-
 
 
