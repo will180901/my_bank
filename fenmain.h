@@ -10,6 +10,9 @@
 #include <QList>
 #include <QSqlTableModel>
 #include <QDialog>
+#include <QPushButton>
+#include <QGraphicsBlurEffect>
+#include <functional>
 
 #include "animationsolde.h"
 #include "comptecourant.h"
@@ -28,7 +31,6 @@ class fenMain : public QMainWindow
     Q_OBJECT
 
 public:
-    // Signature corrigée pour correspondre à celle dans fenmain.cpp
     fenMain(CreationBD& m_BD, QWidget *parent = nullptr, const QString &utilisateur_id = "");
     ~fenMain();
 
@@ -46,9 +48,8 @@ private slots:
     void on_btn_effectuer_transaction_compte_epargne_clicked();
     void on_btn_effectuer_transaction_compte_courant_clicked();
     void on_btn_voir_liste_complete_transaction_clicked();
-    void on_btn_valider_transaction_clicked();
-    void on_btn_supprimer_transaction_clicked();
-    void on_btn_modifier_la_transaction_clicked();
+    void on_btn_creer_compte_courant_clicked();
+    void on_btn_creer_compte_epargne_clicked();
 
 private:
     Ui::fenMain *ui;
@@ -63,20 +64,35 @@ private:
 
     Banque m_banque;
 
+    QWidget* m_rideauCompteCourant;
+    QWidget* m_rideauCompteEpargne;
+
+    // Méthodes d'interface utilisateur
     void appliquerEffetFlou(QLabel* label, bool masquer);
     void mettreAJourStyleBoutonsLateraux();
     void mettreAjourIcon(QToolButton* button, bool visible);
     void appliquerStyleBoutonMasquage(QToolButton* button, bool survole);
+    void appliquerEffetFlouCompte(QWidget* widgetCarte, bool appliquerFlou);
+    void mettreAJourApparenceComptes();
+    void creerRideau(QWidget* widgetParent, QWidget*& rideau, const QString& message, std::function<void()> callback);
 
+    // Méthodes de gestion des données
     void chargerDonneesDepuisBD();
-
     void chargerInformationsUtilisateur();
     void chargerComptesBancaires();
     void sauvegarderDonnees();
     void mettreAJourAffichageComptes();
 
+    // Accesseurs aux comptes
     CompteCourant* getCompteCourant() const;
     CompteEpargne* getCompteEpargne() const;
+
+    // Méthodes de création de comptes
+    void creerCompteCourant();
+    void creerCompteEpargne();
+    QString genererNumeroCompte(const QString& typeCompte);
+    void creerCompteCourantEnBD();
+    void creerCompteEpargneEnBD();
 };
 
 #endif // FENMAIN_H

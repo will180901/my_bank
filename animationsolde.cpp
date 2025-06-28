@@ -43,10 +43,11 @@ void AnimationSolde::animerFlou(QGraphicsBlurEffect* effet, bool masquer)
     animation->start(QPropertyAnimation::DeleteWhenStopped);
 }
 
-void AnimationSolde::animerTransition(QLabel* label, bool masquer)
+void AnimationSolde::animerTransition(QLabel* label, bool masquer=false)
 {
     if (!label) return;
 
+    // Q_UNUSED(masquer);
     // Sauvegarder le texte original dans une propriété dynamique
     static const char* PROP_ORIGINAL_TEXT = "originalText";
 
@@ -72,6 +73,7 @@ void AnimationSolde::animerTransition(QLabel* label, bool masquer)
 
 QString AnimationSolde::genererTexteMasque(const QString& original)
 {
+    Q_UNUSED(original);
     // On remplace simplement tout le texte par une chaîne fixe d'étoiles
     // pour éviter de révéler la magnitude du solde.
     return QString("**** FCFA");

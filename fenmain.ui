@@ -1107,16 +1107,40 @@ Line {
                  </property>
                  <item>
                   <widget class="QWidget" name="carte_courant_principal" native="true">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="minimumSize">
                     <size>
                      <width>420</width>
                      <height>200</height>
                     </size>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_13">
-                    <item>
+                   <layout class="QGridLayout" name="gridLayout_6">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item row="0" column="0">
                      <widget class="QWidget" name="zone_rideau_compte_courant" native="true">
-                      <layout class="QVBoxLayout" name="verticalLayout_14">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_15">
                        <item>
                         <widget class="QWidget" name="widget_6" native="true">
                          <property name="minimumSize">
@@ -1239,6 +1263,12 @@ Line {
                             <layout class="QHBoxLayout" name="horizontalLayout_10">
                              <item>
                               <widget class="QLabel" name="label_solde_compte_courant">
+                               <property name="sizePolicy">
+                                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                                 <horstretch>0</horstretch>
+                                 <verstretch>0</verstretch>
+                                </sizepolicy>
+                               </property>
                                <property name="minimumSize">
                                 <size>
                                  <width>89</width>
@@ -1250,7 +1280,7 @@ Line {
                                </property>
                               </widget>
                              </item>
-                             <item alignment="Qt::AlignmentFlag::AlignRight">
+                             <item alignment="Qt::AlignmentFlag::AlignTop">
                               <widget class="QToolButton" name="btn_masquer_solde_compte_courant">
                                <property name="sizePolicy">
                                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1285,10 +1315,10 @@ Line {
                             </layout>
                            </widget>
                           </item>
-                          <item>
+                          <item alignment="Qt::AlignmentFlag::AlignHCenter">
                            <widget class="QGroupBox" name="groupBox_3">
                             <property name="sizePolicy">
-                             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                               <horstretch>0</horstretch>
                               <verstretch>0</verstretch>
                              </sizepolicy>
@@ -1449,10 +1479,28 @@ Line {
                      <height>200</height>
                     </size>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_18">
-                    <item>
+                   <layout class="QGridLayout" name="gridLayout_5">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item row="0" column="0">
                      <widget class="QWidget" name="zone_rideau_compte_epargne" native="true">
-                      <layout class="QVBoxLayout" name="verticalLayout_15">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_14">
                        <item>
                         <widget class="QWidget" name="widget_15" native="true">
                          <property name="minimumSize">
@@ -1550,7 +1598,7 @@ Line {
                            <number>2</number>
                           </property>
                           <property name="rightMargin">
-                           <number>0</number>
+                           <number>2</number>
                           </property>
                           <property name="bottomMargin">
                            <number>2</number>

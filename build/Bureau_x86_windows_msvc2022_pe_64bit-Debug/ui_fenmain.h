@@ -75,9 +75,9 @@ public:
     QWidget *zone_carte_compte;
     QHBoxLayout *horizontalLayout_6;
     QWidget *carte_courant_principal;
-    QVBoxLayout *verticalLayout_13;
+    QGridLayout *gridLayout_6;
     QWidget *zone_rideau_compte_courant;
-    QVBoxLayout *verticalLayout_14;
+    QVBoxLayout *verticalLayout_15;
     QWidget *widget_6;
     QHBoxLayout *horizontalLayout_7;
     QWidget *widget_10;
@@ -110,9 +110,9 @@ public:
     QPushButton *btn_effectuer_transaction_compte_courant;
     QPushButton *btn_consulter_compte_courant;
     QWidget *carte_epargne;
-    QVBoxLayout *verticalLayout_18;
+    QGridLayout *gridLayout_5;
     QWidget *zone_rideau_compte_epargne;
-    QVBoxLayout *verticalLayout_15;
+    QVBoxLayout *verticalLayout_14;
     QWidget *widget_15;
     QHBoxLayout *horizontalLayout_14;
     QWidget *widget_16;
@@ -1190,13 +1190,21 @@ public:
         horizontalLayout_6->setObjectName("horizontalLayout_6");
         carte_courant_principal = new QWidget(zone_carte_compte);
         carte_courant_principal->setObjectName("carte_courant_principal");
+        sizePolicy1.setHeightForWidth(carte_courant_principal->sizePolicy().hasHeightForWidth());
+        carte_courant_principal->setSizePolicy(sizePolicy1);
         carte_courant_principal->setMinimumSize(QSize(420, 200));
-        verticalLayout_13 = new QVBoxLayout(carte_courant_principal);
-        verticalLayout_13->setObjectName("verticalLayout_13");
+        gridLayout_6 = new QGridLayout(carte_courant_principal);
+        gridLayout_6->setObjectName("gridLayout_6");
+        gridLayout_6->setContentsMargins(0, 0, 0, 0);
         zone_rideau_compte_courant = new QWidget(carte_courant_principal);
         zone_rideau_compte_courant->setObjectName("zone_rideau_compte_courant");
-        verticalLayout_14 = new QVBoxLayout(zone_rideau_compte_courant);
-        verticalLayout_14->setObjectName("verticalLayout_14");
+        QSizePolicy sizePolicy2(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(zone_rideau_compte_courant->sizePolicy().hasHeightForWidth());
+        zone_rideau_compte_courant->setSizePolicy(sizePolicy2);
+        verticalLayout_15 = new QVBoxLayout(zone_rideau_compte_courant);
+        verticalLayout_15->setObjectName("verticalLayout_15");
         widget_6 = new QWidget(zone_rideau_compte_courant);
         widget_6->setObjectName("widget_6");
         widget_6->setMinimumSize(QSize(0, 0));
@@ -1243,7 +1251,7 @@ public:
         horizontalLayout_7->addWidget(widget_13);
 
 
-        verticalLayout_14->addWidget(widget_6);
+        verticalLayout_15->addWidget(widget_6);
 
         widget_12 = new QWidget(zone_rideau_compte_courant);
         widget_12->setObjectName("widget_12");
@@ -1253,24 +1261,29 @@ public:
         horizontalLayout_12->setContentsMargins(2, 2, 2, 2);
         groupBox = new QGroupBox(widget_12);
         groupBox->setObjectName("groupBox");
-        QSizePolicy sizePolicy2(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Preferred);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
-        groupBox->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Preferred);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
+        groupBox->setSizePolicy(sizePolicy3);
         groupBox->setMinimumSize(QSize(141, 51));
         horizontalLayout_10 = new QHBoxLayout(groupBox);
         horizontalLayout_10->setObjectName("horizontalLayout_10");
         label_solde_compte_courant = new QLabel(groupBox);
         label_solde_compte_courant->setObjectName("label_solde_compte_courant");
+        QSizePolicy sizePolicy4(QSizePolicy::Policy::MinimumExpanding, QSizePolicy::Policy::Preferred);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(label_solde_compte_courant->sizePolicy().hasHeightForWidth());
+        label_solde_compte_courant->setSizePolicy(sizePolicy4);
         label_solde_compte_courant->setMinimumSize(QSize(89, 20));
 
         horizontalLayout_10->addWidget(label_solde_compte_courant);
 
         btn_masquer_solde_compte_courant = new QToolButton(groupBox);
         btn_masquer_solde_compte_courant->setObjectName("btn_masquer_solde_compte_courant");
-        sizePolicy2.setHeightForWidth(btn_masquer_solde_compte_courant->sizePolicy().hasHeightForWidth());
-        btn_masquer_solde_compte_courant->setSizePolicy(sizePolicy2);
+        sizePolicy3.setHeightForWidth(btn_masquer_solde_compte_courant->sizePolicy().hasHeightForWidth());
+        btn_masquer_solde_compte_courant->setSizePolicy(sizePolicy3);
         btn_masquer_solde_compte_courant->setMinimumSize(QSize(18, 18));
         btn_masquer_solde_compte_courant->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
         QIcon icon7;
@@ -1278,16 +1291,13 @@ public:
         btn_masquer_solde_compte_courant->setIcon(icon7);
         btn_masquer_solde_compte_courant->setIconSize(QSize(15, 15));
 
-        horizontalLayout_10->addWidget(btn_masquer_solde_compte_courant, 0, Qt::AlignmentFlag::AlignRight);
+        horizontalLayout_10->addWidget(btn_masquer_solde_compte_courant, 0, Qt::AlignmentFlag::AlignTop);
 
 
         horizontalLayout_12->addWidget(groupBox);
 
         groupBox_3 = new QGroupBox(widget_12);
         groupBox_3->setObjectName("groupBox_3");
-        QSizePolicy sizePolicy3(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
         sizePolicy3.setHeightForWidth(groupBox_3->sizePolicy().hasHeightForWidth());
         groupBox_3->setSizePolicy(sizePolicy3);
         horizontalLayout_9 = new QHBoxLayout(groupBox_3);
@@ -1307,12 +1317,15 @@ public:
         horizontalLayout_9->addWidget(label_decouvert_autorise_compte_courant);
 
 
-        horizontalLayout_12->addWidget(groupBox_3);
+        horizontalLayout_12->addWidget(groupBox_3, 0, Qt::AlignmentFlag::AlignHCenter);
 
         groupBox_4 = new QGroupBox(widget_12);
         groupBox_4->setObjectName("groupBox_4");
-        sizePolicy3.setHeightForWidth(groupBox_4->sizePolicy().hasHeightForWidth());
-        groupBox_4->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy5(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(groupBox_4->sizePolicy().hasHeightForWidth());
+        groupBox_4->setSizePolicy(sizePolicy5);
         horizontalLayout_8 = new QHBoxLayout(groupBox_4);
         horizontalLayout_8->setObjectName("horizontalLayout_8");
         label_numero_de_compte_courant = new QLabel(groupBox_4);
@@ -1325,7 +1338,7 @@ public:
         horizontalLayout_12->addWidget(groupBox_4);
 
 
-        verticalLayout_14->addWidget(widget_12);
+        verticalLayout_15->addWidget(widget_12);
 
         groupBox_5 = new QGroupBox(zone_rideau_compte_courant);
         groupBox_5->setObjectName("groupBox_5");
@@ -1339,7 +1352,7 @@ public:
         horizontalLayout_11->addWidget(label_derniere_transaction_compte_courant);
 
 
-        verticalLayout_14->addWidget(groupBox_5);
+        verticalLayout_15->addWidget(groupBox_5);
 
         widget_14 = new QWidget(zone_rideau_compte_courant);
         widget_14->setObjectName("widget_14");
@@ -1360,10 +1373,10 @@ public:
         horizontalLayout_13->addWidget(btn_consulter_compte_courant, 0, Qt::AlignmentFlag::AlignRight);
 
 
-        verticalLayout_14->addWidget(widget_14);
+        verticalLayout_15->addWidget(widget_14);
 
 
-        verticalLayout_13->addWidget(zone_rideau_compte_courant);
+        gridLayout_6->addWidget(zone_rideau_compte_courant, 0, 0, 1, 1);
 
 
         horizontalLayout_6->addWidget(carte_courant_principal);
@@ -1371,12 +1384,15 @@ public:
         carte_epargne = new QWidget(zone_carte_compte);
         carte_epargne->setObjectName("carte_epargne");
         carte_epargne->setMinimumSize(QSize(420, 200));
-        verticalLayout_18 = new QVBoxLayout(carte_epargne);
-        verticalLayout_18->setObjectName("verticalLayout_18");
+        gridLayout_5 = new QGridLayout(carte_epargne);
+        gridLayout_5->setObjectName("gridLayout_5");
+        gridLayout_5->setContentsMargins(0, 0, 0, 0);
         zone_rideau_compte_epargne = new QWidget(carte_epargne);
         zone_rideau_compte_epargne->setObjectName("zone_rideau_compte_epargne");
-        verticalLayout_15 = new QVBoxLayout(zone_rideau_compte_epargne);
-        verticalLayout_15->setObjectName("verticalLayout_15");
+        sizePolicy2.setHeightForWidth(zone_rideau_compte_epargne->sizePolicy().hasHeightForWidth());
+        zone_rideau_compte_epargne->setSizePolicy(sizePolicy2);
+        verticalLayout_14 = new QVBoxLayout(zone_rideau_compte_epargne);
+        verticalLayout_14->setObjectName("verticalLayout_14");
         widget_15 = new QWidget(zone_rideau_compte_epargne);
         widget_15->setObjectName("widget_15");
         widget_15->setMinimumSize(QSize(0, 0));
@@ -1423,18 +1439,18 @@ public:
         horizontalLayout_14->addWidget(widget_17);
 
 
-        verticalLayout_15->addWidget(widget_15);
+        verticalLayout_14->addWidget(widget_15);
 
         widget_18 = new QWidget(zone_rideau_compte_epargne);
         widget_18->setObjectName("widget_18");
         horizontalLayout_15 = new QHBoxLayout(widget_18);
         horizontalLayout_15->setSpacing(2);
         horizontalLayout_15->setObjectName("horizontalLayout_15");
-        horizontalLayout_15->setContentsMargins(2, 2, 0, 2);
+        horizontalLayout_15->setContentsMargins(2, 2, 2, 2);
         groupBox_7 = new QGroupBox(widget_18);
         groupBox_7->setObjectName("groupBox_7");
-        sizePolicy2.setHeightForWidth(groupBox_7->sizePolicy().hasHeightForWidth());
-        groupBox_7->setSizePolicy(sizePolicy2);
+        sizePolicy3.setHeightForWidth(groupBox_7->sizePolicy().hasHeightForWidth());
+        groupBox_7->setSizePolicy(sizePolicy3);
         groupBox_7->setMinimumSize(QSize(141, 51));
         horizontalLayout_16 = new QHBoxLayout(groupBox_7);
         horizontalLayout_16->setSpacing(10);
@@ -1447,8 +1463,8 @@ public:
 
         btn_masquer_solde_compte_epargne = new QToolButton(groupBox_7);
         btn_masquer_solde_compte_epargne->setObjectName("btn_masquer_solde_compte_epargne");
-        sizePolicy2.setHeightForWidth(btn_masquer_solde_compte_epargne->sizePolicy().hasHeightForWidth());
-        btn_masquer_solde_compte_epargne->setSizePolicy(sizePolicy2);
+        sizePolicy3.setHeightForWidth(btn_masquer_solde_compte_epargne->sizePolicy().hasHeightForWidth());
+        btn_masquer_solde_compte_epargne->setSizePolicy(sizePolicy3);
         btn_masquer_solde_compte_epargne->setMinimumSize(QSize(18, 18));
         btn_masquer_solde_compte_epargne->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
         btn_masquer_solde_compte_epargne->setIcon(icon7);
@@ -1477,9 +1493,6 @@ public:
 
         label_taux_interet_compte_epargne = new QLabel(groupBox_8);
         label_taux_interet_compte_epargne->setObjectName("label_taux_interet_compte_epargne");
-        QSizePolicy sizePolicy4(QSizePolicy::Policy::MinimumExpanding, QSizePolicy::Policy::Preferred);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
         sizePolicy4.setHeightForWidth(label_taux_interet_compte_epargne->sizePolicy().hasHeightForWidth());
         label_taux_interet_compte_epargne->setSizePolicy(sizePolicy4);
 
@@ -1501,7 +1514,7 @@ public:
         horizontalLayout_15->addWidget(groupBox_9);
 
 
-        verticalLayout_15->addWidget(widget_18);
+        verticalLayout_14->addWidget(widget_18);
 
         groupBox_10 = new QGroupBox(zone_rideau_compte_epargne);
         groupBox_10->setObjectName("groupBox_10");
@@ -1515,7 +1528,7 @@ public:
         horizontalLayout_19->addWidget(label_derniere_transaction_compte_epargne);
 
 
-        verticalLayout_15->addWidget(groupBox_10);
+        verticalLayout_14->addWidget(groupBox_10);
 
         widget_19 = new QWidget(zone_rideau_compte_epargne);
         widget_19->setObjectName("widget_19");
@@ -1536,10 +1549,10 @@ public:
         horizontalLayout_20->addWidget(btn_consulter_compte_epargne, 0, Qt::AlignmentFlag::AlignRight);
 
 
-        verticalLayout_15->addWidget(widget_19);
+        verticalLayout_14->addWidget(widget_19);
 
 
-        verticalLayout_18->addWidget(zone_rideau_compte_epargne);
+        gridLayout_5->addWidget(zone_rideau_compte_epargne, 0, 0, 1, 1);
 
 
         horizontalLayout_6->addWidget(carte_epargne);
@@ -1588,11 +1601,11 @@ public:
 
         zone_affichage_tableau = new QWidget(carte_liste_activite_recentes);
         zone_affichage_tableau->setObjectName("zone_affichage_tableau");
-        QSizePolicy sizePolicy5(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::MinimumExpanding);
-        sizePolicy5.setHorizontalStretch(0);
-        sizePolicy5.setVerticalStretch(0);
-        sizePolicy5.setHeightForWidth(zone_affichage_tableau->sizePolicy().hasHeightForWidth());
-        zone_affichage_tableau->setSizePolicy(sizePolicy5);
+        QSizePolicy sizePolicy6(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::MinimumExpanding);
+        sizePolicy6.setHorizontalStretch(0);
+        sizePolicy6.setVerticalStretch(0);
+        sizePolicy6.setHeightForWidth(zone_affichage_tableau->sizePolicy().hasHeightForWidth());
+        zone_affichage_tableau->setSizePolicy(sizePolicy6);
         zone_affichage_tableau->setMinimumSize(QSize(0, 0));
 
         verticalLayout_9->addWidget(zone_affichage_tableau);
@@ -1613,8 +1626,8 @@ public:
         verticalLayout_21->setObjectName("verticalLayout_21");
         widget_3 = new QWidget(carte_liste_historique_transaction);
         widget_3->setObjectName("widget_3");
-        sizePolicy3.setHeightForWidth(widget_3->sizePolicy().hasHeightForWidth());
-        widget_3->setSizePolicy(sizePolicy3);
+        sizePolicy5.setHeightForWidth(widget_3->sizePolicy().hasHeightForWidth());
+        widget_3->setSizePolicy(sizePolicy5);
         widget_3->setMinimumSize(QSize(911, 71));
         horizontalLayout_24 = new QHBoxLayout(widget_3);
         horizontalLayout_24->setSpacing(2);
@@ -1754,11 +1767,11 @@ public:
         verticalLayout_26->setObjectName("verticalLayout_26");
         carte_effectuer_transaction = new QWidget(page_transaction);
         carte_effectuer_transaction->setObjectName("carte_effectuer_transaction");
-        QSizePolicy sizePolicy6(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::MinimumExpanding);
-        sizePolicy6.setHorizontalStretch(0);
-        sizePolicy6.setVerticalStretch(0);
-        sizePolicy6.setHeightForWidth(carte_effectuer_transaction->sizePolicy().hasHeightForWidth());
-        carte_effectuer_transaction->setSizePolicy(sizePolicy6);
+        QSizePolicy sizePolicy7(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::MinimumExpanding);
+        sizePolicy7.setHorizontalStretch(0);
+        sizePolicy7.setVerticalStretch(0);
+        sizePolicy7.setHeightForWidth(carte_effectuer_transaction->sizePolicy().hasHeightForWidth());
+        carte_effectuer_transaction->setSizePolicy(sizePolicy7);
         carte_effectuer_transaction->setMinimumSize(QSize(591, 0));
         verticalLayout_24 = new QVBoxLayout(carte_effectuer_transaction);
         verticalLayout_24->setObjectName("verticalLayout_24");
@@ -1834,11 +1847,11 @@ public:
 
         groupBox_13 = new QGroupBox(widget_26);
         groupBox_13->setObjectName("groupBox_13");
-        QSizePolicy sizePolicy7(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Minimum);
-        sizePolicy7.setHorizontalStretch(0);
-        sizePolicy7.setVerticalStretch(0);
-        sizePolicy7.setHeightForWidth(groupBox_13->sizePolicy().hasHeightForWidth());
-        groupBox_13->setSizePolicy(sizePolicy7);
+        QSizePolicy sizePolicy8(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Minimum);
+        sizePolicy8.setHorizontalStretch(0);
+        sizePolicy8.setVerticalStretch(0);
+        sizePolicy8.setHeightForWidth(groupBox_13->sizePolicy().hasHeightForWidth());
+        groupBox_13->setSizePolicy(sizePolicy8);
         groupBox_13->setMinimumSize(QSize(0, 0));
         verticalLayout_29 = new QVBoxLayout(groupBox_13);
         verticalLayout_29->setObjectName("verticalLayout_29");
@@ -1905,8 +1918,8 @@ public:
 
         groupBox_16 = new QGroupBox(widget_27);
         groupBox_16->setObjectName("groupBox_16");
-        sizePolicy7.setHeightForWidth(groupBox_16->sizePolicy().hasHeightForWidth());
-        groupBox_16->setSizePolicy(sizePolicy7);
+        sizePolicy8.setHeightForWidth(groupBox_16->sizePolicy().hasHeightForWidth());
+        groupBox_16->setSizePolicy(sizePolicy8);
         groupBox_16->setMinimumSize(QSize(0, 0));
         verticalLayout_35 = new QVBoxLayout(groupBox_16);
         verticalLayout_35->setObjectName("verticalLayout_35");

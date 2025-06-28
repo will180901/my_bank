@@ -8,9 +8,8 @@
 #include <QDateTime>
 #include "comptecourant.h"
 #include "compteepargne.h"
-#include <QFormLayout>
-#include <QStandardPaths>
-#include <QDir>
+#include <QGridLayout>
+#include <QUuid>
 
 fenMain::fenMain(CreationBD& m_BD, QWidget *parent, const QString &utilisateur_id)
     : QMainWindow(parent)
@@ -21,6 +20,8 @@ fenMain::fenMain(CreationBD& m_BD, QWidget *parent, const QString &utilisateur_i
     , m_soldeAnimation(new AnimationSolde(this))
     , m_banque("MyBank")
     , m_creationBD(m_BD)
+    , m_rideauCompteCourant(nullptr)
+    , m_rideauCompteEpargne(nullptr)
 {
     ui->setupUi(this);
     qApp->installEventFilter(this);
@@ -33,19 +34,14 @@ fenMain::fenMain(CreationBD& m_BD, QWidget *parent, const QString &utilisateur_i
 
     mettreAJourStyleBoutonsLateraux();
 
-    // Initialiser le style par défaut des boutons de masquage
     appliquerStyleBoutonMasquage(ui->btn_masquer_solde_compte_courant, false);
     appliquerStyleBoutonMasquage(ui->btn_masquer_solde_compte_epargne, false);
 
-    // Initialiser les icônes
     mettreAjourIcon(ui->btn_masquer_solde_compte_courant, m_soldeVisibleCompteCourant);
     mettreAjourIcon(ui->btn_masquer_solde_compte_epargne, m_soldeVisibleCompteEpargne);
 
     chargerDonneesDepuisBD();
-
-    // Appliquer l'effet flou initial
-    appliquerEffetFlou(ui->label_solde_compte_courant, !m_soldeVisibleCompteCourant);
-    appliquerEffetFlou(ui->label_solde_compte_epargne, !m_soldeVisibleCompteEpargne);
+    mettreAJourApparenceComptes();
 }
 
 fenMain::~fenMain()
@@ -53,6 +49,319 @@ fenMain::~fenMain()
     sauvegarderDonnees();
     delete ui;
 }
+
+
+void fenMain::sauvegarderDonnees()
+{
+    if (!m_creationBD.estOuverte()) {
+        qWarning() << "Base de données non ouverte! Impossible de sauvegarder.";
+        return;
+    }
+
+    QSqlDatabase db = m_creationBD.getDatabase();
+    QSqlQuery query(db);
+
+    for (CompteBancaire* compte : m_banque.getComptes()) {
+        query.prepare("UPDATE comptes SET "
+                      "solde = ?, "
+                      "derniere_operation = ? "
+                      "WHERE numero_compte = ?");
+
+        query.addBindValue(compte->getSolde());
+        query.addBindValue(compte->getDerniereOperation());
+        query.addBindValue(compte->getNumeroCompte());
+
+        if (!query.exec()) {
+            qWarning() << "Erreur sauvegarde compte"
+                       << compte->getNumeroCompte()
+                       << ":" << query.lastError().text();
+        }
+    }
+}
+
+void fenMain::appliquerEffetFlouCompte(QWidget* widgetCarte, bool appliquerFlou)
+{
+    if (appliquerFlou) {
+        if (widgetCarte == ui->carte_courant_principal && !m_rideauCompteCourant) {
+            // Utiliser le conteneur existant zone_rideau_compte_courant
+            QWidget* conteneurRideau = ui->zone_rideau_compte_courant;
+            creerRideau(conteneurRideau, m_rideauCompteCourant,
+                        "Aucun compte courant n'est créé pour cet utilisateur !",
+                        [this]() { this->creerCompteCourant(); });
+        }
+        else if (widgetCarte == ui->carte_epargne && !m_rideauCompteEpargne) {
+            // Utiliser le conteneur existant zone_rideau_compte_epargne
+            QWidget* conteneurRideau = ui->zone_rideau_compte_epargne;
+            creerRideau(conteneurRideau, m_rideauCompteEpargne,
+                        "Aucun compte épargne n'est créé pour cet utilisateur !",
+                        [this]() { this->creerCompteEpargne(); });
+        }
+    } else {
+        if (widgetCarte == ui->carte_courant_principal && m_rideauCompteCourant) {
+            delete m_rideauCompteCourant;
+            m_rideauCompteCourant = nullptr;
+        }
+        else if (widgetCarte == ui->carte_epargne && m_rideauCompteEpargne) {
+            delete m_rideauCompteEpargne;
+            m_rideauCompteEpargne = nullptr;
+        }
+    }
+}
+
+void fenMain::creerRideau(QWidget* conteneurParent, QWidget*& rideau, const QString& message, std::function<void()> callback)
+{
+    // Créer le rideau comme overlay par-dessus le contenu existant
+    rideau = new QWidget(conteneurParent);
+    rideau->setStyleSheet(
+        "QWidget {"
+        "   background-color: rgba(0, 0, 0, 0.8);"
+        "   border-radius: 8px;"
+        "}"
+        );
+
+    // Permettre aux événements de souris de passer aux widgets enfants
+    rideau->setAttribute(Qt::WA_TransparentForMouseEvents, false);
+    rideau->setFocusPolicy(Qt::NoFocus);
+
+    // Positionner le rideau pour qu'il couvre exactement tout le conteneur parent
+    rideau->move(0, 0);
+    rideau->resize(conteneurParent->size());
+
+    // S'assurer que le rideau se redimensionne avec le conteneur parent
+    rideau->setGeometry(0, 0, conteneurParent->width(), conteneurParent->height());
+
+    // Layout interne du rideau pour centrer le contenu
+    QVBoxLayout* layoutRideau = new QVBoxLayout(rideau);
+    layoutRideau->setContentsMargins(20, 20, 20, 20);
+    layoutRideau->setSpacing(15);
+
+    // Spacer du haut pour centrer verticalement
+    layoutRideau->addStretch(1);
+
+    // Label du message avec une meilleure visibilité
+    QLabel* labelMessage = new QLabel(message, rideau);
+    labelMessage->setStyleSheet(
+        "QLabel {"
+        "   color: white;"
+        "   font-weight: bold;"
+        "   font-size: 14px;"
+        "   background: transparent;"
+        "   padding: 15px;"
+        "   margin: 0px;"
+        "   border: none;"
+        "   text-shadow: 2px 2px 4px rgba(0, 0, 0, 1.0);"
+        "}"
+        );
+    labelMessage->setAlignment(Qt::AlignCenter);
+    labelMessage->setWordWrap(true);
+    layoutRideau->addWidget(labelMessage);
+
+    // Bouton de création avec gestion optimisée des événements
+    QPushButton* boutonCreer = new QPushButton("Créer un compte", rideau);
+    boutonCreer->setStyleSheet(
+        "QPushButton {"
+        "   background-color: rgb(102, 71, 255);"
+        "   color: white;"
+        "   border: none;"
+        "   border-radius: 8px;"
+        "   padding: 15px 30px;"
+        "   font-weight: bold;"
+        "   font-size: 13px;"
+        "   min-height: 20px;"
+        "   margin: 0px;"
+        "}"
+        "QPushButton:hover {"
+        "   background-color: rgb(82, 51, 235);"
+        "   cursor: pointer;"
+        "}"
+        "QPushButton:pressed {"
+        "   background-color: rgb(62, 31, 215);"
+        "}"
+        );
+
+    // Configuration du curseur et des événements
+    boutonCreer->setCursor(Qt::PointingHandCursor);
+    boutonCreer->setAttribute(Qt::WA_Hover, true);
+    boutonCreer->setFocusPolicy(Qt::StrongFocus);
+    boutonCreer->setEnabled(true);
+    boutonCreer->setVisible(true);
+
+    // S'assurer que le bouton est interactif
+    boutonCreer->setMouseTracking(true);
+    boutonCreer->setAttribute(Qt::WA_TransparentForMouseEvents, false);
+    boutonCreer->raise();
+
+    // Test de connexion avec debug
+    connect(boutonCreer, &QPushButton::clicked, this, [callback, this, boutonCreer]() {
+        qDebug() << "Bouton cliqué!"; // Pour debug
+        callback();
+        mettreAJourApparenceComptes();
+    });
+
+    // Centrer le bouton horizontalement
+    QHBoxLayout* layoutBouton = new QHBoxLayout();
+    layoutBouton->addStretch(1);
+    layoutBouton->addWidget(boutonCreer);
+    layoutBouton->addStretch(1);
+    layoutRideau->addLayout(layoutBouton);
+
+    // Spacer du bas pour centrer verticalement
+    layoutRideau->addStretch(1);
+
+    // Mettre le rideau au premier plan comme overlay
+    rideau->raise();
+    rideau->show();
+
+    // S'assurer que tous les widgets enfants sont au-dessus
+    labelMessage->raise();
+    boutonCreer->raise();
+
+    // Forcer la mise à jour de l'affichage
+    rideau->repaint();
+    boutonCreer->repaint();
+
+    // Installer un filtre d'événements pour détecter le redimensionnement
+    conteneurParent->installEventFilter(this);
+}
+
+
+void fenMain::mettreAJourApparenceComptes()
+{
+    bool compteCourantExiste = (getCompteCourant() != nullptr);
+    bool compteEpargneExiste = (getCompteEpargne() != nullptr);
+
+    appliquerEffetFlouCompte(ui->carte_courant_principal, !compteCourantExiste);
+    appliquerEffetFlouCompte(ui->carte_epargne, !compteEpargneExiste);
+
+    ui->carte_courant_principal->setEnabled(compteCourantExiste);
+    ui->carte_epargne->setEnabled(compteEpargneExiste);
+}
+
+void fenMain::creerCompteCourant()
+{
+    if (getCompteCourant() != nullptr) {
+        QMessageBox::information(this, "Information", "Un compte courant existe déjà!");
+        return;
+    }
+
+    creerCompteCourantEnBD();
+    chargerComptesBancaires();
+    mettreAJourAffichageComptes();
+    mettreAJourApparenceComptes();
+
+    QMessageBox::information(this, "Compte créé", "Votre compte courant a été créé avec succès !");
+}
+
+void fenMain::creerCompteEpargne()
+{
+    if (getCompteEpargne() != nullptr) {
+        QMessageBox::information(this, "Information", "Un compte épargne existe déjà!");
+        return;
+    }
+
+    creerCompteEpargneEnBD();
+    chargerComptesBancaires();
+    mettreAJourAffichageComptes();
+    mettreAJourApparenceComptes();
+
+    QMessageBox::information(this, "Compte créé", "Votre compte épargne a été créé avec succès !");
+}
+
+QString fenMain::genererNumeroCompte(const QString& typeCompte)
+{
+    QString prefixe = (typeCompte == "courant") ? "CC" : "CE";
+    QString uuid = QUuid::createUuid().toString().remove('{').remove('}').remove('-').left(10);
+    return prefixe + uuid.toUpper();
+}
+
+void fenMain::creerCompteCourantEnBD()
+{
+    if (!m_creationBD.estOuverte()) {
+        qWarning() << "Base de données non ouverte!";
+        return;
+    }
+
+    QSqlDatabase db = m_creationBD.getDatabase();
+    QSqlQuery query(db);
+
+    QString numeroCompte = genererNumeroCompte("courant");
+    QString dateCreation = QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm");
+    QString derniereOperation = "Création de compte - " + QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm");
+    double decouvertAutorise = 500.0;
+
+    // Récupérer le nom de l'utilisateur
+    query.prepare("SELECT nom_complet FROM utilisateurs WHERE id = ?");
+    query.addBindValue(m_utilisateur_id);
+
+    QString nomTitulaire = "Utilisateur";
+    if (query.exec() && query.next()) {
+        nomTitulaire = query.value("nom_complet").toString();
+    }
+
+    // Insérer le nouveau compte
+    query.prepare("INSERT INTO comptes (numero_compte, nom_titulaire, solde, type_compte, "
+                  "date_creation, derniere_operation, id_utilisateur, decouvert_autorise, id_banque) "
+                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)"); // id_banque = 1 pour MyBank
+
+    query.addBindValue(numeroCompte);
+    query.addBindValue(nomTitulaire);
+    query.addBindValue(0.0);
+    query.addBindValue("courant");
+    query.addBindValue(dateCreation);
+    query.addBindValue(derniereOperation);
+    query.addBindValue(m_utilisateur_id);
+    query.addBindValue(decouvertAutorise);
+
+    if (!query.exec()) {
+        qWarning() << "Erreur création compte courant:" << query.lastError().text();
+        QMessageBox::critical(this, "Erreur", "Erreur création compte courant: " + query.lastError().text());
+    }
+}
+
+void fenMain::creerCompteEpargneEnBD()
+{
+    if (!m_creationBD.estOuverte()) {
+        qWarning() << "Base de données non ouverte!";
+        return;
+    }
+
+    QSqlDatabase db = m_creationBD.getDatabase();
+    QSqlQuery query(db);
+
+    QString numeroCompte = genererNumeroCompte("epargne");
+    QString dateCreation = QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm");
+    QString derniereOperation = "Création de compte - " + QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm");
+    double tauxInteret = 2.5;
+
+    // Récupérer le nom de l'utilisateur
+    query.prepare("SELECT nom_complet FROM utilisateurs WHERE id = ?");
+    query.addBindValue(m_utilisateur_id);
+
+    QString nomTitulaire = "Utilisateur";
+    if (query.exec() && query.next()) {
+        nomTitulaire = query.value("nom_complet").toString();
+    }
+
+    // Insérer le nouveau compte
+    query.prepare("INSERT INTO comptes (numero_compte, nom_titulaire, solde, type_compte, "
+                  "date_creation, derniere_operation, id_utilisateur, taux_interet, id_banque) "
+                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)"); // id_banque = 1 pour MyBank
+
+    query.addBindValue(numeroCompte);
+    query.addBindValue(nomTitulaire);
+    query.addBindValue(0.0);
+    query.addBindValue("epargne");
+    query.addBindValue(dateCreation);
+    query.addBindValue(derniereOperation);
+    query.addBindValue(m_utilisateur_id);
+    query.addBindValue(tauxInteret);
+
+    if (!query.exec()) {
+        qWarning() << "Erreur création compte épargne:" << query.lastError().text();
+        QMessageBox::critical(this, "Erreur", "Erreur création compte épargne: " + query.lastError().text());
+    }
+}
+
 
 void fenMain::chargerDonneesDepuisBD()
 {
@@ -133,35 +442,6 @@ void fenMain::chargerComptesBancaires()
     }
 }
 
-void fenMain::sauvegarderDonnees()
-{
-    if (!m_creationBD.estOuverte()) {
-        qWarning() << "Base de données non ouverte! Impossible de sauvegarder.";
-        return;
-    }
-
-    QSqlDatabase db = m_creationBD.getDatabase();
-    QSqlQuery query(db);
-
-    // Sauvegarde des comptes
-    for (CompteBancaire* compte : m_banque.getComptes()) {
-        query.prepare("UPDATE comptes SET "
-                      "solde = ?, "
-                      "derniere_operation = ? "
-                      "WHERE numero_compte = ?");
-
-        query.addBindValue(compte->getSolde());
-        query.addBindValue(compte->getDerniereOperation());
-        query.addBindValue(compte->getNumeroCompte());
-
-        if (!query.exec()) {
-            qWarning() << "Erreur sauvegarde compte"
-                       << compte->getNumeroCompte()
-                       << ":" << query.lastError().text();
-        }
-    }
-}
-
 CompteCourant* fenMain::getCompteCourant() const
 {
     for (CompteBancaire* compte : m_banque.getComptes()) {
@@ -181,6 +461,7 @@ CompteEpargne* fenMain::getCompteEpargne() const
     }
     return nullptr;
 }
+
 
 void fenMain::mettreAJourAffichageComptes()
 {
@@ -231,11 +512,12 @@ void fenMain::mettreAJourAffichageComptes()
         ui->label_date_creation_compte_epargne->setText("N/A");
         ui->label_derniere_transaction_compte_epargne->setText("N/A");
     }
+
+    mettreAJourApparenceComptes();
 }
 
 bool fenMain::eventFilter(QObject* obj, QEvent* event)
 {
-    // Gestion des événements de survol pour les boutons de masquage
     if (obj == ui->btn_masquer_solde_compte_courant ||
         obj == ui->btn_masquer_solde_compte_epargne) {
 
@@ -255,6 +537,20 @@ bool fenMain::eventFilter(QObject* obj, QEvent* event)
                                m_soldeVisibleCompteCourant : m_soldeVisibleCompteEpargne;
             mettreAjourIcon(button, visible);
             return true;
+        }
+    }
+
+
+    if (event->type() == QEvent::Resize) {
+        if (obj == ui->zone_rideau_compte_courant && m_rideauCompteCourant) {
+            QWidget* conteneur = static_cast<QWidget*>(obj);
+            m_rideauCompteCourant->resize(conteneur->size());
+            m_rideauCompteCourant->setGeometry(0, 0, conteneur->width(), conteneur->height());
+        }
+        else if (obj == ui->zone_rideau_compte_epargne && m_rideauCompteEpargne) {
+            QWidget* conteneur = static_cast<QWidget*>(obj);
+            m_rideauCompteEpargne->resize(conteneur->size());
+            m_rideauCompteEpargne->setGeometry(0, 0, conteneur->width(), conteneur->height());
         }
     }
 
@@ -356,6 +652,7 @@ void fenMain::mettreAjourIcon(QToolButton* button, bool visible)
     button->update();
 }
 
+// SLOTS - Gestion des événements UI
 void fenMain::on_btn_masquer_solde_compte_courant_clicked()
 {
     m_soldeVisibleCompteCourant = !m_soldeVisibleCompteCourant;
@@ -418,37 +715,12 @@ void fenMain::on_btn_voir_liste_complete_transaction_clicked()
     mettreAJourStyleBoutonsLateraux();
 }
 
-void fenMain::on_btn_valider_transaction_clicked()
+void fenMain::on_btn_creer_compte_courant_clicked()
 {
-    // Exemple simplifié de transaction
-    QMessageBox::information(this, "Transaction", "Transaction effectuée avec succès!");
-
-    // Mettre à jour les données en mémoire
-    if (CompteCourant* compte = getCompteCourant()) {
-        compte->deposer(100.0); // Exemple
-        compte->setDerniereOperation(QDateTime::currentDateTime().toString());
-    }
-
-    // Rafraîchir l'affichage
-    mettreAJourAffichageComptes();
+    creerCompteCourant();
 }
 
-void fenMain::on_btn_supprimer_transaction_clicked()
+void fenMain::on_btn_creer_compte_epargne_clicked()
 {
-    // Logique de suppression de transaction
-    QMessageBox::information(this, "Suppression", "Transaction supprimée!");
-
-    // Rafraîchir l'affichage
-    mettreAJourAffichageComptes();
+    creerCompteEpargne();
 }
-
-void fenMain::on_btn_modifier_la_transaction_clicked()
-{
-    // Logique de modification de transaction
-    QMessageBox::information(this, "Modification", "Transaction modifiée!");
-
-    // Rafraîchir l'affichage
-    mettreAJourAffichageComptes();
-}
-
-
