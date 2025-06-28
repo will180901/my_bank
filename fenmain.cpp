@@ -196,6 +196,7 @@ void fenMain::creerRideau(QWidget* conteneurParent, QWidget*& rideau, const QStr
         qDebug() << "Bouton cliqué!"; // Pour debug
         callback();
         mettreAJourApparenceComptes();
+
     });
 
     // Centrer le bouton horizontalement
