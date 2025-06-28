@@ -2590,7 +2590,7 @@
         <file>icon_vert_succes/zap-off.svg</file>
         <file>icon_vert_succes/zoom-in.svg</file>
         <file>icon_vert_succes/zoom-out.svg</file>
-        <file>themes_fenetre_principale/theme_clair.txt</file>
-        <file>themes_fenetre_principale/theme_sombre.txt</file>
+        <file>themes/theme_clair.txt</file>
+        <file>themes/theme_sombre.txt</file>
     </qresource>
 </RCC>

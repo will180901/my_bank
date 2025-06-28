@@ -1,3 +1,5 @@
+// ========== CORRECTIONS POUR LE HEADER fenmain.h ==========
+
 #ifndef FENMAIN_H
 #define FENMAIN_H
 
@@ -5,8 +7,10 @@
 #include "CreationBD.h"
 #include "AnimationSolde.h"
 #include "comptebancaire.h"
-#include "comptecourant.h"  // Ajouté
-#include "compteepargne.h"  // Ajouté
+#include "comptecourant.h"
+#include "compteepargne.h"
+#include "monboutonbascule.h"
+#include "utilitairesmotdepasse.h"
 
 #include <QMainWindow>
 #include <QToolButton>
@@ -15,6 +19,7 @@
 #include <QSqlQuery>
 #include <QTextEdit>
 #include <QLineEdit>
+#include <QSettings>
 
 namespace Ui {
 class fenMain;
@@ -28,13 +33,16 @@ public:
     explicit fenMain(CreationBD& m_BD, QWidget *parent = nullptr, const QString &utilisateur_id = QString());
     ~fenMain();
 
+    // CORRECTION : Ajout de méthodes publiques pour la gestion des thèmes
+    bool estThemeSombreActif() const;
+    void forcerTheme(bool themeSombre);
+
 protected:
     bool eventFilter(QObject* obj, QEvent* event) override;
 
 private slots:
     // Slots pour les transactions
     void on_btn_valider_transaction_clicked();
-    // Les slots pour les boutons depot/retrait ont été supprimés car non implémentés dans le .cpp
 
     // Slots pour la suppression des comptes
     void on_btn_supprimer_compte_courant_clicked();
@@ -58,6 +66,10 @@ private slots:
 private:
     Ui::fenMain *ui;
 
+    // CORRECTION : Regroupement des variables de thème
+    MonBoutonBascule* m_boutonBasculeChangertheme;
+    bool m_mode_sombre_active;
+
     // Méthodes pour les transactions
     void effectuerDepot(CompteBancaire* compte, double montant, const QString& motif);
     void effectuerRetrait(CompteBancaire* compte, double montant, const QString& motif);
@@ -65,6 +77,10 @@ private:
     void sauvegarderCompte(CompteBancaire* compte);
     void mettreAJourAffichageComptes();
 
+    // CORRECTION : Regroupement des méthodes de thème
+    void configurerBoutonBasculeThemeCouleur();
+    void gererBasculeThemeCouleur(bool estActive);
+    void InitialisationThemeCouleur();
 
     // Méthodes pour la suppression
     void supprimerCompteCourant();
@@ -87,11 +103,10 @@ private:
     void creerCompteEpargneEnBD();
     void sauvegarderDonnees();
     bool enregistrerTransaction(const QString& typeOperation, double montant,
-                                         const QString& compteSource, const QString& compteDest,
-                                         const QString& motif);
+                                const QString& compteSource, const QString& compteDest,
+                                const QString& motif);
 
     // Variables membres
-
     QString m_utilisateur_id;
     bool m_soldeVisibleCompteCourant;
     bool m_soldeVisibleCompteEpargne;

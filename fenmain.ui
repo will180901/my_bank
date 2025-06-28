@@ -32,147 +32,62 @@
   <property name="styleSheet">
    <string notr="true">/*===============================================
    STYLES GLOBAUX - THÈME CLAIR
-   =============================================== */
+   ===============================================*/
 
 * {
     color: rgb(33, 37, 41);
     font-family: 'Segoe UI', Arial, sans-serif;
-  /* border: 1px solid rgb(0, 0, 0); /*
-	  background-color: rgb(248, 249, 250);  */
 }
 
+/*===============================================
+   CONTENEURS ET PAGES PRINCIPALES
+   ===============================================*/
 
-#btn_modifier_info_tutilaire_parametre{
-
-		
-	font: 9pt &quot;Segoe UI&quot;;
-	text-decoration: underline;
-	color: rgb(13, 110, 253);
-	
-
+#centralMain, #fenMain, 
+#page_dashboard, #page_transaction, #page_parametres, 
+#page_historique, #page_profil {
+    background-color: rgb(248, 249, 250);
+    border: none;
 }
 
-
-#btn_modifier_info_tutilaire_parametre:hover{
-
-	color:  rgb(10, 88, 202);
-	
+#page_4 {
+    background-color: rgba(248, 249, 250, 0.8);
+    border: none;
 }
 
-
-#btn_modifier_info_tutilaire_parametre:pressed {
-
-	color: rgb(8, 77, 178);
-	
+#zone_objet_parametres,
+#onglet_depot_retrait, #onglet_virement,
+#zone_liste_header {
+    background-color: rgb(248, 249, 250);
 }
 
+#message_page_en_construction {
+    background-color: rgba(81, 81, 81, 0.1);
+}
 
-#groupBox_info_user,#groupBox_systeme_user{
+#motif_transaction_depot_retrait {
+    background-color: rgb(248, 249, 250);
+    border-radius: 8px;
+}
 
-	background-color: rgb(255, 255, 255);
+#zone_carte_compte {
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 4px;
-    border: 1px solid rgb(229, 234, 239);
-
+    border: 1px solid rgba(229, 234, 239, 0.1);
 }
 
+/*===============================================
+   BARRE DE NAVIGATION ET RECHERCHE
+   ===============================================*/
 
-#btn_supprimer_compte_courant,#btn_supprimer_compte_epargne{
-
-		background:transparent ;
-		border:none ;	
-		padding:4px ;	
-		border-radius:2px ;
+#bar_nav {
+    border-bottom: 1px solid rgb(229, 234, 239);
 }
 
-#zone_objet_parametres{
-
-		 background-color: rgb(248, 249, 250);		
-
+#BarreLaterale {
+    background-color: rgb(255, 255, 255);
+    border-right: 2px solid rgb(229, 234, 239);
 }
-
-
-#btn_supprimer_compte_courant:hover , #btn_supprimer_compte_epargne:hover{
-
-			border: 1px solid  rgb(255, 57, 87);
-			
-	background-color: rgba(255, 57, 87,0.2);
-
-}
-
-
-
-#btn_ajouter_compte_epargne{
-	
-		 border: 1px solid   rgb(111, 66, 193);
-		background: transparent ; 
-		color: rgb(74, 74, 74);
-	
-}
-
-
-#btn_ajouter_compte_epargne:hover{
-	
-		 border: 1px solid   rgb(111, 66, 193);
-		background-color: rgb(248, 249, 250);
-		color: rgb(111, 66, 193);
-}
-
-#btn_ajouter_compte_courant{
-
-		background : transparent ;
-		
-	   color: rgb(74, 74, 74);
-
-		 border: 1px solid rgb(13, 110, 253);
-
-	
-}
-
-
-#btn_ajouter_compte_courant:hover{
-
-	border: 1px solid   rgb(10, 88, 202);
-	background-color: rgb(248, 249, 250);
-	color:  rgb(10, 88, 202);
-	
-}
-
-#tableView_transactions{
-
-		background-color: rgb(248, 249, 250);
-
-		border:none ;
-
-}
-
-
-#message_page_en_construction{
-
-	background-color: rgba(81, 81, 81,0.1);
-
-}
-
-#motif_transaction_depot_retrait{
-
-    background-color: rgb(248, 249, 250); 
-	border-radius:8px ;
-	
-}
-
-#zone_message_erreur_page_parametre ,#label_erreur_dans_chmps{
-    opacity: 0;
-    color: #dc3545;
-    font-style: italic;
-}
-
-
-#onglet_depot_retrait , #onglet_virement{
-
-	background-color: rgb(248, 249, 250); 
-
-}
-
-
 
 #indicat_recherche {
     background: transparent;
@@ -197,30 +112,10 @@
     background-color: rgba(240, 244, 248, 200);
 }
 
+/*===============================================
+   BOUTONS DE LA BARRE LATÉRALE
+   ===============================================*/
 
-
-.solde-label {
-    font-size: 14pt;
-    font-weight: 700;
-	
-	color: rgb(82, 82, 82);
-}
-
-.solde-masque {
-    font-size: 14pt;
-    font-weight: 700;
-	color: rgb(82, 82, 82);
-    font-style: italic;
-}
-
-#zone_liste_header{
-
-	background-color: rgb(248, 249, 250);
-
-}
-
-
-/* Boutons de la barre latérale */
 #BarreLaterale QToolButton {
     background-color: transparent;
     border: none;
@@ -246,115 +141,31 @@
     background-color: #e9ecef !important;
 }
 
+/*===============================================
+   CARTES ET GROUPES
+   ===============================================*/
 
 #carte_courant_principal, #carte_epargne,   
 #carte_effectuer_transaction, #carte_consulter_profil, 
 #carte_parametres_compte, #carte_liste_activite_recentes,
-#carte_liste_historique_transaction ,
+#carte_liste_historique_transaction,
 #carte_parametres {
     background-color: rgb(255, 255, 255);
     border-radius: 4px;
     border: 1px solid rgb(229, 234, 239);
 }
 
-#zone_liste_des_transaction{
-
-		background-color: rgb(248, 249, 250); 
-	   border-radius: 4px;
-      border: 1px solid rgb(229, 234, 239);
-
-
-}
-#zone_carte_compte{
-
-background-color: rgba(255, 255, 255,0.1);
-    border-radius: 4px;
-    border: 1px solid rgba(229, 234, 239,0.1);
-
-}
-
-#bar_nav {
-    border-bottom: 1px solid rgb(229, 234, 239);
-}
-
-#BarreLaterale {
+#groupBox_info_user, #groupBox_systeme_user {
     background-color: rgb(255, 255, 255);
-    border-right: 2px solid rgb(229, 234, 239);
+    border-radius: 4px;
+    border: 1px solid rgb(229, 234, 239);
 }
 
-
-#btn_menu_compte {
-    border-radius: 13px;
-    border: 1px solid rgb(111, 66, 193);
-    color: rgba(111, 66, 193, 0.8);
-    background-color: rgba(111, 66, 193, 0.1);
-    margin: 2px;
-    font: 700 12pt &quot;Segoe UI&quot;;
-}
-
-/* ===============================================
-   CONTENEURS ET PAGES PRINCIPALES
-   =============================================== */
-
-#centralMain, #fenMain, 
-#page_dashboard, #page_transaction, #page_parametres, 
-#page_historique, #page_profil {
+#zone_liste_des_transaction {
     background-color: rgb(248, 249, 250);
-    border: none;
+    border-radius: 4px;
+    border: 1px solid rgb(229, 234, 239);
 }
-
-#page_4 {
-    background-color: rgba(248, 249, 250, 0.8);
-    border: none;
-}
-
-
-/* ===============================================
-   LABELS ET TEXTES
-   =============================================== */
-
-#label_solde_compte_courant, 
-#label_solde_compte_epargne {
-    font-size: 14pt;
-    font-weight: 700;
-	
-	color: rgb(82, 82, 82);
-}
-
-#label_decouvert_autorise_compte_courant , #label_numero_de_compte_courant
-,#label_date_creation_compte_courant,#label_derniere_transaction_compte_courant,
-#label_taux_interet_compte_epargne , #label_numero_de_compte_epargne
-,#label_date_creation_compte_epargne,#label_derniere_transaction_compte_epargne{
-
-	color: rgb(85, 85, 85);
-	font: 300 10pt &quot;Segoe UI&quot;;
-
-}
-
-#labelBienvenue {
-    font-size: 14pt;
-    font-weight: 700;
-    color: #6f42c1;
-}
-
-
-
-
-
-
-
-
-/* ===============================================
-   BARRE DE NAVIGATION ET RECHERCHE
-   =============================================== */
-
-
-
-/* ===============================================
-   CARTES ET GROUPES
-   =============================================== */
-
-
 
 QGroupBox {
     border: none;
@@ -374,11 +185,194 @@ QGroupBox::title {
     font-size: 13px;
 }
 
-/* ===============================================
-   ÉLÉMENTS DE FORMULAIRE
-   =============================================== */
+/*===============================================
+   LABELS ET TEXTES
+   ===============================================*/
 
-/* Inputs de base */
+#label_11{
+
+		
+	font: 300 8pt &quot;Segoe UI&quot;;
+
+}
+
+#labelBienvenue {
+    font-size: 14pt;
+    font-weight: 700;
+    color: #6f42c1;
+}
+
+#label_solde_compte_courant, 
+#label_solde_compte_epargne {
+    font-size: 14pt;
+    font-weight: 700;
+    color: rgb(82, 82, 82);
+}
+
+.solde-label {
+    font-size: 14pt;
+    font-weight: 700;
+    color: rgb(82, 82, 82);
+}
+
+.solde-masque {
+    font-size: 14pt;
+    font-weight: 700;
+    color: rgb(82, 82, 82);
+    font-style: italic;
+}
+
+#label_decouvert_autorise_compte_courant, #label_numero_de_compte_courant,
+#label_date_creation_compte_courant, #label_derniere_transaction_compte_courant,
+#label_taux_interet_compte_epargne, #label_numero_de_compte_epargne,
+#label_date_creation_compte_epargne, #label_derniere_transaction_compte_epargne {
+    color: rgb(85, 85, 85);
+    font: 300 10pt &quot;Segoe UI&quot;;
+}
+
+#zone_message_erreur_page_parametre, #label_erreur_dans_chmps {
+    opacity: 0;
+    color: #dc3545;
+    font-style: italic;
+}
+
+/*===============================================
+   BOUTONS STANDARDS
+   ===============================================*/
+
+QPushButton {
+    background-color: rgb(13, 110, 253);
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: none;
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+    min-height: 18px;
+}
+
+QPushButton:hover {
+    background-color: rgb(10, 88, 202);
+}
+
+QPushButton:pressed {
+    background-color: rgb(8, 77, 178);
+}
+
+QToolButton {
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+/*===============================================
+   BOUTONS SPÉCIALISÉS
+   ===============================================*/
+
+#btn_menu_compte {
+    border-radius: 13px;
+    border: 1px solid rgb(111, 66, 193);
+    color: rgba(111, 66, 193, 0.8);
+    background-color: rgba(111, 66, 193, 0.1);
+    margin: 2px;
+    font: 700 12pt &quot;Segoe UI&quot;;
+}
+
+#btn_modifier_info_tutilaire_parametre {
+    font: 9pt &quot;Segoe UI&quot;;
+    text-decoration: underline;
+    color: rgb(13, 110, 253);
+}
+
+#btn_modifier_info_tutilaire_parametre:hover {
+    color: rgb(10, 88, 202);
+}
+
+#btn_modifier_info_tutilaire_parametre:pressed {
+    color: rgb(8, 77, 178);
+}
+
+#btn_effectuer_transaction_compte_courant, 
+#btn_effectuer_transaction_compte_epargne {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(229, 234, 239);
+    color: rgb(73, 80, 87);
+    border-radius: 4px;
+    padding: 6px 10px;
+}
+
+#btn_effectuer_transaction_compte_epargne:hover,
+#btn_effectuer_transaction_compte_courant:hover {
+    background-color: rgba(248, 249, 250, 200);
+}
+
+#btn_voir_liste_complete_transaction:hover {
+    color: rgb(13, 110, 253);
+}
+
+/*===============================================
+   BOUTONS D'AJOUT ET DE SUPPRESSION
+   ===============================================*/
+
+#btn_ajouter_compte_courant {
+    background: transparent;
+    color: rgb(74, 74, 74);
+    border: 1px solid rgb(13, 110, 253);
+}
+
+#btn_ajouter_compte_courant:hover {
+    border: 1px solid rgb(10, 88, 202);
+    background-color: rgb(248, 249, 250);
+    color: rgb(10, 88, 202);
+}
+
+#btn_ajouter_compte_epargne {
+    border: 1px solid rgb(111, 66, 193);
+    background: transparent;
+    color: rgb(74, 74, 74);
+}
+
+#btn_ajouter_compte_epargne:hover {
+    border: 1px solid rgb(111, 66, 193);
+    background-color: rgb(248, 249, 250);
+    color: rgb(111, 66, 193);
+}
+
+#btn_supprimer_compte_courant, #btn_supprimer_compte_epargne {
+    background: transparent;
+    border: none;
+    padding: 4px;
+    border-radius: 2px;
+}
+
+#btn_supprimer_compte_courant:hover, #btn_supprimer_compte_epargne:hover {
+    border: 1px solid rgb(255, 57, 87);
+    background-color: rgba(255, 57, 87, 0.2);
+}
+
+/*===============================================
+   ÉLÉMENTS DE PROFIL
+   ===============================================*/
+
+#zone_photo, #zone_photo_parametre {
+    border-radius: 50%;
+    border: 3px solid rgb(111, 66, 193);
+    padding: 0;
+    margin: 0;
+    background-color: rgba(111, 66, 193, 0.1);
+}
+
+#zone_photo:hover, #zone_photo_parametre:hover {
+    background-color: rgba(111, 66, 193, 0.2);
+}
+
+#zone_info_perso_profil {
+    border-bottom: 2px solid rgba(73, 80, 87, 0.2);
+}
+
+/*===============================================
+   ÉLÉMENTS DE FORMULAIRE
+   ===============================================*/
+
 QLineEdit, QTextEdit {
     background-color: rgb(255, 255, 255);
     border: 1px solid #ced4da;
@@ -399,85 +393,9 @@ QComboBox:focus, QDoubleSpinBox:focus {
     box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
 }
 
-
-/* ===============================================
-   BOUTONS
-   =============================================== */
-
-/* Boutons standards */
-QPushButton {
-    background-color: rgb(13, 110, 253);
-    padding: 6px 12px;
-    border-radius: 4px;
-    border: none;
-    color: rgb(255, 255, 255);
-    font-weight: 500;
-    min-height: 18px;
-}
-
-QPushButton:hover {
-    background-color: rgb(10, 88, 202);
-}
-
-QPushButton:pressed {
-    background-color: rgb(8, 77, 178);
-}
-
-
-
-#btn_effectuer_transaction_compte_courant, 
-#btn_effectuer_transaction_compte_epargne {
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(229, 234, 239);
-    color: rgb(73, 80, 87);
-    border-radius: 4px;
-    padding: 6px 10px;
-}
-
-#btn_effectuer_transaction_compte_epargne:hover,
-#btn_effectuer_transaction_compte_courant:hover {
-    background-color: rgba(248, 249, 250, 200);
-}
-
-#btn_voir_liste_complete_transaction:hover {
-    color: rgb(13, 110, 253);
-}
-
-
-
-QToolButton {
-    background: transparent;
-    border: none;
-    outline: none;
-}
-
-
-
-/* ===============================================
-   ÉLÉMENTS DE PROFIL
-   =============================================== */
-
-#zone_photo, #zone_photo_parametre {
-    border-radius: 50%;
-    border: 3px solid rgb(111, 66, 193);
-    padding: 0;
-    margin: 0;
-    background-color: rgba(111, 66, 193, 0.1);
-}
-
-#zone_photo:hover, #zone_photo_parametre:hover {
-    background-color: rgba(111, 66, 193, 0.2);
-}
-
-#zone_info_perso_profil {
-    border-bottom: 2px solid rgba(73, 80, 87, 0.2);
-}
-
-
-
-/* ===============================================
+/*===============================================
    COMBOBOX
-   =============================================== */
+   ===============================================*/
 
 QComboBox {
     background-color: rgb(255, 255, 255);
@@ -564,9 +482,9 @@ QComboBox QAbstractItemView::item:selected {
     color: white;
 }
 
-/* ===============================================
+/*===============================================
    SPINBOX ET DOUBLESPINBOX
-   =============================================== */
+   ===============================================*/
 
 QDoubleSpinBox, QSpinBox {
     background-color: rgb(255, 255, 255);
@@ -655,9 +573,9 @@ QDoubleSpinBox::down-arrow:disabled, QSpinBox::down-arrow:disabled {
     image: url(:/icon_gris/chevron-down-disabled.svg);
 }
 
-/* ===============================================
+/*===============================================
    DATEEDIT
-   =============================================== */
+   ===============================================*/
 
 QDateEdit {
     border: 1px solid #ced4da;
@@ -700,9 +618,82 @@ QDateEdit::down-arrow {
     height: 12px;
 }
 
-/* ===============================================
+/*===============================================
+   TABLEVIEW
+   ===============================================*/
+
+#tableView_transactions {
+    background-color: rgb(248, 249, 250);
+    border: none;
+}
+
+/*===============================================
+   ONGLETS DE TRANSACTION
+   ===============================================*/
+
+#mes_onglets_page_transaction {
+    background-color: rgb(248, 249, 250);
+    border: none;
+    border-radius: 4px;
+}
+
+#mes_onglets_page_transaction::pane {
+    border: none;
+    border-radius: 0 0 4px 4px;
+    background-color: rgb(248, 249, 250);
+}
+
+#mes_onglets_page_transaction &gt; QTabBar {
+    background: transparent;
+    border: none;
+    spacing: 4px;
+}
+
+#mes_onglets_page_transaction &gt; QTabBar::tab {
+    background-color: rgba(229, 234, 239, 0.5);
+    border: 1px solid rgb(229, 234, 239);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    padding: 8px 16px;
+    margin-right: 2px;
+    min-width: 100px;
+    color: rgb(108, 117, 125);
+}
+
+#mes_onglets_page_transaction &gt; QTabBar::tab:selected {
+    background-color: rgb(248, 249, 250);
+    border-color: rgb(229, 234, 239);
+    color: rgb(73, 80, 87);
+    font-weight: 600;
+    border-bottom: 2px solid #0d6efd;
+    margin-bottom: -1px;
+}
+
+#mes_onglets_page_transaction &gt; QTabBar::tab:hover {
+    background-color: rgba(229, 234, 239, 0.8);
+    color: rgb(13, 110, 253);
+}
+
+#mes_onglets_page_transaction &gt; QTabBar::tab:selected:hover {
+    background-color: rgb(233, 236, 239);
+}
+
+#mes_onglets_page_transaction &gt; QTabBar QToolButton {
+    background: rgb(229, 234, 239);
+    border-radius: 3px;
+    margin: 4px;
+}
+
+#mes_onglets_page_transaction &gt; QTabBar QToolButton::right-arrow,
+#mes_onglets_page_transaction &gt; QTabBar QToolButton::left-arrow {
+    image: url(:/icon_gris/chevron-right.svg);
+    width: 12px;
+    height: 12px;
+}
+
+/*===============================================
    BARRES DE DÉFILEMENT
-   =============================================== */
+   ===============================================*/
 
 QScrollBar:vertical {
     border: none;
@@ -761,9 +752,9 @@ QScrollBar::sub-page:horizontal {
     background: none;
 }
 
-/* ===============================================
+/*===============================================
    SÉPARATEURS
-   =============================================== */
+   ===============================================*/
 
 Line {
     background-color: rgb(229, 234, 239);
@@ -777,88 +768,6 @@ Line {
     background-color: rgba(206, 212, 218, 0.7);
     border-radius: 1px;
     outline: none;
-}
-
-/* ===============================================
-   STYLE DES ONGLETS DE TRANSACTION
-   =============================================== */
-
-#mes_onglets_page_transaction {
-    background-color: rgb(248, 249, 250);
-    border: none;
-    border-radius: 4px;
-}
-
-#onglet_virement ,#onglet_depot_retrait{
-	
-	background-color: rgb(248, 249, 250);
-
-}
-
-/* Panneau de contenu des onglets */
-#mes_onglets_page_transaction::pane {
-    border: none;
-    border-radius: 0 0 4px 4px;
-    background-color: rgb(248, 249, 250);
-}
-
-/* Barre d'onglets */
-#mes_onglets_page_transaction &gt; QTabBar {
-    background: transparent;
-    border: none;
-    spacing: 4px;
-}
-
-/* Onglets individuels */
-#mes_onglets_page_transaction &gt; QTabBar::tab {
-    background-color: rgba(229, 234, 239, 0.5);
-    border: 1px solid rgb(229, 234, 239);
-    border-bottom: none;
-    border-radius: 4px 4px 0 0;
-    padding: 8px 16px;
-    margin-right: 2px;
-    min-width: 100px;
-    color: rgb(108, 117, 125);
-}
-
-/* Onglet sélectionné */
-#mes_onglets_page_transaction &gt; QTabBar::tab:selected {
-    background-color: rgb(248, 249, 250);
-    border-color: rgb(229, 234, 239);
-    color: rgb(73, 80, 87);
-    font-weight: 600;
-}
-
-/* Onglet au survol */
-#mes_onglets_page_transaction &gt; QTabBar::tab:hover {
-    background-color: rgba(229, 234, 239, 0.8);
-    color: rgb(13, 110, 253);
-}
-
-/* Onglet actif */
-#mes_onglets_page_transaction &gt; QTabBar::tab:selected:hover {
-    background-color: rgb(233, 236, 239);
-}
-
-/* Indicateur de sélection (ligne du bas) */
-#mes_onglets_page_transaction &gt; QTabBar::tab:selected {
-    border-bottom: 2px solid #0d6efd;
-    margin-bottom: -1px; /* Alignement avec la bordure */
-}
-
-/* Flèches de navigation quand il y a beaucoup d'onglets */
-#mes_onglets_page_transaction &gt; QTabBar QToolButton {
-    background: rgb(229, 234, 239);
-    border-radius: 3px;
-    margin: 4px;
-}
-
-/* Icônes des flèches */
-#mes_onglets_page_transaction &gt; QTabBar QToolButton::right-arrow,
-#mes_onglets_page_transaction &gt; QTabBar QToolButton::left-arrow {
-    image: url(:/icon_gris/chevron-right.svg);
-    width: 12px;
-    height: 12px;
 }</string>
   </property>
   <widget class="QWidget" name="centralMain">
@@ -2447,7 +2356,22 @@ Line {
                        <string>Informations système</string>
                       </property>
                       <layout class="QVBoxLayout" name="verticalLayout_45">
-                       <item>
+                       <property name="spacing">
+                        <number>4</number>
+                       </property>
+                       <property name="leftMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>10</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>2</number>
+                       </property>
+                       <item alignment="Qt::AlignmentFlag::AlignTop">
                         <widget class="QWidget" name="widget_33" native="true">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -2456,11 +2380,35 @@ Line {
                           </sizepolicy>
                          </property>
                          <layout class="QHBoxLayout" name="horizontalLayout_28">
-                          <item alignment="Qt::AlignmentFlag::AlignLeft">
-                           <widget class="QLabel" name="label_11">
-                            <property name="text">
-                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700; color:#525252;&quot;&gt;Changer le thème du système&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          <property name="spacing">
+                           <number>0</number>
+                          </property>
+                          <property name="leftMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>0</number>
+                          </property>
+                          <item>
+                           <widget class="QGroupBox" name="groupBox_23">
+                            <property name="title">
+                             <string>Thèmes </string>
                             </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_30">
+                             <item>
+                              <widget class="QLabel" name="label_11">
+                               <property name="text">
+                                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Thèmes ( Sombre / Claire ) : Changer le thème de couleur par préférence visuelle &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
                            </widget>
                           </item>
                           <item>
@@ -2531,7 +2479,11 @@ Line {
                             </property>
                             <layout class="QVBoxLayout" name="verticalLayout_41">
                              <item>
-                              <widget class="QLineEdit" name="lineEdit_mot_de_passe_parametre"/>
+                              <widget class="QLineEdit" name="lineEdit_mot_de_passe_parametre">
+                               <property name="echoMode">
+                                <enum>QLineEdit::EchoMode::Password</enum>
+                               </property>
+                              </widget>
                              </item>
                             </layout>
                            </widget>
@@ -2543,7 +2495,11 @@ Line {
                             </property>
                             <layout class="QVBoxLayout" name="verticalLayout_42">
                              <item>
-                              <widget class="QLineEdit" name="lineEdit_mot_de_passe_confirmation_parametre"/>
+                              <widget class="QLineEdit" name="lineEdit_mot_de_passe_confirmation_parametre">
+                               <property name="echoMode">
+                                <enum>QLineEdit::EchoMode::Password</enum>
+                               </property>
+                              </widget>
                              </item>
                             </layout>
                            </widget>

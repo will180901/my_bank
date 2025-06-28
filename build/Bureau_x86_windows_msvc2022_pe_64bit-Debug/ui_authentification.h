@@ -642,7 +642,7 @@ public:
         label_2 = new QLabel(widget_3);
         label_2->setObjectName("label_2");
         label_2->setAlignment(Qt::AlignmentFlag::AlignCenter);
-        label_2->setTextInteractionFlags(Qt::TextInteractionFlag::LinksAccessibleByKeyboard|Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextBrowserInteraction|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse);
+        label_2->setTextInteractionFlags(Qt::TextInteractionFlag::TextSelectableByMouse);
 
         verticalLayout_2->addWidget(label_2);
 

@@ -22,6 +22,8 @@ fenMain::fenMain(CreationBD& m_BD, QWidget *parent, const QString &utilisateur_i
     , m_soldeVisibleCompteCourant(true)
     , m_soldeVisibleCompteEpargne(true)
     , m_soldeAnimation(new AnimationSolde(this))
+    , m_boutonBasculeChangertheme(nullptr)
+    ,m_mode_sombre_active(false)
     , m_banque("MyBank")
     , m_creationBD(m_BD)
 {
@@ -35,6 +37,9 @@ fenMain::fenMain(CreationBD& m_BD, QWidget *parent, const QString &utilisateur_i
 
     this->showMaximized();
 
+    // CORRECTION : Charger le thème AVANT de configurer le bouton
+    InitialisationThemeCouleur();
+    configurerBoutonBasculeThemeCouleur();
 
     ui->comboBox_type_operation_onglet_depot_retrait->clear();
     ui->comboBox_type_operation_onglet_depot_retrait->addItem("Dépôt");
@@ -53,9 +58,38 @@ fenMain::fenMain(CreationBD& m_BD, QWidget *parent, const QString &utilisateur_i
     mettreAjourIcon(ui->btn_masquer_solde_compte_courant, m_soldeVisibleCompteCourant);
     mettreAjourIcon(ui->btn_masquer_solde_compte_epargne, m_soldeVisibleCompteEpargne);
 
+    UtilitairesMotDePasse::configurerBoutonVisibilite(ui->lineEdit_mot_de_passe_parametre);
+    UtilitairesMotDePasse::configurerBoutonVisibilite(ui->lineEdit_mot_de_passe_confirmation_parametre) ;
+
     chargerDonneesDepuisBD();
     mettreAJourAffichageComptes();
 }
+
+
+
+
+bool fenMain::estThemeSombreActif() const
+{
+    return m_mode_sombre_active;
+}
+
+
+
+void fenMain::forcerTheme(bool themeSombre)
+{
+    if (m_boutonBasculeChangertheme) {
+        m_boutonBasculeChangertheme->blockSignals(true);
+        m_boutonBasculeChangertheme->definirEtatBascule(themeSombre);
+        m_boutonBasculeChangertheme->blockSignals(false);
+    }
+
+    QSettings settings("MyBank", "Theme");
+    settings.setValue("themeSombre", themeSombre);
+    m_mode_sombre_active = themeSombre;
+
+    InitialisationThemeCouleur();
+}
+
 
 
 
@@ -69,8 +103,114 @@ fenMain::~fenMain()
         m_soldeAnimation = nullptr;
     }
 
+    if(m_boutonBasculeChangertheme){
+
+        delete m_boutonBasculeChangertheme ;
+        m_boutonBasculeChangertheme =nullptr ;
+    }
+
     delete ui;
 }
+
+void fenMain::configurerBoutonBasculeThemeCouleur()
+{
+    // CORRECTION : Vérifier si le bouton existe déjà pour éviter les fuites mémoire
+    if (m_boutonBasculeChangertheme) {
+        delete m_boutonBasculeChangertheme;
+        m_boutonBasculeChangertheme = nullptr;
+    }
+
+    m_boutonBasculeChangertheme = new MonBoutonBascule(this);
+
+    // CORRECTION : Charger l'état depuis les settings au lieu de hardcoder false
+    QSettings settings("MyBank", "Theme");
+    bool themeSombreActif = settings.value("themeSombre", false).toBool();
+    m_mode_sombre_active = themeSombreActif;
+
+    m_boutonBasculeChangertheme->definirEtatBascule(themeSombreActif);
+
+    connect(m_boutonBasculeChangertheme, &MonBoutonBascule::aBascule,
+            this, &fenMain::gererBasculeThemeCouleur);
+
+    // CORRECTION : Simplification de la logique de layout
+    if (ui->zone_bouton_bascule) {
+        QVBoxLayout *layoutBouton = qobject_cast<QVBoxLayout*>(ui->zone_bouton_bascule->layout());
+
+        if (!layoutBouton) {
+            layoutBouton = new QVBoxLayout(ui->zone_bouton_bascule);
+            layoutBouton->setContentsMargins(0, 0, 0, 0);
+            ui->zone_bouton_bascule->setLayout(layoutBouton);
+        }
+
+        layoutBouton->addWidget(m_boutonBasculeChangertheme);
+        layoutBouton->setAlignment(m_boutonBasculeChangertheme, Qt::AlignCenter);
+    } else {
+        qWarning() << "Erreur: Le widget 'zone_bouton_bascule' n'a pas été trouvé dans l'UI.";
+    }
+}
+
+
+
+
+void fenMain::gererBasculeThemeCouleur(bool estActive)
+{
+    // CORRECTION : Utilisation cohérente de la clé QSettings
+    QSettings settings("MyBank", "Theme"); // Consistant avec le reste
+    settings.setValue("themeSombre", estActive);
+
+    // CORRECTION : Mise à jour de l'état interne
+    m_mode_sombre_active = estActive;
+
+    InitialisationThemeCouleur(); // Recharge le thème
+}
+
+
+
+
+void fenMain::InitialisationThemeCouleur()
+{
+    // CORRECTION : Même organisation et clé que dans gererBasculeThemeCouleur
+    QSettings settings("MyBank", "Theme"); // Cohérent maintenant
+    bool themeSombreActif = settings.value("themeSombre", false).toBool();
+
+    // CORRECTION : Mise à jour de l'état interne
+    m_mode_sombre_active = themeSombreActif;
+
+    QString cheminTheme = themeSombreActif
+                              ? ":/themes/theme_sombre.txt"
+                              : ":/themes/theme_clair.txt";
+
+    QFile fichierTheme(cheminTheme);
+    if (fichierTheme.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&fichierTheme);
+        QString styleSheet = in.readAll();
+
+        // CORRECTION : Application seulement à la fenêtre principale
+        // au lieu de toute l'application
+        this->setStyleSheet(styleSheet); // Plus sûr et plus performant
+        fichierTheme.close();
+
+        // CORRECTION : Forcer la mise à jour de l'affichage
+        this->update();
+
+    } else {
+        // CORRECTION : Gestion d'erreur améliorée
+        qWarning() << "Impossible de charger le fichier de thème:" << cheminTheme;
+        // Fallback vers un thème par défaut
+        this->setStyleSheet(""); // Reset vers le thème par défaut du système
+    }
+
+    // Mettre à jour l'état du bouton bascule
+    if (m_boutonBasculeChangertheme) {
+        m_boutonBasculeChangertheme->blockSignals(true);
+        m_boutonBasculeChangertheme->definirEtatBascule(themeSombreActif);
+        m_boutonBasculeChangertheme->blockSignals(false);
+    }
+}
+
+
+
+
 
 
 
@@ -785,12 +925,40 @@ void fenMain::effectuerDepot(CompteBancaire* compte, double montant, const QStri
 
     compte->deposer(montant);
 
+    // NOUVEAU : Calcul automatique des intérêts pour les comptes épargne
+    if (CompteEpargne* compteEpargne = dynamic_cast<CompteEpargne*>(compte)) {
+        compteEpargne->calculerInterets();
+
+        // Message informatif pour l'utilisateur
+        double ancienSolde = nouveauSolde; // Solde après dépôt mais avant intérêts
+        double nouveauSoldeAvecInterets = compte->getSolde();
+        double interetsGagnes = nouveauSoldeAvecInterets - ancienSolde;
+
+        if (interetsGagnes > 0) {
+            QMessageBox::information(this, "Intérêts calculés",
+                                     QString("Intérêts gagnés : +%1 FCFA (Taux : %2%)")
+                                         .arg(QString::number(interetsGagnes, 'f', 2))
+                                         .arg(QString::number(compteEpargne->getTauxInteret(), 'f', 2)));
+        }
+    }
+
     // Mettre à jour dernière opération avec timestamp
     QString timestamp = QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm:ss");
-    QString operation = QString("Dépôt: +%1 FCFA - %2 [%3]")
-                            .arg(QString::number(montant, 'f', 2))
-                            .arg(motif.isEmpty() ? "Sans motif" : motif)
-                            .arg(timestamp);
+    QString operation;
+
+    // CORRECTION : Différencier le message selon le type de compte
+    if (dynamic_cast<CompteEpargne*>(compte)) {
+        operation = QString("Dépôt + Intérêts: +%1 FCFA - %2 [%3]")
+                        .arg(QString::number(montant, 'f', 2))
+                        .arg(motif.isEmpty() ? "Sans motif" : motif)
+                        .arg(timestamp);
+    } else {
+        operation = QString("Dépôt: +%1 FCFA - %2 [%3]")
+                        .arg(QString::number(montant, 'f', 2))
+                        .arg(motif.isEmpty() ? "Sans motif" : motif)
+                        .arg(timestamp);
+    }
+
     compte->setDerniereOperation(operation);
 
     // Enregistrer la transaction en base
@@ -802,8 +970,6 @@ void fenMain::effectuerDepot(CompteBancaire* compte, double montant, const QStri
     mettreAJourAffichageComptes();
     QMessageBox::information(this, "Succès", "Dépôt effectué avec succès!");
 }
-
-
 
 
 
@@ -865,12 +1031,6 @@ void fenMain::effectuerRetrait(CompteBancaire* compte, double montant, const QSt
                              messageErreur.isEmpty() ? "Opération impossible!" : messageErreur);
     }
 }
-
-
-
-
-
-
 
 
 
@@ -972,14 +1132,11 @@ void fenMain::effectuerVirement(const QString& compteSource, const QString& comp
 // Gestion de la suppression des comptes
 void fenMain::on_btn_supprimer_compte_courant_clicked()
 {
-    if (QMessageBox::question(this, "Confirmation",
-                              "Voulez-vous vraiment supprimer votre compte courant?",
-                              QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+    if (QMessageBox::question(this, "Confirmation", "Voulez-vous vraiment supprimer votre compte courant?", QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
     {
         supprimerCompteCourant();
     }
 }
-
 
 
 
@@ -1112,10 +1269,154 @@ void fenMain::supprimerCompteEpargne()
 
 
 
-
-
 void fenMain::on_btn_modifier_info_tutilaire_parametre_clicked()
 {
-        /// à completer obligatoirement
-}
+    // Vérification que la base de données est accessible
+    if (!m_creationBD.estOuverte()) {
+        QMessageBox::critical(this, "Erreur", "Base de données non accessible!");
+        return;
+    }
 
+    QSqlDatabase db = m_creationBD.getDatabase();
+
+    // RÉCUPÉRATION DES VALEURS ACTUELLES DE L'UTILISATEUR
+    QSqlQuery queryActuel(db);
+    queryActuel.prepare("SELECT nom_complet, email, mot_de_passe FROM utilisateurs WHERE id = ?");
+    queryActuel.addBindValue(m_utilisateur_id);
+
+    if (!queryActuel.exec() || !queryActuel.next()) {
+        QMessageBox::critical(this, "Erreur", "Impossible de récupérer les informations actuelles de l'utilisateur.");
+        return;
+    }
+
+    QString nomActuel = queryActuel.value("nom_complet").toString();
+    QString emailActuel = queryActuel.value("email").toString();
+    QString motDePasseActuel = queryActuel.value("mot_de_passe").toString();
+
+    // Récupération des données saisies dans les champs
+    QString nouveauNom = ui->lineEdit_nom_titulaire_parametre->text().trimmed();
+    QString nouvelEmail = ui->lineEdit_email_titulaire_parametre->text().trimmed();
+    QString nouveauMotDePasse = ui->lineEdit_mot_de_passe_parametre->text();
+    QString confirmationMotDePasse = ui->lineEdit_mot_de_passe_confirmation_parametre->text();
+
+    // DÉTERMINATION DES VALEURS FINALES À UTILISER
+    QString nomFinal = nouveauNom.isEmpty() ? nomActuel : nouveauNom;
+    QString emailFinal = nouvelEmail.isEmpty() ? emailActuel : nouvelEmail;
+
+    // Pour le mot de passe, on ne le change que si les deux champs sont renseignés
+    bool modifierMotDePasse = !nouveauMotDePasse.isEmpty() && !confirmationMotDePasse.isEmpty();
+    QString motDePasseFinal = motDePasseActuel; // Par défaut, on garde l'ancien
+
+    // Validation du format email si un nouvel email est fourni
+    if (!nouvelEmail.isEmpty()) {
+        QRegularExpression emailRegex("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+        if (!emailRegex.match(nouvelEmail).hasMatch()) {
+            QMessageBox::warning(this, "Erreur de saisie", "Format d'email invalide.");
+            ui->lineEdit_email_titulaire_parametre->setFocus();
+            return;
+        }
+    }
+
+    // Si un seul des champs mot de passe est renseigné, c'est une erreur
+    if ((!nouveauMotDePasse.isEmpty() && confirmationMotDePasse.isEmpty()) ||
+        (nouveauMotDePasse.isEmpty() && !confirmationMotDePasse.isEmpty())) {
+        QMessageBox::warning(this, "Erreur de saisie", "Veuillez renseigner les deux champs de mot de passe ou les laisser vides pour conserver le mot de passe actuel.");
+        return;
+    }
+
+    // Validation du nouveau mot de passe s'il doit être modifié
+    if (modifierMotDePasse) {
+        if (nouveauMotDePasse.length() < 6) {
+            QMessageBox::warning(this, "Erreur de saisie", "Le mot de passe doit contenir au moins 6 caractères.");
+            ui->lineEdit_mot_de_passe_parametre->setFocus();
+            return;
+        }
+
+        if (nouveauMotDePasse != confirmationMotDePasse) {
+            QMessageBox::warning(this, "Erreur de saisie", "Les mots de passe ne correspondent pas.");
+            ui->lineEdit_mot_de_passe_confirmation_parametre->setFocus();
+            return;
+        }
+
+        // Hachage du nouveau mot de passe
+        motDePasseFinal = QString(QCryptographicHash::hash(nouveauMotDePasse.toUtf8(), QCryptographicHash::Sha256).toHex());
+    }
+
+    // Vérification que l'email n'est pas déjà utilisé par un autre utilisateur (seulement si l'email change)
+    if (emailFinal != emailActuel) {
+        QSqlQuery queryVerifEmail(db);
+        queryVerifEmail.prepare("SELECT id FROM utilisateurs WHERE email = ? AND id != ?");
+        queryVerifEmail.addBindValue(emailFinal);
+        queryVerifEmail.addBindValue(m_utilisateur_id);
+
+        if (!queryVerifEmail.exec()) {
+            QMessageBox::critical(this, "Erreur", "Erreur lors de la vérification de l'email : " + queryVerifEmail.lastError().text());
+            return;
+        }
+
+        if (queryVerifEmail.next()) {
+            QMessageBox::warning(this, "Erreur", "Cet email est déjà utilisé par un autre compte.");
+            ui->lineEdit_email_titulaire_parametre->setFocus();
+            return;
+        }
+    }
+
+    // Vérification s'il y a des changements à effectuer
+    if (nomFinal == nomActuel && emailFinal == emailActuel && motDePasseFinal == motDePasseActuel) {
+        QMessageBox::information(this, "Information", "Aucune modification détectée.");
+        return;
+    }
+
+    // Mise à jour des informations dans la base de données
+    QSqlQuery queryUpdate(db);
+    queryUpdate.prepare("UPDATE utilisateurs SET nom_complet = ?, email = ?, mot_de_passe = ? WHERE id = ?");
+    queryUpdate.addBindValue(nomFinal);
+    queryUpdate.addBindValue(emailFinal);
+    queryUpdate.addBindValue(motDePasseFinal);
+    queryUpdate.addBindValue(m_utilisateur_id);
+
+    if (!queryUpdate.exec()) {
+        QMessageBox::critical(this, "Erreur", "Erreur lors de la mise à jour : " + queryUpdate.lastError().text());
+        return;
+    }
+
+    // Vérification que la mise à jour a bien eu lieu
+    if (queryUpdate.numRowsAffected() == 0) {
+        QMessageBox::warning(this, "Attention", "Aucune modification n'a été effectuée.");
+        return;
+    }
+
+    // Mise à jour du nom dans tous les comptes de l'utilisateur (seulement si le nom a changé)
+    if (nomFinal != nomActuel) {
+        QSqlQuery queryUpdateComptes(db);
+        queryUpdateComptes.prepare("UPDATE comptes SET nom_titulaire = ? WHERE id_utilisateur = ?");
+        queryUpdateComptes.addBindValue(nomFinal);
+        queryUpdateComptes.addBindValue(m_utilisateur_id);
+
+        if (!queryUpdateComptes.exec()) {
+            qWarning() << "Erreur mise à jour nom dans les comptes:" << queryUpdateComptes.lastError().text();
+            // Ne pas arrêter le processus, juste logger l'erreur
+        }
+    }
+
+    // Confirmation de la réussite
+    QString messageSucces = "Vos informations ont été mises à jour avec succès !\n\nModifications effectuées :\n";
+    if (nomFinal != nomActuel) messageSucces += "- Nom modifié\n";
+    if (emailFinal != emailActuel) messageSucces += "- Email modifié\n";
+    if (modifierMotDePasse) messageSucces += "- Mot de passe modifié\n";
+
+    QMessageBox::information(this, "Succès", messageSucces);
+
+    // Effacement des champs de mot de passe pour la sécurité
+    ui->lineEdit_mot_de_passe_parametre->clear();
+    ui->lineEdit_mot_de_passe_confirmation_parametre->clear();
+
+    // Rechargement des informations utilisateur pour mettre à jour l'affichage
+    chargerInformationsUtilisateur();
+
+    // Recharger les comptes pour refléter le changement de nom (si nécessaire)
+    if (nomFinal != nomActuel) {
+        chargerComptesBancaires();
+        mettreAJourAffichageComptes();
+    }
+}

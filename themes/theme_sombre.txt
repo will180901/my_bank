@@ -1,0 +1,736 @@
+/*===============================================
+   STYLES GLOBAUX - THÈME SOMBRE PROFESSIONNEL
+   ===============================================*/
+
+* {
+    color: rgb(226, 232, 240);
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/*===============================================
+   CONTENEURS ET PAGES PRINCIPALES
+   ===============================================*/
+
+#centralMain, #fenMain, 
+#page_dashboard, #page_transaction, #page_parametres, 
+#page_historique, #page_profil {
+    background-color: rgb(15, 23, 42);
+    border: none;
+}
+
+#page_4 {
+    background-color: rgba(15, 23, 42, 0.8);
+    border: none;
+}
+
+#zone_objet_parametres,
+#onglet_depot_retrait, #onglet_virement,
+#zone_liste_header {
+    background-color: rgb(15, 23, 42);
+}
+
+#message_page_en_construction {
+    background-color: rgba(71, 85, 105, 0.2);
+}
+
+#motif_transaction_depot_retrait {
+    background-color: rgb(15, 23, 42);
+    border-radius: 8px;
+}
+
+#zone_carte_compte {
+    background-color: rgba(30, 41, 59, 0.3);
+    border-radius: 4px;
+    border: 1px solid rgba(51, 65, 85, 0.3);
+}
+
+/*===============================================
+   BARRE DE NAVIGATION ET RECHERCHE
+   ===============================================*/
+
+#bar_nav {
+    border-bottom: 1px solid rgb(51, 65, 85);
+}
+
+#BarreLaterale {
+    background-color: rgb(30, 41, 59);
+    border-right: 2px solid rgb(51, 65, 85);
+}
+
+#indicat_recherche {
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+#ZoneRecherche {
+    border: none;
+    background: transparent;
+}
+
+#BarreRecherche {
+    border: 1px solid rgba(71, 85, 105, 180);
+    border-radius: 4px;
+    background-color: rgba(30, 41, 59, 250);
+    padding: 6px;
+}
+
+#BarreRecherche:hover {
+    border-bottom: 1px solid rgb(59, 130, 246);
+    background-color: rgba(51, 65, 85, 200);
+}
+
+/*===============================================
+   BOUTONS DE LA BARRE LATÉRALE
+   ===============================================*/
+
+#BarreLaterale QToolButton {
+    background-color: transparent;
+    border: none;
+    color: rgb(148, 163, 184);
+    padding: 4px 4px;
+    text-align: left;
+    border-radius: 4px;
+}
+
+#BarreLaterale QToolButton:hover {
+    background-color: #1e293b;
+}
+
+#BarreLaterale QToolButton:pressed {
+    background-color: rgba(51, 65, 85, 150);
+    color: rgb(59, 130, 246);
+    font-weight: bold;
+}
+
+#BarreLaterale QToolButton:focus {
+    outline: 2px solid #3b82f6 !important;
+    outline-offset: -1px !important;
+    background-color: #334155 !important;
+}
+
+/*===============================================
+   CARTES ET GROUPES
+   ===============================================*/
+
+#carte_courant_principal, #carte_epargne,   
+#carte_effectuer_transaction, #carte_consulter_profil, 
+#carte_parametres_compte, #carte_liste_activite_recentes,
+#carte_liste_historique_transaction,
+#carte_parametres {
+    background-color: rgb(30, 41, 59);
+    border-radius: 4px;
+    border: 1px solid rgb(51, 65, 85);
+}
+
+#groupBox_info_user, #groupBox_systeme_user {
+    background-color: rgb(30, 41, 59);
+    border-radius: 4px;
+    border: 1px solid rgb(51, 65, 85);
+}
+
+#zone_liste_des_transaction {
+    background-color: rgb(15, 23, 42);
+    border-radius: 4px;
+    border: 1px solid rgb(51, 65, 85);
+}
+
+QGroupBox {
+    border: none;
+    border-radius: 4px;
+    margin-top: 6px;
+    padding: 8px 6px 6px 6px;
+    background: transparent;
+    font-weight: 500;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 8px;
+    padding: 0 6px;
+    color: #94a3b8;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+/*===============================================
+   LABELS ET TEXTES
+   ===============================================*/
+
+#label_11{
+    font: 300 8pt "Segoe UI";
+}
+
+#labelBienvenue {
+    font-size: 14pt;
+    font-weight: 700;
+    color: #a855f7;
+}
+
+#label_solde_compte_courant, 
+#label_solde_compte_epargne {
+    font-size: 14pt;
+    font-weight: 700;
+    color: rgb(203, 213, 225);
+}
+
+.solde-label {
+    font-size: 14pt;
+    font-weight: 700;
+    color: rgb(203, 213, 225);
+}
+
+.solde-masque {
+    font-size: 14pt;
+    font-weight: 700;
+    color: rgb(203, 213, 225);
+    font-style: italic;
+}
+
+#label_decouvert_autorise_compte_courant, #label_numero_de_compte_courant,
+#label_date_creation_compte_courant, #label_derniere_transaction_compte_courant,
+#label_taux_interet_compte_epargne, #label_numero_de_compte_epargne,
+#label_date_creation_compte_epargne, #label_derniere_transaction_compte_epargne {
+    color: rgb(148, 163, 184);
+    font: 300 10pt "Segoe UI";
+}
+
+#zone_message_erreur_page_parametre, #label_erreur_dans_chmps {
+    opacity: 0;
+    color: #f87171;
+    font-style: italic;
+}
+
+/*===============================================
+   BOUTONS STANDARDS
+   ===============================================*/
+
+QPushButton {
+    background-color: rgb(59, 130, 246);
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: none;
+    color: rgb(248, 250, 252);
+    font-weight: 500;
+    min-height: 18px;
+}
+
+QPushButton:hover {
+    background-color: rgb(37, 99, 235);
+}
+
+QPushButton:pressed {
+    background-color: rgb(29, 78, 216);
+}
+
+QToolButton {
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+/*===============================================
+   BOUTONS SPÉCIALISÉS
+   ===============================================*/
+
+#btn_menu_compte {
+    border-radius: 13px;
+    border: 1px solid rgb(168, 85, 247);
+    color: rgba(168, 85, 247, 0.9);
+    background-color: rgba(168, 85, 247, 0.15);
+    margin: 2px;
+    font: 700 12pt "Segoe UI";
+}
+
+#btn_modifier_info_tutilaire_parametre {
+    font: 9pt "Segoe UI";
+    text-decoration: underline;
+    color: rgb(59, 130, 246);
+}
+
+#btn_modifier_info_tutilaire_parametre:hover {
+    color: rgb(37, 99, 235);
+}
+
+#btn_modifier_info_tutilaire_parametre:pressed {
+    color: rgb(29, 78, 216);
+}
+
+#btn_effectuer_transaction_compte_courant, 
+#btn_effectuer_transaction_compte_epargne {
+    background-color: rgb(30, 41, 59);
+    border: 1px solid rgb(51, 65, 85);
+    color: rgb(148, 163, 184);
+    border-radius: 4px;
+    padding: 6px 10px;
+}
+
+#btn_effectuer_transaction_compte_epargne:hover,
+#btn_effectuer_transaction_compte_courant:hover {
+    background-color: rgba(15, 23, 42, 200);
+}
+
+#btn_voir_liste_complete_transaction:hover {
+    color: rgb(59, 130, 246);
+}
+
+/*===============================================
+   BOUTONS D'AJOUT ET DE SUPPRESSION
+   ===============================================*/
+
+#btn_ajouter_compte_courant {
+    background: transparent;
+    color: rgb(148, 163, 184);
+    border: 1px solid rgb(59, 130, 246);
+}
+
+#btn_ajouter_compte_courant:hover {
+    border: 1px solid rgb(37, 99, 235);
+    background-color: rgb(15, 23, 42);
+    color: rgb(37, 99, 235);
+}
+
+#btn_ajouter_compte_epargne {
+    border: 1px solid rgb(168, 85, 247);
+    background: transparent;
+    color: rgb(148, 163, 184);
+}
+
+#btn_ajouter_compte_epargne:hover {
+    border: 1px solid rgb(168, 85, 247);
+    background-color: rgb(15, 23, 42);
+    color: rgb(168, 85, 247);
+}
+
+#btn_supprimer_compte_courant, #btn_supprimer_compte_epargne {
+    background: transparent;
+    border: none;
+    padding: 4px;
+    border-radius: 2px;
+}
+
+#btn_supprimer_compte_courant:hover, #btn_supprimer_compte_epargne:hover {
+    border: 1px solid rgb(239, 68, 68);
+    background-color: rgba(239, 68, 68, 0.2);
+}
+
+/*===============================================
+   ÉLÉMENTS DE PROFIL
+   ===============================================*/
+
+#zone_photo, #zone_photo_parametre {
+    border-radius: 50%;
+    border: 3px solid rgb(168, 85, 247);
+    padding: 0;
+    margin: 0;
+    background-color: rgba(168, 85, 247, 0.15);
+}
+
+#zone_photo:hover, #zone_photo_parametre:hover {
+    background-color: rgba(168, 85, 247, 0.25);
+}
+
+#zone_info_perso_profil {
+    border-bottom: 2px solid rgba(148, 163, 184, 0.2);
+}
+
+/*===============================================
+   ÉLÉMENTS DE FORMULAIRE
+   ===============================================*/
+
+QLineEdit, QTextEdit {
+    background-color: rgb(30, 41, 59);
+    border: 1px solid #475569;
+    border-radius: 4px;
+    padding: 6px;
+    color: #cbd5e1;
+}
+
+QLineEdit:hover, QTextEdit:hover {
+    border: 1px solid #3b82f6;
+    background-color: rgb(15, 23, 42);
+}
+
+QLineEdit:focus, QTextEdit:focus, 
+QComboBox:focus, QDoubleSpinBox:focus {
+    border: 1px solid #3b82f6;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+/*===============================================
+   COMBOBOX
+   ===============================================*/
+
+QComboBox {
+    background-color: rgb(30, 41, 59);
+    border: 1px solid #475569;
+    border-radius: 4px;
+    padding: 6px 24px 6px 8px;
+    color: #cbd5e1;
+    font-size: 13px;
+    min-height: 18px;
+    selection-background-color: #3b82f6;
+}
+
+QComboBox:hover {
+    border-color: #3b82f6;
+    background-color: rgb(15, 23, 42);
+}
+
+QComboBox:focus {
+    border: 1px solid #3b82f6;
+    outline: none;
+}
+
+QComboBox:pressed {
+    background-color: rgb(51, 65, 85);
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border: none;
+    background-color: transparent;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+QComboBox::drop-down:hover {
+    background-color: rgba(51, 65, 85, 0.3);
+}
+
+QComboBox::drop-down:pressed {
+    background-color: rgba(51, 65, 85, 0.5);
+}
+
+QComboBox::down-arrow {
+    image: url(:/icon_gris/chevron-down.svg);
+    width: 12px;
+    height: 12px;
+}
+
+QComboBox::down-arrow:pressed {
+    image: url(:/icon_noir/chevron-down.svg);
+}
+
+QComboBox QAbstractItemView {
+    border: 1px solid #3b82f6;
+    border-radius: 4px;
+    background-color: rgb(30, 41, 59);
+    selection-background-color: #3b82f6;
+    selection-color: white;
+    padding: 2px;
+    outline: none;
+    show-decoration-selected: 1;
+}
+
+QComboBox QAbstractItemView::item {
+    height: 28px;
+    padding: 0 8px;
+    border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+    color: #cbd5e1;
+}
+
+QComboBox QAbstractItemView::item:last {
+    border-bottom: none;
+}
+
+QComboBox QAbstractItemView::item:hover {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+}
+
+QComboBox QAbstractItemView::item:selected {
+    background-color: #3b82f6;
+    color: white;
+}
+
+/*===============================================
+   SPINBOX ET DOUBLESPINBOX
+   ===============================================*/
+
+QDoubleSpinBox, QSpinBox {
+    background-color: rgb(30, 41, 59);
+    border: 1px solid #475569;
+    border-radius: 4px;
+    padding: 6px 8px;
+    color: #cbd5e1;
+    font-size: 13px;
+    min-height: 18px;
+    selection-background-color: #3b82f6;
+}
+
+QDoubleSpinBox:hover, QSpinBox:hover {
+    border-color: #3b82f6;
+    background-color: rgb(15, 23, 42);
+}
+
+QDoubleSpinBox:focus, QSpinBox:focus {
+    border: 1px solid #3b82f6;
+    outline: none;
+}
+
+QDoubleSpinBox::up-button, QSpinBox::up-button {
+    subcontrol-origin: border;
+    subcontrol-position: top right;
+    width: 18px;
+    height: 10px;
+    border: none;
+    background-color: transparent;
+    margin-top: 1px;
+    margin-right: 1px;
+}
+
+QDoubleSpinBox::up-button:hover, QSpinBox::up-button:hover {
+    background-color: rgba(51, 65, 85, 0.3);
+}
+
+QDoubleSpinBox::up-button:pressed, QSpinBox::up-button:pressed {
+    background-color: rgba(51, 65, 85, 0.5);
+}
+
+QDoubleSpinBox::down-button, QSpinBox::down-button {
+    subcontrol-origin: border;
+    subcontrol-position: bottom right;
+    width: 18px;
+    height: 10px;
+    border: none;
+    background-color: transparent;
+    margin-bottom: 1px;
+    margin-right: 1px;
+}
+
+QDoubleSpinBox::down-button:hover, QSpinBox::down-button:hover {
+    background-color: rgba(51, 65, 85, 0.3);
+}
+
+QDoubleSpinBox::down-button:pressed, QSpinBox::down-button:pressed {
+    background-color: rgba(51, 65, 85, 0.5);
+}
+
+QDoubleSpinBox::up-arrow, QSpinBox::up-arrow {
+    image: url(:/icon_gris/chevron-up.svg);
+    width: 8px;
+    height: 8px;
+}
+
+QDoubleSpinBox::up-arrow:hover, QSpinBox::up-arrow:hover {
+    image: url(:/icon_noir/chevron-up.svg);
+}
+
+QDoubleSpinBox::down-arrow, QSpinBox::down-arrow {
+    image: url(:/icon_gris/chevron-down.svg);
+    width: 8px;
+    height: 8px;
+}
+
+QDoubleSpinBox::down-arrow:hover, QSpinBox::down-arrow:hover {
+    image: url(:/icon_noir/chevron-down.svg);
+}
+
+QDoubleSpinBox::up-arrow:disabled, QSpinBox::up-arrow:disabled {
+    image: url(:/icon_gris/chevron-up-disabled.svg);
+}
+
+QDoubleSpinBox::down-arrow:disabled, QSpinBox::down-arrow:disabled {
+    image: url(:/icon_gris/chevron-down-disabled.svg);
+}
+
+/*===============================================
+   DATEEDIT
+   ===============================================*/
+
+QDateEdit {
+    border: 1px solid #475569;
+    border-radius: 4px;
+    padding: 6px 24px 6px 8px;
+    background-color: rgb(30, 41, 59);
+    color: #cbd5e1;
+    font-size: 13px;
+    min-height: 18px;
+}
+
+QDateEdit:hover {
+    border-color: #3b82f6;
+    background-color: rgb(15, 23, 42);
+}
+
+QDateEdit:focus {
+    border: 1px solid #3b82f6;
+    outline: none;
+}
+
+QDateEdit::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border: none;
+    border-left: 1px solid #475569;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color: rgba(51, 65, 85, 0.3);
+}
+
+QDateEdit::drop-down:hover {
+    background-color: rgba(51, 65, 85, 0.6);
+}
+
+QDateEdit::down-arrow {
+    image: url(:/icon_gris/calendar.svg);
+    width: 12px;
+    height: 12px;
+}
+
+/*===============================================
+   TABLEVIEW
+   ===============================================*/
+
+#tableView_transactions {
+    background-color: rgb(15, 23, 42);
+    border: none;
+}
+
+/*===============================================
+   ONGLETS DE TRANSACTION
+   ===============================================*/
+
+#mes_onglets_page_transaction {
+    background-color: rgb(15, 23, 42);
+    border: none;
+    border-radius: 4px;
+}
+
+#mes_onglets_page_transaction::pane {
+    border: none;
+    border-radius: 0 0 4px 4px;
+    background-color: rgb(15, 23, 42);
+}
+
+#mes_onglets_page_transaction > QTabBar {
+    background: transparent;
+    border: none;
+    spacing: 4px;
+}
+
+#mes_onglets_page_transaction > QTabBar::tab {
+    background-color: rgba(51, 65, 85, 0.5);
+    border: 1px solid rgb(51, 65, 85);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    padding: 8px 16px;
+    margin-right: 2px;
+    min-width: 100px;
+    color: rgb(100, 116, 139);
+}
+
+#mes_onglets_page_transaction > QTabBar::tab:selected {
+    background-color: rgb(15, 23, 42);
+    border-color: rgb(51, 65, 85);
+    color: rgb(148, 163, 184);
+    font-weight: 600;
+    border-bottom: 2px solid #3b82f6;
+    margin-bottom: -1px;
+}
+
+#mes_onglets_page_transaction > QTabBar::tab:hover {
+    background-color: rgba(51, 65, 85, 0.8);
+    color: rgb(59, 130, 246);
+}
+
+#mes_onglets_page_transaction > QTabBar::tab:selected:hover {
+    background-color: rgb(30, 41, 59);
+}
+
+#mes_onglets_page_transaction > QTabBar QToolButton {
+    background: rgb(51, 65, 85);
+    border-radius: 3px;
+    margin: 4px;
+}
+
+#mes_onglets_page_transaction > QTabBar QToolButton::right-arrow,
+#mes_onglets_page_transaction > QTabBar QToolButton::left-arrow {
+    image: url(:/icon_gris/chevron-right.svg);
+    width: 12px;
+    height: 12px;
+}
+
+/*===============================================
+   BARRES DE DÉFILEMENT
+   ===============================================*/
+
+QScrollBar:vertical {
+    border: none;
+    background-color: rgba(15, 23, 42, 0);
+    width: 10px;
+    margin: 0;
+}
+
+QScrollBar:horizontal {
+    border: none;
+    background-color: rgba(15, 23, 42, 0);
+    height: 10px;
+    margin: 0;
+}
+
+QScrollBar::handle:vertical,
+QScrollBar::handle:horizontal {
+    background-color: rgba(71, 85, 105, 0.5);
+    border-radius: 4px;
+    min-height: 20px;
+    min-width: 20px;
+    opacity: 0;
+    transition: opacity 300ms ease, background-color 300ms ease;
+}
+
+QScrollBar::handle:vertical:hover,
+QScrollBar::handle:horizontal:hover {
+    background-color: rgba(59, 130, 246, 0.6);
+    opacity: 1;
+}
+
+QScrollBar::handle:vertical:pressed,
+QScrollBar::handle:horizontal:pressed {
+    background-color: rgba(29, 78, 216, 0.8);
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical,
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {
+    border: none;
+    background: none;
+    height: 0;
+    width: 0;
+}
+
+QScrollBar:vertical:hover,
+QScrollBar:horizontal:hover {
+    background-color: rgba(15, 23, 42, 0.3);
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical,
+QScrollBar::add-page:horizontal,
+QScrollBar::sub-page:horizontal {
+    background: none;
+}
+
+/*===============================================
+   SÉPARATEURS
+   ===============================================*/
+
+Line {
+    background-color: rgb(51, 65, 85);
+    border-radius: 1px;
+    border: 1px solid rgb(51, 65, 85);
+    width: 1px;
+}
+
+#line, #line_2 {
+    border: none;
+    background-color: rgba(71, 85, 105, 0.7);
+    border-radius: 1px;
+    outline: none;
+}

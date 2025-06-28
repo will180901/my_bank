@@ -18,6 +18,7 @@ SOURCES += \
     creationbd.cpp \
     main.cpp \
     fenmain.cpp \
+    monboutonbascule.cpp \
     utilitairesmotdepasse.cpp
 
 HEADERS += \
@@ -29,6 +30,7 @@ HEADERS += \
     compteepargne.h \
     creationbd.h \
     fenmain.h \
+    monboutonbascule.h \
     utilitairesmotdepasse.h
 
 FORMS += \
