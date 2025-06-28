@@ -642,12 +642,14 @@ public:
         label_2 = new QLabel(widget_3);
         label_2->setObjectName("label_2");
         label_2->setAlignment(Qt::AlignmentFlag::AlignCenter);
+        label_2->setTextInteractionFlags(Qt::TextInteractionFlag::LinksAccessibleByKeyboard|Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextBrowserInteraction|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse);
 
         verticalLayout_2->addWidget(label_2);
 
         label_3 = new QLabel(widget_3);
         label_3->setObjectName("label_3");
         label_3->setAlignment(Qt::AlignmentFlag::AlignCenter);
+        label_3->setTextInteractionFlags(Qt::TextInteractionFlag::LinksAccessibleByKeyboard|Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextBrowserInteraction|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse);
 
         verticalLayout_2->addWidget(label_3);
 
@@ -719,6 +721,7 @@ public:
         label = new QLabel(widget_4);
         label->setObjectName("label");
         label->setAlignment(Qt::AlignmentFlag::AlignCenter);
+        label->setTextInteractionFlags(Qt::TextInteractionFlag::LinksAccessibleByKeyboard|Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextBrowserInteraction|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse);
 
         verticalLayout->addWidget(label, 0, Qt::AlignmentFlag::AlignVCenter);
 

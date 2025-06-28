@@ -8,6 +8,12 @@
 #include <QDateTime>
 #include <QGridLayout>
 #include <QUuid>
+#include <QLabel>
+#include <QLineEdit>
+#include <QTextEdit>
+#include <QGroupBox>
+#include <QMouseEvent>
+#include <QToolButton>
 
 fenMain::fenMain(CreationBD& m_BD, QWidget *parent, const QString &utilisateur_id)
     : QMainWindow(parent)
@@ -20,6 +26,10 @@ fenMain::fenMain(CreationBD& m_BD, QWidget *parent, const QString &utilisateur_i
     , m_creationBD(m_BD)
 {
     ui->setupUi(this);
+    this->installEventFilter(this);
+
+
+
     qApp->installEventFilter(this);
     qApp->processEvents();
 
@@ -49,7 +59,6 @@ fenMain::fenMain(CreationBD& m_BD, QWidget *parent, const QString &utilisateur_i
 
 
 
-
 fenMain::~fenMain()
 {
     // Sauvegarder avant de détruire
@@ -61,6 +70,39 @@ fenMain::~fenMain()
     }
 
     delete ui;
+}
+
+
+
+
+bool fenMain::eventFilter(QObject* obj, QEvent* event)
+{
+    // Gestion des boutons de masquage (code existant inchangé)
+    if (obj == ui->btn_masquer_solde_compte_courant ||
+        obj == ui->btn_masquer_solde_compte_epargne) {
+
+        QToolButton* button = qobject_cast<QToolButton*>(obj);
+        if (!button) return QMainWindow::eventFilter(obj, event);
+
+        if (event->type() == QEvent::Enter) {
+            appliquerStyleBoutonMasquage(button, true);
+            bool visible = (button == ui->btn_masquer_solde_compte_courant) ?
+                               m_soldeVisibleCompteCourant : m_soldeVisibleCompteEpargne;
+            mettreAjourIcon(button, visible);
+            return true;
+        }
+        else if (event->type() == QEvent::Leave) {
+            appliquerStyleBoutonMasquage(button, false);
+            bool visible = (button == ui->btn_masquer_solde_compte_courant) ?
+                               m_soldeVisibleCompteCourant : m_soldeVisibleCompteEpargne;
+            mettreAjourIcon(button, visible);
+            return true;
+        }
+    }
+
+
+
+    return QMainWindow::eventFilter(obj, event);
 }
 
 
@@ -262,16 +304,6 @@ void fenMain::chargerComptesBancaires()
     // Vider les comptes existants avant de recharger
     m_banque.viderComptes();
 
-    // CORRECTION: Supprimer les références à 'comptes' non déclaré
-    // Supprimer ces lignes qui causent l'erreur:
-    /*
-    for (CompteBancaire* compte : m_comptes) {
-        if (compte) {
-            delete compte;
-        }
-    }
-    comptes.clear();
-    */
 
     QSqlDatabase db = m_creationBD.getDatabase();
     QSqlQuery query(db);
@@ -386,33 +418,7 @@ void fenMain::mettreAJourAffichageComptes()
     }
 }
 
-bool fenMain::eventFilter(QObject* obj, QEvent* event)
-{
-    // Gestion des boutons de masquage
-    if (obj == ui->btn_masquer_solde_compte_courant ||
-        obj == ui->btn_masquer_solde_compte_epargne) {
 
-        QToolButton* button = qobject_cast<QToolButton*>(obj);
-        if (!button) return QMainWindow::eventFilter(obj, event);
-
-        if (event->type() == QEvent::Enter) {
-            appliquerStyleBoutonMasquage(button, true);
-            bool visible = (button == ui->btn_masquer_solde_compte_courant) ?
-                               m_soldeVisibleCompteCourant : m_soldeVisibleCompteEpargne;
-            mettreAjourIcon(button, visible);
-            return true;
-        }
-        else if (event->type() == QEvent::Leave) {
-            appliquerStyleBoutonMasquage(button, false);
-            bool visible = (button == ui->btn_masquer_solde_compte_courant) ?
-                               m_soldeVisibleCompteCourant : m_soldeVisibleCompteEpargne;
-            mettreAjourIcon(button, visible);
-            return true;
-        }
-    }
-
-    return QMainWindow::eventFilter(obj, event);
-}
 
 
 

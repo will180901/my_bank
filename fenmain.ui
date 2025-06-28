@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="cursor">
-   <cursorShape>PointingHandCursor</cursorShape>
+   <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
    <string>fenMain</string>
@@ -1384,6 +1384,9 @@ Line {
                                   <property name="text">
                                    <string/>
                                   </property>
+                                  <property name="textInteractionFlags">
+                                   <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse</set>
+                                  </property>
                                  </widget>
                                 </item>
                                </layout>
@@ -1447,6 +1450,9 @@ Line {
                                </property>
                                <property name="text">
                                 <string/>
+                               </property>
+                               <property name="textInteractionFlags">
+                                <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse</set>
                                </property>
                               </widget>
                              </item>
@@ -1527,6 +1533,9 @@ Line {
                                <property name="text">
                                 <string/>
                                </property>
+                               <property name="textInteractionFlags">
+                                <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse</set>
+                               </property>
                               </widget>
                              </item>
                             </layout>
@@ -1554,6 +1563,9 @@ Line {
                                </property>
                                <property name="text">
                                 <string/>
+                               </property>
+                               <property name="textInteractionFlags">
+                                <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse</set>
                                </property>
                               </widget>
                              </item>
@@ -1588,6 +1600,9 @@ Line {
                            <widget class="QLabel" name="label_derniere_transaction_compte_courant">
                             <property name="text">
                              <string/>
+                            </property>
+                            <property name="textInteractionFlags">
+                             <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse</set>
                             </property>
                            </widget>
                           </item>
@@ -1770,6 +1785,9 @@ Line {
                                   <property name="text">
                                    <string/>
                                   </property>
+                                  <property name="textInteractionFlags">
+                                   <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse</set>
+                                  </property>
                                  </widget>
                                 </item>
                                </layout>
@@ -1830,6 +1848,9 @@ Line {
                                </property>
                                <property name="text">
                                 <string/>
+                               </property>
+                               <property name="textInteractionFlags">
+                                <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse</set>
                                </property>
                               </widget>
                              </item>
@@ -1928,6 +1949,9 @@ Line {
                                <property name="text">
                                 <string/>
                                </property>
+                               <property name="textInteractionFlags">
+                                <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse</set>
+                               </property>
                               </widget>
                              </item>
                             </layout>
@@ -1943,6 +1967,9 @@ Line {
                               <widget class="QLabel" name="label_numero_de_compte_epargne">
                                <property name="text">
                                 <string/>
+                               </property>
+                               <property name="textInteractionFlags">
+                                <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse</set>
                                </property>
                               </widget>
                              </item>
@@ -1977,6 +2004,9 @@ Line {
                            <widget class="QLabel" name="label_derniere_transaction_compte_epargne">
                             <property name="text">
                              <string/>
+                            </property>
+                            <property name="textInteractionFlags">
+                             <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse</set>
                             </property>
                            </widget>
                           </item>
@@ -2368,6 +2398,9 @@ Line {
                  </item>
                  <item>
                   <widget class="QLabel" name="label_10">
+                   <property name="tabletTracking">
+                    <bool>true</bool>
+                   </property>
                    <property name="text">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#696969;&quot;&gt;gérer les paramètres de votre système &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>

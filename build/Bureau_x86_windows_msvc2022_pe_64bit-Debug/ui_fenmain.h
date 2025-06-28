@@ -278,7 +278,7 @@ public:
             fenMain->setObjectName("fenMain");
         fenMain->resize(1144, 688);
         fenMain->setMinimumSize(QSize(900, 500));
-        fenMain->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
+        fenMain->setCursor(QCursor(Qt::CursorShape::ArrowCursor));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/icon_personnalises/Banking_00017_A_icon-icons.com_59837.svg"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
         fenMain->setWindowIcon(icon);
@@ -1425,6 +1425,7 @@ public:
         verticalLayout_12->setContentsMargins(2, 2, 2, 2);
         label_date_creation_compte_courant = new QLabel(groupBox_2);
         label_date_creation_compte_courant->setObjectName("label_date_creation_compte_courant");
+        label_date_creation_compte_courant->setTextInteractionFlags(Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse);
 
         verticalLayout_12->addWidget(label_date_creation_compte_courant);
 
@@ -1461,6 +1462,7 @@ public:
         sizePolicy4.setHeightForWidth(label_solde_compte_courant->sizePolicy().hasHeightForWidth());
         label_solde_compte_courant->setSizePolicy(sizePolicy4);
         label_solde_compte_courant->setMinimumSize(QSize(89, 20));
+        label_solde_compte_courant->setTextInteractionFlags(Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse);
 
         horizontalLayout_10->addWidget(label_solde_compte_courant);
 
@@ -1497,6 +1499,7 @@ public:
         label_decouvert_autorise_compte_courant = new QLabel(groupBox_3);
         label_decouvert_autorise_compte_courant->setObjectName("label_decouvert_autorise_compte_courant");
         label_decouvert_autorise_compte_courant->setMinimumSize(QSize(62, 20));
+        label_decouvert_autorise_compte_courant->setTextInteractionFlags(Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse);
 
         horizontalLayout_9->addWidget(label_decouvert_autorise_compte_courant);
 
@@ -1515,6 +1518,7 @@ public:
         label_numero_de_compte_courant = new QLabel(groupBox_4);
         label_numero_de_compte_courant->setObjectName("label_numero_de_compte_courant");
         label_numero_de_compte_courant->setMinimumSize(QSize(105, 20));
+        label_numero_de_compte_courant->setTextInteractionFlags(Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse);
 
         horizontalLayout_8->addWidget(label_numero_de_compte_courant);
 
@@ -1532,6 +1536,7 @@ public:
         horizontalLayout_11->setContentsMargins(2, 2, 2, 2);
         label_derniere_transaction_compte_courant = new QLabel(groupBox_5);
         label_derniere_transaction_compte_courant->setObjectName("label_derniere_transaction_compte_courant");
+        label_derniere_transaction_compte_courant->setTextInteractionFlags(Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse);
 
         horizontalLayout_11->addWidget(label_derniere_transaction_compte_courant);
 
@@ -1628,6 +1633,7 @@ public:
         verticalLayout_17->setContentsMargins(2, 2, 2, 2);
         label_date_creation_compte_epargne = new QLabel(groupBox_6);
         label_date_creation_compte_epargne->setObjectName("label_date_creation_compte_epargne");
+        label_date_creation_compte_epargne->setTextInteractionFlags(Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse);
 
         verticalLayout_17->addWidget(label_date_creation_compte_epargne);
 
@@ -1657,6 +1663,7 @@ public:
         label_solde_compte_epargne = new QLabel(groupBox_7);
         label_solde_compte_epargne->setObjectName("label_solde_compte_epargne");
         label_solde_compte_epargne->setMinimumSize(QSize(89, 19));
+        label_solde_compte_epargne->setTextInteractionFlags(Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse);
 
         horizontalLayout_16->addWidget(label_solde_compte_epargne);
 
@@ -1694,6 +1701,7 @@ public:
         label_taux_interet_compte_epargne->setObjectName("label_taux_interet_compte_epargne");
         sizePolicy4.setHeightForWidth(label_taux_interet_compte_epargne->sizePolicy().hasHeightForWidth());
         label_taux_interet_compte_epargne->setSizePolicy(sizePolicy4);
+        label_taux_interet_compte_epargne->setTextInteractionFlags(Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse);
 
         horizontalLayout_17->addWidget(label_taux_interet_compte_epargne);
 
@@ -1706,6 +1714,7 @@ public:
         horizontalLayout_18->setObjectName("horizontalLayout_18");
         label_numero_de_compte_epargne = new QLabel(groupBox_9);
         label_numero_de_compte_epargne->setObjectName("label_numero_de_compte_epargne");
+        label_numero_de_compte_epargne->setTextInteractionFlags(Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse);
 
         horizontalLayout_18->addWidget(label_numero_de_compte_epargne);
 
@@ -1723,6 +1732,7 @@ public:
         horizontalLayout_19->setContentsMargins(2, 2, 2, 2);
         label_derniere_transaction_compte_epargne = new QLabel(groupBox_10);
         label_derniere_transaction_compte_epargne->setObjectName("label_derniere_transaction_compte_epargne");
+        label_derniere_transaction_compte_epargne->setTextInteractionFlags(Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse);
 
         horizontalLayout_19->addWidget(label_derniere_transaction_compte_epargne);
 
@@ -1963,6 +1973,7 @@ public:
 
         label_10 = new QLabel(widget_30);
         label_10->setObjectName("label_10");
+        label_10->setTabletTracking(true);
 
         verticalLayout_16->addWidget(label_10);
 

@@ -13,6 +13,8 @@
 #include <QStackedWidget>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QTextEdit>
+#include <QLineEdit>
 
 namespace Ui {
 class fenMain;
@@ -87,7 +89,9 @@ private:
     bool enregistrerTransaction(const QString& typeOperation, double montant,
                                          const QString& compteSource, const QString& compteDest,
                                          const QString& motif);
+
     // Variables membres
+
     QString m_utilisateur_id;
     bool m_soldeVisibleCompteCourant;
     bool m_soldeVisibleCompteEpargne;
