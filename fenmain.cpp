@@ -6,8 +6,6 @@
 #include <QMessageBox>
 #include <QSqlQuery>
 #include <QDateTime>
-#include "comptecourant.h"
-#include "compteepargne.h"
 #include <QGridLayout>
 #include <QUuid>
 
@@ -20,13 +18,18 @@ fenMain::fenMain(CreationBD& m_BD, QWidget *parent, const QString &utilisateur_i
     , m_soldeAnimation(new AnimationSolde(this))
     , m_banque("MyBank")
     , m_creationBD(m_BD)
-    , m_rideauCompteCourant(nullptr)
-    , m_rideauCompteEpargne(nullptr)
 {
     ui->setupUi(this);
     qApp->installEventFilter(this);
+    qApp->processEvents();
 
     this->showMaximized();
+
+
+    ui->comboBox_type_operation_onglet_depot_retrait->clear();
+    ui->comboBox_type_operation_onglet_depot_retrait->addItem("Dépôt");
+    ui->comboBox_type_operation_onglet_depot_retrait->addItem("Retrait");
+    ui->comboBox_type_operation_onglet_depot_retrait->setCurrentIndex(0);
 
     ui->mes_pages->setCurrentWidget(ui->page_dashboard);
     ui->btn_masquer_solde_compte_courant->installEventFilter(this);
@@ -41,14 +44,26 @@ fenMain::fenMain(CreationBD& m_BD, QWidget *parent, const QString &utilisateur_i
     mettreAjourIcon(ui->btn_masquer_solde_compte_epargne, m_soldeVisibleCompteEpargne);
 
     chargerDonneesDepuisBD();
-    mettreAJourApparenceComptes();
+    mettreAJourAffichageComptes();
 }
+
+
+
 
 fenMain::~fenMain()
 {
+    // Sauvegarder avant de détruire
     sauvegarderDonnees();
+
+    if (m_soldeAnimation) {
+        delete m_soldeAnimation;
+        m_soldeAnimation = nullptr;
+    }
+
     delete ui;
 }
+
+
 
 
 void fenMain::sauvegarderDonnees()
@@ -79,164 +94,7 @@ void fenMain::sauvegarderDonnees()
     }
 }
 
-void fenMain::appliquerEffetFlouCompte(QWidget* widgetCarte, bool appliquerFlou)
-{
-    if (appliquerFlou) {
-        if (widgetCarte == ui->carte_courant_principal && !m_rideauCompteCourant) {
-            // Utiliser le conteneur existant zone_rideau_compte_courant
-            QWidget* conteneurRideau = ui->zone_rideau_compte_courant;
-            creerRideau(conteneurRideau, m_rideauCompteCourant,
-                        "Aucun compte courant n'est créé pour cet utilisateur !",
-                        [this]() { this->creerCompteCourant(); });
-        }
-        else if (widgetCarte == ui->carte_epargne && !m_rideauCompteEpargne) {
-            // Utiliser le conteneur existant zone_rideau_compte_epargne
-            QWidget* conteneurRideau = ui->zone_rideau_compte_epargne;
-            creerRideau(conteneurRideau, m_rideauCompteEpargne,
-                        "Aucun compte épargne n'est créé pour cet utilisateur !",
-                        [this]() { this->creerCompteEpargne(); });
-        }
-    } else {
-        if (widgetCarte == ui->carte_courant_principal && m_rideauCompteCourant) {
-            delete m_rideauCompteCourant;
-            m_rideauCompteCourant = nullptr;
-        }
-        else if (widgetCarte == ui->carte_epargne && m_rideauCompteEpargne) {
-            delete m_rideauCompteEpargne;
-            m_rideauCompteEpargne = nullptr;
-        }
-    }
-}
 
-void fenMain::creerRideau(QWidget* conteneurParent, QWidget*& rideau, const QString& message, std::function<void()> callback)
-{
-    // Créer le rideau comme overlay par-dessus le contenu existant
-    rideau = new QWidget(conteneurParent);
-    rideau->setStyleSheet(
-        "QWidget {"
-        "   background-color: rgba(0, 0, 0, 0.8);"
-        "   border-radius: 8px;"
-        "}"
-        );
-
-    // Permettre aux événements de souris de passer aux widgets enfants
-    rideau->setAttribute(Qt::WA_TransparentForMouseEvents, false);
-    rideau->setFocusPolicy(Qt::NoFocus);
-
-    // Positionner le rideau pour qu'il couvre exactement tout le conteneur parent
-    rideau->move(0, 0);
-    rideau->resize(conteneurParent->size());
-
-    // S'assurer que le rideau se redimensionne avec le conteneur parent
-    rideau->setGeometry(0, 0, conteneurParent->width(), conteneurParent->height());
-
-    // Layout interne du rideau pour centrer le contenu
-    QVBoxLayout* layoutRideau = new QVBoxLayout(rideau);
-    layoutRideau->setContentsMargins(20, 20, 20, 20);
-    layoutRideau->setSpacing(15);
-
-    // Spacer du haut pour centrer verticalement
-    layoutRideau->addStretch(1);
-
-    // Label du message avec une meilleure visibilité
-    QLabel* labelMessage = new QLabel(message, rideau);
-    labelMessage->setStyleSheet(
-        "QLabel {"
-        "   color: white;"
-        "   font-weight: bold;"
-        "   font-size: 14px;"
-        "   background: transparent;"
-        "   padding: 15px;"
-        "   margin: 0px;"
-        "   border: none;"
-        "   text-shadow: 2px 2px 4px rgba(0, 0, 0, 1.0);"
-        "}"
-        );
-    labelMessage->setAlignment(Qt::AlignCenter);
-    labelMessage->setWordWrap(true);
-    layoutRideau->addWidget(labelMessage);
-
-    // Bouton de création avec gestion optimisée des événements
-    QPushButton* boutonCreer = new QPushButton("Créer un compte", rideau);
-    boutonCreer->setStyleSheet(
-        "QPushButton {"
-        "   background-color: rgb(102, 71, 255);"
-        "   color: white;"
-        "   border: none;"
-        "   border-radius: 8px;"
-        "   padding: 15px 30px;"
-        "   font-weight: bold;"
-        "   font-size: 13px;"
-        "   min-height: 20px;"
-        "   margin: 0px;"
-        "}"
-        "QPushButton:hover {"
-        "   background-color: rgb(82, 51, 235);"
-        "   cursor: pointer;"
-        "}"
-        "QPushButton:pressed {"
-        "   background-color: rgb(62, 31, 215);"
-        "}"
-        );
-
-    // Configuration du curseur et des événements
-    boutonCreer->setCursor(Qt::PointingHandCursor);
-    boutonCreer->setAttribute(Qt::WA_Hover, true);
-    boutonCreer->setFocusPolicy(Qt::StrongFocus);
-    boutonCreer->setEnabled(true);
-    boutonCreer->setVisible(true);
-
-    // S'assurer que le bouton est interactif
-    boutonCreer->setMouseTracking(true);
-    boutonCreer->setAttribute(Qt::WA_TransparentForMouseEvents, false);
-    boutonCreer->raise();
-
-    // Test de connexion avec debug
-    connect(boutonCreer, &QPushButton::clicked, this, [callback, this, boutonCreer]() {
-        qDebug() << "Bouton cliqué!"; // Pour debug
-        callback();
-        mettreAJourApparenceComptes();
-
-    });
-
-    // Centrer le bouton horizontalement
-    QHBoxLayout* layoutBouton = new QHBoxLayout();
-    layoutBouton->addStretch(1);
-    layoutBouton->addWidget(boutonCreer);
-    layoutBouton->addStretch(1);
-    layoutRideau->addLayout(layoutBouton);
-
-    // Spacer du bas pour centrer verticalement
-    layoutRideau->addStretch(1);
-
-    // Mettre le rideau au premier plan comme overlay
-    rideau->raise();
-    rideau->show();
-
-    // S'assurer que tous les widgets enfants sont au-dessus
-    labelMessage->raise();
-    boutonCreer->raise();
-
-    // Forcer la mise à jour de l'affichage
-    rideau->repaint();
-    boutonCreer->repaint();
-
-    // Installer un filtre d'événements pour détecter le redimensionnement
-    conteneurParent->installEventFilter(this);
-}
-
-
-void fenMain::mettreAJourApparenceComptes()
-{
-    bool compteCourantExiste = (getCompteCourant() != nullptr);
-    bool compteEpargneExiste = (getCompteEpargne() != nullptr);
-
-    appliquerEffetFlouCompte(ui->carte_courant_principal, !compteCourantExiste);
-    appliquerEffetFlouCompte(ui->carte_epargne, !compteEpargneExiste);
-
-    ui->carte_courant_principal->setEnabled(compteCourantExiste);
-    ui->carte_epargne->setEnabled(compteEpargneExiste);
-}
 
 void fenMain::creerCompteCourant()
 {
@@ -248,7 +106,6 @@ void fenMain::creerCompteCourant()
     creerCompteCourantEnBD();
     chargerComptesBancaires();
     mettreAJourAffichageComptes();
-    mettreAJourApparenceComptes();
 
     QMessageBox::information(this, "Compte créé", "Votre compte courant a été créé avec succès !");
 }
@@ -263,7 +120,6 @@ void fenMain::creerCompteEpargne()
     creerCompteEpargneEnBD();
     chargerComptesBancaires();
     mettreAJourAffichageComptes();
-    mettreAJourApparenceComptes();
 
     QMessageBox::information(this, "Compte créé", "Votre compte épargne a été créé avec succès !");
 }
@@ -271,7 +127,7 @@ void fenMain::creerCompteEpargne()
 QString fenMain::genererNumeroCompte(const QString& typeCompte)
 {
     QString prefixe = (typeCompte == "courant") ? "CC" : "CE";
-    QString uuid = QUuid::createUuid().toString().remove('{').remove('}').remove('-').left(10);
+    QString uuid = QUuid::createUuid().toString(QUuid::WithoutBraces).remove('-').left(10);
     return prefixe + uuid.toUpper();
 }
 
@@ -302,7 +158,7 @@ void fenMain::creerCompteCourantEnBD()
     // Insérer le nouveau compte
     query.prepare("INSERT INTO comptes (numero_compte, nom_titulaire, solde, type_compte, "
                   "date_creation, derniere_operation, id_utilisateur, decouvert_autorise, id_banque) "
-                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)"); // id_banque = 1 pour MyBank
+                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)");
 
     query.addBindValue(numeroCompte);
     query.addBindValue(nomTitulaire);
@@ -318,6 +174,7 @@ void fenMain::creerCompteCourantEnBD()
         QMessageBox::critical(this, "Erreur", "Erreur création compte courant: " + query.lastError().text());
     }
 }
+
 
 void fenMain::creerCompteEpargneEnBD()
 {
@@ -346,7 +203,7 @@ void fenMain::creerCompteEpargneEnBD()
     // Insérer le nouveau compte
     query.prepare("INSERT INTO comptes (numero_compte, nom_titulaire, solde, type_compte, "
                   "date_creation, derniere_operation, id_utilisateur, taux_interet, id_banque) "
-                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)"); // id_banque = 1 pour MyBank
+                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)");
 
     query.addBindValue(numeroCompte);
     query.addBindValue(nomTitulaire);
@@ -393,6 +250,8 @@ void fenMain::chargerInformationsUtilisateur()
     }
 }
 
+
+
 void fenMain::chargerComptesBancaires()
 {
     if (!m_creationBD.estOuverte()) {
@@ -400,16 +259,24 @@ void fenMain::chargerComptesBancaires()
         return;
     }
 
-    // Vider les comptes existants
-    for (CompteBancaire* compte : m_banque.getComptes()) {
-        delete compte;
+    // Vider les comptes existants avant de recharger
+    m_banque.viderComptes();
+
+    // CORRECTION: Supprimer les références à 'comptes' non déclaré
+    // Supprimer ces lignes qui causent l'erreur:
+    /*
+    for (CompteBancaire* compte : m_comptes) {
+        if (compte) {
+            delete compte;
+        }
     }
-    m_banque.getComptes().clear();
+    comptes.clear();
+    */
 
     QSqlDatabase db = m_creationBD.getDatabase();
     QSqlQuery query(db);
 
-    query.prepare("SELECT * FROM comptes WHERE id_utilisateur = ?");
+    query.prepare("SELECT * FROM comptes WHERE id_utilisateur = ? AND est_actif = 1");
     query.addBindValue(m_utilisateur_id);
 
     if (!query.exec()) {
@@ -427,11 +294,14 @@ void fenMain::chargerComptesBancaires()
 
         CompteBancaire* compte = nullptr;
 
+        // CORRECTION: Validation des valeurs avant création
         if (typeCompte == "courant") {
             double decouvert = query.value("decouvert_autorise").toDouble();
+            if (decouvert < 0) decouvert = 0; // Protection contre valeurs négatives
             compte = new CompteCourant(numeroCompte, nomTitulaire, solde, decouvert);
         } else if (typeCompte == "epargne") {
             double taux = query.value("taux_interet").toDouble();
+            if (taux < 0) taux = 0; // Protection contre valeurs négatives
             compte = new CompteEpargne(numeroCompte, nomTitulaire, solde, taux);
         }
 
@@ -442,6 +312,7 @@ void fenMain::chargerComptesBancaires()
         }
     }
 }
+
 
 CompteCourant* fenMain::getCompteCourant() const
 {
@@ -513,12 +384,11 @@ void fenMain::mettreAJourAffichageComptes()
         ui->label_date_creation_compte_epargne->setText("N/A");
         ui->label_derniere_transaction_compte_epargne->setText("N/A");
     }
-
-    mettreAJourApparenceComptes();
 }
 
 bool fenMain::eventFilter(QObject* obj, QEvent* event)
 {
+    // Gestion des boutons de masquage
     if (obj == ui->btn_masquer_solde_compte_courant ||
         obj == ui->btn_masquer_solde_compte_epargne) {
 
@@ -541,22 +411,10 @@ bool fenMain::eventFilter(QObject* obj, QEvent* event)
         }
     }
 
-
-    if (event->type() == QEvent::Resize) {
-        if (obj == ui->zone_rideau_compte_courant && m_rideauCompteCourant) {
-            QWidget* conteneur = static_cast<QWidget*>(obj);
-            m_rideauCompteCourant->resize(conteneur->size());
-            m_rideauCompteCourant->setGeometry(0, 0, conteneur->width(), conteneur->height());
-        }
-        else if (obj == ui->zone_rideau_compte_epargne && m_rideauCompteEpargne) {
-            QWidget* conteneur = static_cast<QWidget*>(obj);
-            m_rideauCompteEpargne->resize(conteneur->size());
-            m_rideauCompteEpargne->setGeometry(0, 0, conteneur->width(), conteneur->height());
-        }
-    }
-
     return QMainWindow::eventFilter(obj, event);
 }
+
+
 
 void fenMain::mettreAJourStyleBoutonsLateraux()
 {
@@ -653,7 +511,173 @@ void fenMain::mettreAjourIcon(QToolButton* button, bool visible)
     button->update();
 }
 
-// SLOTS - Gestion des événements UI
+
+
+void fenMain::sauvegarderCompte(CompteBancaire* compte)
+{
+    if (!compte || !m_creationBD.estOuverte()) return;
+
+    QSqlDatabase db = m_creationBD.getDatabase();
+    QSqlQuery query(db);
+    query.prepare("UPDATE comptes SET solde = ?, derniere_operation = ? WHERE numero_compte = ?");
+    query.addBindValue(compte->getSolde());
+    query.addBindValue(compte->getDerniereOperation());
+    query.addBindValue(compte->getNumeroCompte());
+
+    if (!query.exec()) {
+        qWarning() << "Erreur sauvegarde compte" << compte->getNumeroCompte() << ":" << query.lastError().text();
+    }
+}
+
+
+
+bool fenMain::enregistrerTransaction(const QString& typeOperation, double montant,
+                                     const QString& compteSource, const QString& compteDest,
+                                     const QString& motif)
+{
+    if (!m_creationBD.estOuverte()) {
+        return false;
+    }
+
+    QSqlDatabase db = m_creationBD.getDatabase();
+    QSqlQuery query(db);
+
+    // Récupérer les IDs des comptes
+    query.prepare("SELECT id FROM comptes WHERE numero_compte = ?");
+    query.addBindValue(compteSource);
+
+    if (!query.exec() || !query.next()) {
+        qWarning() << "Compte source non trouvé pour transaction";
+        return false;
+    }
+    int idCompteSource = query.value(0).toInt();
+
+    int idCompteBeneficiaire = -1;
+    if (!compteDest.isEmpty()) {
+        query.prepare("SELECT id FROM comptes WHERE numero_compte = ?");
+        query.addBindValue(compteDest);
+
+        if (query.exec() && query.next()) {
+            idCompteBeneficiaire = query.value(0).toInt();
+        }
+    }
+
+    // Insérer la transaction
+    if (idCompteBeneficiaire > 0) {
+        query.prepare("INSERT INTO transactions (type_operation, montant, id_compte_source, "
+                      "id_compte_beneficiaire, date_operation, libelle, statut) "
+                      "VALUES (?, ?, ?, ?, ?, ?, 'valide')");
+        query.addBindValue(typeOperation);
+        query.addBindValue(montant);
+        query.addBindValue(idCompteSource);
+        query.addBindValue(idCompteBeneficiaire);
+        query.addBindValue(QDateTime::currentDateTime().toString(Qt::ISODate));
+        query.addBindValue(motif);
+    } else {
+        query.prepare("INSERT INTO transactions (type_operation, montant, id_compte_source, "
+                      "date_operation, libelle, statut) "
+                      "VALUES (?, ?, ?, ?, ?, 'valide')");
+        query.addBindValue(typeOperation);
+        query.addBindValue(montant);
+        query.addBindValue(idCompteSource);
+        query.addBindValue(QDateTime::currentDateTime().toString(Qt::ISODate));
+        query.addBindValue(motif);
+    }
+
+    if (!query.exec()) {
+        qWarning() << "Erreur enregistrement transaction:" << query.lastError().text();
+        return false;
+    }
+
+    return true;
+}
+
+
+
+
+void fenMain::on_btn_valider_transaction_clicked()
+{
+    int indexOnglet = ui->mes_onglets_page_transaction->currentIndex();
+
+    if (indexOnglet == 0) { // Onglet dépôt/retrait
+        QString numeroCompte = ui->sai_numero_compte_onglet_depot_retrait->text().trimmed();
+        double montant = ui->doubleSpinBox_montant_onglet_depot_retrait->value();
+        QString motif = ui->textEdit_motif_onglet_depot_retrait->toPlainText().trimmed();
+        QString typeOperation = ui->comboBox_type_operation_onglet_depot_retrait->currentText();
+
+        // CORRECTION: Validation des entrées
+        if (numeroCompte.isEmpty()) {
+            QMessageBox::warning(this, "Erreur", "Veuillez saisir un numéro de compte!");
+            ui->sai_numero_compte_onglet_depot_retrait->setFocus();
+            return;
+        }
+
+        if (montant <= 0) {
+            QMessageBox::warning(this, "Erreur", "Veuillez saisir un montant valide!");
+            ui->doubleSpinBox_montant_onglet_depot_retrait->setFocus();
+            return;
+        }
+
+        CompteBancaire* compte = m_banque.trouverCompte(numeroCompte);
+        if (!compte) {
+            QMessageBox::warning(this, "Erreur", "Compte introuvable!");
+            ui->sai_numero_compte_onglet_depot_retrait->setFocus();
+            return;
+        }
+
+        if (typeOperation == "Dépôt") {
+            effectuerDepot(compte, montant, motif);
+        }
+        else if (typeOperation == "Retrait") {
+            effectuerRetrait(compte, montant, motif);
+        }
+        else {
+            QMessageBox::warning(this, "Erreur", "Type d'opération invalide!");
+            return;
+        }
+
+    } else if (indexOnglet == 1) { // Onglet virement
+        QString compteSource = ui->sai_numero_compte_source_onglet_virement->text().trimmed();
+        QString compteDest = ui->sai_numero_compte_beneficiaire_onglet_virement->text().trimmed();
+        double montant = ui->doubleSpinBox_montant_onglet_virement->value();
+        QString motif = ui->textEdit_motif_onglet_virement->toPlainText().trimmed();
+
+        // CORRECTION: Validation des entrées
+        if (compteSource.isEmpty()) {
+            QMessageBox::warning(this, "Erreur", "Veuillez saisir le compte source!");
+            ui->sai_numero_compte_source_onglet_virement->setFocus();
+            return;
+        }
+
+        if (compteDest.isEmpty()) {
+            QMessageBox::warning(this, "Erreur", "Veuillez saisir le compte bénéficiaire!");
+            ui->sai_numero_compte_beneficiaire_onglet_virement->setFocus();
+            return;
+        }
+
+        if (montant <= 0) {
+            QMessageBox::warning(this, "Erreur", "Veuillez saisir un montant valide!");
+            ui->doubleSpinBox_montant_onglet_virement->setFocus();
+            return;
+        }
+
+        effectuerVirement(compteSource, compteDest, montant, motif);
+    }
+
+    // Réinitialiser les champs après opération réussie
+    ui->sai_numero_compte_onglet_depot_retrait->clear();
+    ui->doubleSpinBox_montant_onglet_depot_retrait->setValue(0);
+    ui->textEdit_motif_onglet_depot_retrait->clear();
+    ui->sai_numero_compte_source_onglet_virement->clear();
+    ui->sai_numero_compte_beneficiaire_onglet_virement->clear();
+    ui->doubleSpinBox_montant_onglet_virement->setValue(0);
+    ui->textEdit_motif_onglet_virement->clear();
+}
+
+
+
+
+
 void fenMain::on_btn_masquer_solde_compte_courant_clicked()
 {
     m_soldeVisibleCompteCourant = !m_soldeVisibleCompteCourant;
@@ -701,12 +725,14 @@ void fenMain::on_btn_consulter_compte_courant_clicked()
 void fenMain::on_btn_effectuer_transaction_compte_courant_clicked()
 {
     ui->mes_pages->setCurrentWidget(ui->page_transaction);
+    ui->mes_onglets_page_transaction->setCurrentWidget(ui->onglet_depot_retrait);
     mettreAJourStyleBoutonsLateraux();
 }
 
 void fenMain::on_btn_effectuer_transaction_compte_epargne_clicked()
 {
     ui->mes_pages->setCurrentWidget(ui->page_transaction);
+    ui->mes_onglets_page_transaction->setCurrentWidget(ui->onglet_depot_retrait);
     mettreAJourStyleBoutonsLateraux();
 }
 
@@ -716,12 +742,374 @@ void fenMain::on_btn_voir_liste_complete_transaction_clicked()
     mettreAJourStyleBoutonsLateraux();
 }
 
-void fenMain::on_btn_creer_compte_courant_clicked()
+void fenMain::on_btn_ajouter_compte_courant_clicked()
 {
     creerCompteCourant();
 }
 
-void fenMain::on_btn_creer_compte_epargne_clicked()
+void fenMain::on_btn_ajouter_compte_epargne_clicked()
 {
     creerCompteEpargne();
 }
+
+
+
+
+
+
+void fenMain::effectuerDepot(CompteBancaire* compte, double montant, const QString& motif)
+{
+    // CORRECTION: Validation complète des paramètres
+    if (!compte) {
+        QMessageBox::warning(this, "Erreur", "Compte invalide!");
+        return;
+    }
+
+    if (montant <= 0 || montant > 999999999.99) { // Limite raisonnable
+        QMessageBox::warning(this, "Erreur", "Montant invalide! (0 < montant ≤ 999,999,999.99)");
+        return;
+    }
+
+    // Vérification du débordement
+    double nouveauSolde = compte->getSolde() + montant;
+    if (nouveauSolde > 999999999.99) {
+        QMessageBox::warning(this, "Erreur", "Le solde dépasserait la limite autorisée!");
+        return;
+    }
+
+    compte->deposer(montant);
+
+    // Mettre à jour dernière opération avec timestamp
+    QString timestamp = QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm:ss");
+    QString operation = QString("Dépôt: +%1 FCFA - %2 [%3]")
+                            .arg(QString::number(montant, 'f', 2))
+                            .arg(motif.isEmpty() ? "Sans motif" : motif)
+                            .arg(timestamp);
+    compte->setDerniereOperation(operation);
+
+    // Enregistrer la transaction en base
+    if (!enregistrerTransaction("depot", montant, compte->getNumeroCompte(), QString(), motif)) {
+        qWarning() << "Erreur lors de l'enregistrement de la transaction";
+    }
+
+    sauvegarderCompte(compte);
+    mettreAJourAffichageComptes();
+    QMessageBox::information(this, "Succès", "Dépôt effectué avec succès!");
+}
+
+
+
+
+
+
+
+void fenMain::effectuerRetrait(CompteBancaire* compte, double montant, const QString& motif)
+{
+    // CORRECTION: Validation complète des paramètres
+    if (!compte) {
+        QMessageBox::warning(this, "Erreur", "Compte invalide!");
+        return;
+    }
+
+    if (montant <= 0 || montant > 999999999.99) {
+        QMessageBox::warning(this, "Erreur", "Montant invalide! (0 < montant ≤ 999,999,999.99)");
+        return;
+    }
+
+    // Tentative de retrait avec vérification du type de compte
+    bool retraitReussi = false;
+    QString messageErreur;
+
+    if (CompteCourant* cc = dynamic_cast<CompteCourant*>(compte)) {
+        if ((compte->getSolde() - montant) >= -cc->getDecouvertAutorise()) {
+            retraitReussi = cc->retirer(montant);
+        } else {
+            messageErreur = QString("Découvert autorisé dépassé! Limite: %1 FCFA")
+                                .arg(QString::number(cc->getDecouvertAutorise(), 'f', 2));
+        }
+    } else if (CompteEpargne* ce = dynamic_cast<CompteEpargne*>(compte)) {
+        if (montant <= compte->getSolde()) {
+            retraitReussi = ce->retirer(montant);
+        } else {
+            messageErreur = "Solde insuffisant pour un compte épargne!";
+        }
+    } else {
+        messageErreur = "Type de compte non reconnu!";
+    }
+
+    if (retraitReussi) {
+        // Mettre à jour dernière opération avec timestamp
+        QString timestamp = QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm:ss");
+        QString operation = QString("Retrait: -%1 FCFA - %2 [%3]")
+                                .arg(QString::number(montant, 'f', 2))
+                                .arg(motif.isEmpty() ? "Sans motif" : motif)
+                                .arg(timestamp);
+        compte->setDerniereOperation(operation);
+
+        // Enregistrer la transaction en base
+        if (!enregistrerTransaction("retrait", montant, compte->getNumeroCompte(), QString(), motif)) {
+            qWarning() << "Erreur lors de l'enregistrement de la transaction";
+        }
+
+        sauvegarderCompte(compte);
+        mettreAJourAffichageComptes();
+        QMessageBox::information(this, "Succès", "Retrait effectué avec succès!");
+    } else {
+        QMessageBox::warning(this, "Erreur",
+                             messageErreur.isEmpty() ? "Opération impossible!" : messageErreur);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+void fenMain::effectuerVirement(const QString& compteSource, const QString& compteDest, double montant, const QString& motif)
+{
+    // CORRECTION: Validation des paramètres
+    if (compteSource.isEmpty() || compteDest.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Numéros de compte manquants!");
+        return;
+    }
+
+    if (compteSource == compteDest) {
+        QMessageBox::warning(this, "Erreur", "Impossible de virer vers le même compte!");
+        return;
+    }
+
+    if (montant <= 0 || montant > 999999999.99) {
+        QMessageBox::warning(this, "Erreur", "Montant invalide!");
+        return;
+    }
+
+    CompteBancaire* source = m_banque.trouverCompte(compteSource);
+    CompteBancaire* dest = m_banque.trouverCompte(compteDest);
+
+    if (!source) {
+        QMessageBox::warning(this, "Erreur", "Compte source introuvable!");
+        return;
+    }
+
+    if (!dest) {
+        QMessageBox::warning(this, "Erreur", "Compte bénéficiaire introuvable!");
+        return;
+    }
+
+    // Vérifier les limites selon le type de compte source
+    bool virementPossible = false;
+    QString messageErreur;
+
+    if (CompteCourant* cc = dynamic_cast<CompteCourant*>(source)) {
+        if ((source->getSolde() - montant) >= -cc->getDecouvertAutorise()) {
+            virementPossible = true;
+        } else {
+            messageErreur = "Découvert autorisé dépassé!";
+        }
+    } else if (dynamic_cast<CompteEpargne*>(source)) {
+        if (montant <= source->getSolde()) {
+            virementPossible = true;
+        } else {
+            messageErreur = "Solde insuffisant!";
+        }
+    }
+
+    // Vérifier débordement côté destination
+    if (virementPossible && (dest->getSolde() + montant > 999999999.99)) {
+        virementPossible = false;
+        messageErreur = "Le virement dépasserait la limite du compte bénéficiaire!";
+    }
+
+    if (virementPossible && m_banque.effectuerVirement(compteSource, compteDest, montant)) {
+        // Mettre à jour dernières opérations avec timestamp
+        QString timestamp = QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm:ss");
+        QString opSource = QString("Virement sortant: -%1 FCFA vers %2 - %3 [%4]")
+                               .arg(QString::number(montant, 'f', 2))
+                               .arg(compteDest)
+                               .arg(motif.isEmpty() ? "Sans motif" : motif)
+                               .arg(timestamp);
+        QString opDest = QString("Virement entrant: +%1 FCFA de %2 - %3 [%4]")
+                             .arg(QString::number(montant, 'f', 2))
+                             .arg(compteSource)
+                             .arg(motif.isEmpty() ? "Sans motif" : motif)
+                             .arg(timestamp);
+
+        source->setDerniereOperation(opSource);
+        dest->setDerniereOperation(opDest);
+
+        // Enregistrer la transaction en base
+        if (!enregistrerTransaction("virement", montant, compteSource, compteDest, motif)) {
+            qWarning() << "Erreur lors de l'enregistrement de la transaction";
+        }
+
+        sauvegarderCompte(source);
+        sauvegarderCompte(dest);
+        mettreAJourAffichageComptes();
+        QMessageBox::information(this, "Succès", "Virement effectué avec succès!");
+    } else {
+        QMessageBox::warning(this, "Erreur",
+                             messageErreur.isEmpty() ? "Virement impossible!" : messageErreur);
+    }
+}
+
+
+
+
+
+
+
+
+// Gestion de la suppression des comptes
+void fenMain::on_btn_supprimer_compte_courant_clicked()
+{
+    if (QMessageBox::question(this, "Confirmation",
+                              "Voulez-vous vraiment supprimer votre compte courant?",
+                              QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+    {
+        supprimerCompteCourant();
+    }
+}
+
+
+
+
+void fenMain::on_btn_supprimer_compte_epargne_clicked()
+{
+    if (QMessageBox::question(this, "Confirmation",
+                              "Voulez-vous vraiment supprimer votre compte épargne?",
+                              QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+    {
+        supprimerCompteEpargne();
+    }
+}
+
+void fenMain::supprimerCompteCourant()
+{
+    CompteCourant* compte = getCompteCourant();
+    if (!compte) {
+        QMessageBox::information(this, "Information", "Aucun compte courant à supprimer!");
+        return;
+    }
+
+    // CORRECTION: Vérifier les transactions en cours
+    if (!m_creationBD.estOuverte()) {
+        QMessageBox::critical(this, "Erreur", "Base de données non accessible!");
+        return;
+    }
+
+    QSqlDatabase db = m_creationBD.getDatabase();
+
+    // Commencer une transaction SQL pour assurer la cohérence
+    if (!db.transaction()) {
+        QMessageBox::critical(this, "Erreur", "Impossible de démarrer la transaction!");
+        return;
+    }
+
+    try {
+        QSqlQuery query(db);
+
+        // Marquer le compte comme inactif au lieu de le supprimer
+        query.prepare("UPDATE comptes SET est_actif = 0 WHERE numero_compte = ?");
+        query.addBindValue(compte->getNumeroCompte());
+
+        if (!query.exec()) {
+            db.rollback();
+            QMessageBox::critical(this, "Erreur", "Erreur lors de la suppression: " + query.lastError().text());
+            return;
+        }
+
+        // CORRECTION: Utiliser une méthode spécifique pour supprimer le compte
+        m_banque.supprimerCompte(compte->getNumeroCompte());
+        // OU si cette méthode n'existe pas, utilisez :
+        // auto& comptes = m_banque.getComptes();
+        // comptes.removeOne(compte);
+        // delete compte;
+
+        if (!db.commit()) {
+            QMessageBox::critical(this, "Erreur", "Erreur lors de la validation!");
+            return;
+        }
+
+        mettreAJourAffichageComptes();
+        QMessageBox::information(this, "Succès", "Compte courant supprimé!");
+
+    } catch (const std::exception& e) {
+        db.rollback();
+        QMessageBox::critical(this, "Erreur", QString("Erreur inattendue: %1").arg(e.what()));
+    }
+}
+
+
+
+
+
+
+
+void fenMain::supprimerCompteEpargne()
+{
+    CompteEpargne* compte = getCompteEpargne();
+    if (!compte) {
+        QMessageBox::information(this, "Information", "Aucun compte épargne à supprimer!");
+        return;
+    }
+
+    // CORRECTION: Même logique sécurisée que pour le compte courant
+    if (!m_creationBD.estOuverte()) {
+        QMessageBox::critical(this, "Erreur", "Base de données non accessible!");
+        return;
+    }
+
+    QSqlDatabase db = m_creationBD.getDatabase();
+
+    if (!db.transaction()) {
+        QMessageBox::critical(this, "Erreur", "Impossible de démarrer la transaction!");
+        return;
+    }
+
+    try {
+        QSqlQuery query(db);
+
+        query.prepare("UPDATE comptes SET est_actif = 0 WHERE numero_compte = ?");
+        query.addBindValue(compte->getNumeroCompte());
+
+        if (!query.exec()) {
+            db.rollback();
+            QMessageBox::critical(this, "Erreur", "Erreur lors de la suppression: " + query.lastError().text());
+            return;
+        }
+
+        // CORRECTION: Utiliser une méthode spécifique pour supprimer le compte
+        m_banque.supprimerCompte(compte->getNumeroCompte());
+        // OU si cette méthode n'existe pas, utilisez :
+        // auto& comptes = m_banque.getComptes();
+        // comptes.removeOne(compte);
+        // delete compte;
+
+        if (!db.commit()) {
+            QMessageBox::critical(this, "Erreur", "Erreur lors de la validation!");
+            return;
+        }
+
+        mettreAJourAffichageComptes();
+        QMessageBox::information(this, "Succès", "Compte épargne supprimé!");
+
+    } catch (const std::exception& e) {
+        db.rollback();
+        QMessageBox::critical(this, "Erreur", QString("Erreur inattendue: %1").arg(e.what()));
+    }
+}
+
+
+
+
+
+
+void fenMain::on_btn_modifier_info_tutilaire_parametre_clicked()
+{
+        /// à completer obligatoirement
+}
+

@@ -1,9 +1,7 @@
 #include "CompteCourant.h"
 
 CompteCourant::CompteCourant(const QString& numeroCompte, const QString& nomTitulaire, double solde, double decouvertAutorise)
-    : CompteBancaire(numeroCompte, nomTitulaire, solde), m_decouvertAutorise(decouvertAutorise)
-{
-}
+    : CompteBancaire(numeroCompte, nomTitulaire, solde), m_decouvertAutorise(decouvertAutorise) {}
 
 bool CompteCourant::retirer(double montant)
 {
@@ -14,12 +12,5 @@ bool CompteCourant::retirer(double montant)
     return false;
 }
 
-double CompteCourant::getDecouvertAutorise() const
-{
-    return m_decouvertAutorise;
-}
-
-void CompteCourant::setDecouvertAutorise(double decouvert)
-{
-    m_decouvertAutorise = decouvert;
-}
+double CompteCourant::getDecouvertAutorise() const { return m_decouvertAutorise; }
+void CompteCourant::setDecouvertAutorise(double decouvert) { m_decouvertAutorise = decouvert; }

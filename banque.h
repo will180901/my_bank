@@ -1,31 +1,32 @@
 #ifndef BANQUE_H
 #define BANQUE_H
 
-#include <QList>
 #include <QString>
+#include <QList>
 #include "CompteBancaire.h"
 
 class Banque
 {
+private:
+    QString m_nom;
+    QList<CompteBancaire*> m_comptes;  // AJOUT: Déclaration du membre manquant
+
 public:
-    Banque(const QString& nom);
+    explicit Banque(const QString& nom);
+    ~Banque();
 
     // Méthodes de gestion des comptes
     void ajouterCompte(CompteBancaire* compte);
-
     CompteBancaire* trouverCompte(const QString& numeroCompte) const;
+    void viderComptes();
+    void supprimerCompte(const QString& numeroCompte);  // AJOUT: Déclaration manquante
 
-    // Opérations bancaires
+    // Opérations
     bool effectuerVirement(const QString& compteSource, const QString& compteDest, double montant);
 
-    // Getters
+    // Accesseurs
     QString getNom() const;
-
-    QList<CompteBancaire*> getComptes() const;
-
-private:
-    QString m_nom;
-    QList<CompteBancaire*> m_comptes;
+    QList<CompteBancaire*> getComptes() const;  // CORRECTION: Maintenant public
 };
 
 #endif // BANQUE_H

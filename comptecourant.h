@@ -6,12 +6,11 @@
 class CompteCourant : public CompteBancaire
 {
 public:
-    CompteCourant(const QString& numeroCompte, const QString& nomTitulaire, double solde = 0.0, double decouvertAutorise = 0.0);
+    CompteCourant(const QString& numeroCompte, const QString& nomTitulaire, double solde, double decouvertAutorise);
 
-    // Redéfinition méthode abstraite
     bool retirer(double montant) override;
 
-    // Getter/Setter spécifique
+    // Getters/Setters
     double getDecouvertAutorise() const;
     void setDecouvertAutorise(double decouvert);
 

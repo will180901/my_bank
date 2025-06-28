@@ -6,23 +6,22 @@
 class CompteBancaire
 {
 public:
-    CompteBancaire(const QString& numeroCompte, const QString& nomTitulaire, double solde = 0.0);
+    CompteBancaire(const QString& numeroCompte, const QString& nomTitulaire, double solde);
     virtual ~CompteBancaire() = default;
 
-    // Méthodes
     virtual void deposer(double montant);
-    virtual bool retirer(double montant) = 0; // Méthode abstraite
+    virtual bool retirer(double montant) = 0;
 
     // Getters
     QString getNumeroCompte() const;
     QString getNomTitulaire() const;
     double getSolde() const;
-
-
     QString getDateCreation() const;
     QString getDerniereOperation() const;
+
+    // Setters
     void setDateCreation(const QString& date);
-    void setDerniereOperation(const QString& date);
+    void setDerniereOperation(const QString& operation);
 
 protected:
     QString m_numeroCompte;
@@ -30,7 +29,6 @@ protected:
     double m_solde;
     QString m_dateCreation;
     QString m_derniereOperation;
-
 };
 
 #endif // COMPTEBANCAIRE_H

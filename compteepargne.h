@@ -6,15 +6,12 @@
 class CompteEpargne : public CompteBancaire
 {
 public:
-    CompteEpargne(const QString& numeroCompte, const QString& nomTitulaire, double solde = 0.0, double tauxInteret = 0.0);
+    CompteEpargne(const QString& numeroCompte, const QString& nomTitulaire, double solde, double tauxInteret);
 
-    // Redéfinition méthode abstraite
     bool retirer(double montant) override;
-
-    // Méthode spécifique
     void calculerInterets();
 
-    // Getter/Setter spécifique
+    // Getters/Setters
     double getTauxInteret() const;
     void setTauxInteret(double taux);
 

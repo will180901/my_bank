@@ -1,7 +1,19 @@
 #include "Banque.h"
 
-Banque::Banque(const QString& nom) : m_nom(nom)
+Banque::Banque(const QString& nom) : m_nom(nom) {}
+
+Banque::~Banque() {
+    viderComptes();
+}
+
+void Banque::viderComptes()
 {
+    for (CompteBancaire* compte : m_comptes) {
+        if (compte) {
+            delete compte;
+        }
+    }
+    m_comptes.clear();
 }
 
 void Banque::ajouterCompte(CompteBancaire* compte)
@@ -35,12 +47,21 @@ bool Banque::effectuerVirement(const QString& compteSource, const QString& compt
     return false;
 }
 
-QString Banque::getNom() const
+void Banque::supprimerCompte(const QString& numeroCompte)
 {
+    for (auto it = m_comptes.begin(); it != m_comptes.end(); ++it) {
+        if ((*it)->getNumeroCompte() == numeroCompte) {
+            delete *it;
+            m_comptes.erase(it);
+            break;
+        }
+    }
+}
+
+QString Banque::getNom() const {
     return m_nom;
 }
 
-QList<CompteBancaire*> Banque::getComptes() const
-{
+QList<CompteBancaire*> Banque::getComptes() const {
     return m_comptes;
 }
